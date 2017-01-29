@@ -5407,30 +5407,64 @@ $slideshowSpeed: 0.3s;
   }
 
   .has-dropdown {
-        
+       
     &:hover {
       > a {
         position: relative;
       }
 
-      > ul {
-        display: block;
-        box-shadow: 2px 2px 5px 0px grey; /*added by Yak*/
+      > ul {        
+        visibility:visible;
+  		opacity:1;
+        z-index: 5;
+        width: 230px;
+        overflow: visible;
+        
+        /* Add properties here and they
+        will affect all tiers of menus */
+        
+        /*display: block;*/
+        
+        -webkit-box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
+		-moz-box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
+		box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
+      }
+      
+      /* Menu appearing settings */
+      > ul.navigation-first-tier,ul.navigation-second-tier {
+        transition-delay: 0.2s; /*delay before dropdown menu becomes visible*/
+        transition-duration: 0s; /*make menus animation open immediately*/
+      }
+
+      > ul.navigation-third-tier,ul.navigation-fourth-tier {
+        transition-delay:0.3s;
+        transition-duration: 0s;
       }
     }
   }
 
   /* Inside any dropdown */
   .regular-nav ul {
-    display: none;
+    /*display: none;*/
+    
+	/* You could put one line for menu disappearing settings here
+    and it would apply to all tiers */
+    transition: visibility 0s linear 0.7s,opacity 0.2s linear 0.5s,box-shadow 0.2s linear 0.5s,width 0s linear 0.7s;
+    
+    visibility:hidden;
+  	opacity:0;
+    z-index: 4;
+    width: 0px;
+    overflow: hidden;
+    
     position: absolute;
     background: $body-background-color;
     border-bottom: 1px solid $border-color;
-    /*width: 200px;*/
-    width: 230px; /* added by Yak */
+    width: 230px;
+    
     text-align: left;
     /*font-size: 14px;*/
-    font-size: 0.9em; /* added by Yak */
+    font-size: 1em; /* added by Yak */
 
     a {
       /*padding: 10px 20px;*/
@@ -5440,11 +5474,23 @@ $slideshowSpeed: 0.3s;
       border-bottom: none;
       color: #000; /* added by Yak */
     }
+    
+    & .navigation-second-tier {
+      transition: visibility 0s linear 0.7s,opacity 0.2s linear 0.5s,box-shadow 0.2s linear 0.5s,width 0s linear 0.7s;
+    }
+    
+    & .navigation-third-tier {
+      transition: visibility 0s linear 0.7s,opacity 0.2s linear 0.5s,box-shadow 0.2s linear 0.5s,width 0s linear 0.7s;
+    }
+    
+    & .navigation-fourth-tier {
+      transition: visibility 0s linear 0.7s,opacity 0.2s linear 0.5s,box-shadow 0.2s linear 0.5s,width 0s linear 0.7s;
+    }
   }
-
+  
   .navigation-first-tier {
     position: relative;
-
+   
     > li {
       display: inline-block;
 
@@ -5453,7 +5499,13 @@ $slideshowSpeed: 0.3s;
         padding: 1px 20px;
 		color: white; /*added by yak for YPBF*/
         font-weight: 700; /*added by yak for YPBF*/
-        font-size: 1.0em; /*added by yak for YPBF*/
+        font-size: 1em; /*added by yak for YPBF*/
+        transition: all 0.2s linear 0.5s; /*added by yak for YPBF*/    
+      }
+      
+      > a:hover {
+        transition-delay: 0.2s; /*delay before dropdown menu becomes visible*/
+    	transition-duration: 0s; /*make menus animation open immediately*/
       }
     }
 
@@ -5467,12 +5519,13 @@ $slideshowSpeed: 0.3s;
       z-index: 30;
 
       > a {
-        border: 1px solid $border-color;
+        /*border: 1px solid $border-color;*/
         border-bottom: none;
         /*padding: 14px 29px 15px;*/
-        padding: 0px 19px;
         background: $body-background-color;
-        z-index: 4;
+        /*z-index: 4;*/
+        z-index: 8;
+        border-radius: 5px 5px 0px 0px;
       }
     }
   }
@@ -5482,7 +5535,8 @@ $slideshowSpeed: 0.3s;
 
     .has-dropdown > a:after {
       /*content: '\E008';*/
-      content: '\003E';/*Change plus signs in sub menus to greater than signs*/
+      /*content: '\003E';*//*Change plus signs in sub menus to greater than signs*/
+      content: '\FE65';/*Change plus signs in sub menus to smaller greater than signs*/
       position: absolute;
       /*top: 50%;*/
       top: 55%;
@@ -5521,7 +5575,7 @@ $slideshowSpeed: 0.3s;
     top: 0;
     /*left: 199px;*/
     left: 229px; /* Added by Yak */
-
+    
     .alternate-drop & {
       left: auto;
       /*right: 199px;*/
