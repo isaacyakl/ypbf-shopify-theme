@@ -81,6 +81,9 @@
     {% endif %}
 
     <div class="cart-checkout">
+      <p class="cart-message">
+        {% include 'salesrep' %}
+      </p>
       <p class="cart-price"><span class="money">{{ cart.total_price | money }}</span></p>
       <p class="cart-message"><em>{{ 'cart.tax_and_shipping' | t }}</em></p>
       {% if settings.disable-ajax or settings.enable-currency-switcher %}
@@ -96,7 +99,7 @@
         </div>
       {% endif %}
     </div>
-
+   
   </form>
 
 {% else %}

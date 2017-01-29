@@ -5839,7 +5839,7 @@ $slideshowSpeed: 0.3s;
   /*margin: 50px auto 0;*/
   margin: 0px auto 0; /* Added by Yak */
   /*padding: 50px 0;*/
-  padding: 50px 30px 30px 30px; /* Added by Yak */
+  padding: 30px 30px 30px 30px; /* Added by Yak */
   /*border-top: 1px solid $border-color;*/
   font-size: 0;
   color: $footer-color;
@@ -6194,8 +6194,9 @@ input.newsletter-submit {
 
   a {
     /*color: $footer-color;*/
-    color: #000; /* Added by Yak */
+    color: #1B9DB0; /* Added by Yak */
     padding-right: 15px;
+    transition: all 0.3s linear 0s;
 
     @include breakpoint(m) {
       padding: 0 7px;
@@ -6206,6 +6207,10 @@ input.newsletter-submit {
     font-size: 30px;
     font-family: 'Social Icons';
     -webkit-font-smoothing: antialiased;
+  }
+  
+  a:hover {
+		color: #a741d7;
   }
 
   &.facebook a:before {

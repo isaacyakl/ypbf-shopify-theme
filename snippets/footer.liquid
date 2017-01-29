@@ -29,7 +29,7 @@
         {% endfor %}
       </div>
     {% endif %}
-
+    
     {% if settings.footer-modules-order != blank %}
       {% assign modules = settings.footer-modules-order | split: "-" %}
 
@@ -53,6 +53,8 @@
               {% include 'footer-instagram' %}
             {% when 'E' %}
               {% include 'footer-connect' %}
+        	{% when 'F' %}
+              {% include 'footer-facebook' %}
           {% endcase %}
         {% endfor %}
       </div>
