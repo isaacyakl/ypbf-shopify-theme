@@ -1,0 +1,106 @@
+{% assign item = product %}
+{% if template contains 'search' %}
+  {% assign item = item %}
+{% elsif template contains 'product' %}
+  {% assign item = prod %}
+{% endif %}
+
+{% assign saleText = 'products.product.sale' | t %}
+{% capture percentage %}{{ item.compare_at_price_max | minus: item.price | times: 100.0 | divided_by: item.compare_at_price_max | money_without_currency | times: 100 | remove: '.0' }}%{% endcapture %}
+{% assign saleText = saleText | replace: '{PCT}', percentage %}
+
+{% if settings.collection-stock-level-overlay and item.available %}
+  {% assign total = 0 %}
+  {% assign threshold = settings.collection-stock-level-overlay-threshold | times: 1 %}
+  {% assign infinity = false %}
+  {% for variant in item.variants %}
+    {% if variant.inventory_management == null %}
+      {% assign infinity = true %}
+    {% elsif variant.inventory_management == '' %}
+      {% assign infinity = true %}
+    {% elsif variant.inventory_management == 'shopify' and variant.inventory_policy == 'continue' %}
+      {% assign infinity = true %}
+    {% elsif infinity == false %}
+      {% capture temp %}{{ total | plus: variant.inventory_quantity }}{% endcapture %}
+      {% assign total = temp | times: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% assign stockText = settings.collection-stock-level-overlay-text | replace: '{NUM}', total %}
+{% endif %}
+
+{% assign onSale = false %}
+{% if item.compare_at_price_min > item.price_min %}
+  {% assign onSale = true %}
+{% endif %}
+
+<div class="wow zoomIn product-list-item">
+
+  {% assign isSearch = false %}
+  {% if template contains 'search' %}
+    {% assign isSearch = true %}
+  {% endif %}
+
+  {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
+  <a class="product-list-item-overlay-link" href="{{ item.url }}"></a>
+  {% endif %}
+
+  <figure class="product-list-item-thumbnail">
+    <a href="{{ item.url | within: collection }}">
+      <span class="imgCenterHelper"></span><img src="{{ item | img_url: 'grande' }}" alt="{{ item.featured_image.alt | escape }}" />
+    </a>
+
+    {% if item.available %}
+      {% if settings.collection-stock-level-overlay
+        and infinity == false
+        and total < threshold
+        and onSale
+      %}
+        <span class="product-list-item-badge meta sale">{{ saleText }}<br>{{ stockText }}</span>
+      {% elsif settings.collection-stock-level-overlay
+        and infinity == false
+        and total < threshold
+      %}
+        <span class="product-list-item-badge meta inventory">{{ stockText }}</span>
+      {% elsif onSale %}
+        <span class="product-list-item-badge meta sale">{{ saleText }}</span>
+      {% endif %}
+    {% else %}
+      <span class="product-list-item-badge inventory">{{ 'products.product.sold_out' | t }}</span>
+    {% endif %}
+  </figure>
+
+  {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
+  <div class="product-list-item-details-wrapper">
+  {% endif %}
+
+  <div class="product-list-item-details">
+
+    <p class="product-list-item-vendor vendor meta">{{ item.vendor | link_to_vendor }}</p>
+    <h3 class="product-list-item-title"><a href="{{ item.url | within: collection }}">{{ item.title }}</a></h3>
+    <p class="product-list-item-price">
+      {% if item.available %}
+        {% if item.price_varies %}
+          <span class="price">
+            {{ 'products.product.from' | t }} <span class="money">{{ item.price_min | money }}</span>
+          </span>
+        {% else %}
+          {% if onSale %}
+            <span class="price on-sale">
+              <span class="money">{{ item.price_min | money }}</span>
+              <span class="original money">{{ item.compare_at_price_min | money }}</span>
+            </span>
+          {% else %}
+            <span class="price money">{{ item.price_min | money }}</span>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </p>
+  </div>
+
+  {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
+  </div>
+  {% endif %}
+
+</div>

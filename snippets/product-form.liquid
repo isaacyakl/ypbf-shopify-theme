@@ -1,0 +1,69 @@
+<div class="product-form">
+
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
+
+  <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
+
+    <div class="product-options">
+      <select name="id" id="product-variants">
+        {% for variant in product.variants %}
+          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+        {% endfor %}
+      </select>
+
+      {% comment %}
+      <div class="input-wrapper">
+        <label>Text Example</label>
+        <input type="text" name="properties[Name]">
+      </div>
+
+      <div class="input-wrapper">
+        <label>File Example</label>
+        <input type="file" name="properties[File]">
+      </div>
+      {% endcomment %}
+    </div>
+
+    {% if settings.enable-product-quantity %}
+      <div class="product-quantity">
+        <div class="input-wrapper">
+          <label for="quantity">{{ 'general.quantity' | t }}</label>
+          <input type="text" name="quantity" id="quantity" value="1" />
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="product-submit" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+      <span class="product-price">
+        <span class="product-price-minimum money" itemprop="price">
+          {{ variant.price | money }}
+        </span>
+
+        <span class="product-price-compare money">
+          {% if variant.compare_at_price_min > variant.price_min %}
+            {{ variant.compare_at_price_min | money }}
+          {% endif %}
+        </span>
+      </span>
+
+      {% if variant.available %}
+        <input class="add-to-cart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
+        <link itemprop="availability" href="http://schema.org/InStock">
+      {% else %}
+        <input type="button" class="add-to-cart disabled" disabled="disabled" value="{{ 'products.product.sold_out' | t }}" />
+        <link itemprop="availability" href="http://schema.org/OutOfStock">
+      {% endif %}
+    </div>
+  </form>
+  
+  <!-- Shipping Message //-->
+  <div style="width: 100%; padding: 10px; margin-bottom: -10px; margin-top: 20px; text-align: center; font-style: italic; background-color: #f6f6f6; border: 1px solid #8fca5b;">
+    Free U.S. shipping on all orders. No minimum!<br>
+    Free shipping outside of the U.S. on orders above $1000.
+  </div>
+  
+</div>

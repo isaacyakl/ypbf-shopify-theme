@@ -1,0 +1,28 @@
+<article class="collection-item">
+
+  {% if collection-list-item == 'linklist' %}
+    {% assign link_handle = link.handle %}
+    {% assign collection = collections[link_handle] %}
+  {% endif %}
+
+  <figure class="collection-item-image">
+    <a href="{{ collection.url }}">
+      {% if collection.image %}
+        <img alt="{{ collection.image.alt | escape }}" src="{{ collection | img_url: 'grande' }}">
+      {% else %}
+        <img alt="{{ collection.title | escape }}" src="{{ collection.products.first | img_url: 'grande' }}">
+      {% endif %}
+    </a>
+  </figure>
+
+  <div class="collection-item-details {{settings.collections-text-style}}-style">
+    <h3><a href="{{ collection.url }}">{{ collection.title }}</a></h3>
+
+    {% if collection.description != blank and settings.collections-show-descriptions %}
+      <div class="rte">
+        {{ collection.description | strip_html | truncatewords: 20 }}
+      </div>
+    {% endif %}
+  </div>
+
+</article>

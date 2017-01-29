@@ -1,0 +1,35 @@
+{% assign media = false %}
+{% if settings.home-embedded-content-html != blank or settings.home-embedded-content-image %}
+  {% assign media = true %}
+{% endif %}
+
+{% if pages[settings.home-imported-content-page].content != blank %}
+  <div class="home-module home-imported-content {% if media %}has-media media-aligned-{{ settings.home-embedded-content-alignment }}{% endif %}">
+    <div class="home-module-content">
+
+      {% if settings.home-imported-content-title != blank %}
+        <h4 class="section-title">{{ settings.home-imported-content-title }}</h4>
+      {% endif %}
+
+      {% if media %}<div class="home-imported-content-wrapper">{% endif %}
+
+      <div class="rte">
+        <h2>{{ pages[settings.home-imported-content-page].title }}</h2>
+
+        {{ pages[settings.home-imported-content-page].content }}
+      </div>
+
+      {% if media %}
+        <div class="home-embedded-content rte">
+          {% if settings.home-embedded-content-image %}
+            <img alt="" src="{{ 'home-embedded-content.png' | asset_url }}">
+          {% else %}
+            {{ settings.home-embedded-content-html }}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if media %}</div>{% endif %}
+    </div>
+  </div>
+{% endif %}

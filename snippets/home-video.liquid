@@ -1,0 +1,31 @@
+{% if settings.home-video-embed != blank %}
+  <div class="home-module home-video {% unless settings.enable-sidebar %}{{ settings.home-video-width }}{% endunless %} text-color-{{ settings.home-video-text-color }}" style="background-color: #151515;/* background-image: url('{{ 'black-ground.jpg' | asset_url }}');background-repeat: repeat;*/">
+    <div class="wow fadeIn home-module-content" data-wow-duration="3s">
+      <div class="home-video-play play-button-{{ settings.home-video-play-button-color }}"></div>
+
+      <div class="home-video-embed-wrapper">
+        <div class="home-video-embed">
+          {{ settings.home-video-embed }}
+        </div>
+      </div>
+
+      <div class="home-video-screenshot">
+        <span class="home-video-play-button mobile meta">{{ 'general.home_page.video_button_text' | t }}</span>
+        <img alt="" src="{{ 'home-video-screenshot.png' | asset_url }}">
+      </div>
+
+      <div class="home-video-content rte">
+
+        <span class="home-video-play-button meta">{{ 'general.home_page.video_button_text' | t }}</span>
+
+        {% if settings.home-video-title != blank %}
+          <h2>{{ settings.home-video-title }}</h2>
+        {% endif %}
+
+        {% if settings.home-video-cta != blank and settings.home-video-url != blank %}
+          <p><a class="button" href="{{ settings.home-video-url }}">{{ settings.home-video-cta }}</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,73 @@
+{% assign collectionCount = 0 %}
+{% assign featuredCollections = 'home-featured-collection-1|home-featured-collection-2|home-featured-collection-3' | split: "|" %}
+
+{% for collection in featuredCollections %}
+  {% assign featuredCollection = settings[collection] %}
+  {% if featuredCollection != blank %}
+    {% assign collectionCount = collectionCount | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if collectionCount > 0 %}
+  <div class="home-module home-featured-collections row-of-{{ collectionCount }}">
+    <div class="home-module-content">
+
+      {% if settings.home-featured-collections-title != blank %}
+        <h4 class="section-title">{{ settings.home-featured-collections-title }}</h4>
+      {% endif %}
+
+      <div class="home-module-inline-items">
+        {% for collection in featuredCollections %}
+
+          {% assign featuredCollection = settings[collection] %}
+          {% capture textColor %}{{collection}}-text-color{% endcapture %}
+          {% capture textShadow %}{{collection}}-text-shadow{% endcapture %}
+
+          {% if featuredCollection != blank %}
+
+            {% assign featuredCollection = collections[featuredCollection] %}
+
+            <div class="home-featured-collection text-color-{{ settings[textColor] }} text-shadows-{{ settings[textShadow] }}">
+
+              <a class="home-featured-collection-link" href="{{ featuredCollection.url }}"></a>
+
+              <div class="home-featured-collection-image">
+                {% if featuredCollection.image %}
+                  <img alt="{{ featuredCollection.image.alt | escape }}" src="{{ featuredCollection | img_url: 'grande' }}">
+                {% else %}
+                  <img alt="{{ featuredCollection.title | escape }}" src="{{ featuredCollection.products.first | img_url: 'grande' }}">
+                {% endif %}
+              </div>
+
+              <div class="home-featured-collection-content">
+                <h3>{{ featuredCollection.title }}</h3>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="home-module home-featured-collections row-of-2">
+    <div class="home-module-content">
+
+      <h4 class="section-title">{{ 'onboarding.featured_collections.title' | t }}</h4>
+
+      <div class="home-module-inline-items">
+        {% for i in (1..2) %}
+          <div class="home-featured-collection text-color-light text-shadows-false">
+
+            <div class="home-featured-collection-image">
+              <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPYvufQfwAHmAM12jbOLQAAAABJRU5ErkJggg==">
+            </div>
+
+            <div class="home-featured-collection-content">
+              <h3>{{ 'onboarding.featured_collections.collection_title' | t }}</h3>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}

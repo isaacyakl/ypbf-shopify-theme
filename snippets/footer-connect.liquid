@@ -1,0 +1,65 @@
+<div class="footer-module footer-connect">
+  {% if settings.newsletter-action-url != blank %}
+    <div class="newsletter-subscription">
+      {% if settings.footer-titles %}
+        <h4>{{ 'layout.footer.newsletter_title' | t }}</h4>
+      {% endif %}
+
+      <form action="{{ settings.newsletter-action-url }}" method="post" name="{% if settings.newsletter-platform == 'mailchimp' %}mc-embedded-subscribe-form{% endif %}" target="_blank">
+
+        {% if settings.newsletter-platform == 'mailchimp' %}
+          <input class="newsletter-email" name="EMAIL" type="email" placeholder="{{ 'general.email_placeholder' | t }}">
+        {% endif %}
+
+        {% if settings.newsletter-platform == 'campaign-monitor' %}
+          <input class="newsletter-email" name="{{ settings.campaign-monitor-name }}" type="email" placeholder="{{ 'general.email_placeholder' | t }}">
+        {% endif %}
+
+        <input class="newsletter-submit" type="submit" value="&#57424;">
+
+      </form>
+    </div>
+  {% endif %}
+
+  <div class="social-networks">
+    {% if settings.footer-titles %}
+      <h4>{{ 'layout.footer.social_icons_title' | t }}</h4>
+    {% endif %}
+
+    <ul>
+      {% if settings.social-facebook-url != blank %}
+        <li class="social-link facebook"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-twitter-url != blank %}
+        <li class="social-link twitter"><a href="{{ settings.social-twitter-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-tumblr-url != blank %}
+        <li class="social-link tumblr"><a href="{{ settings.social-tumblr-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-google-url != blank %}
+        <li class="social-link google-plus"><a href="{{ settings.social-google-plus-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-pinterest-url != blank %}
+        <li class="social-link pinterest"><a href="{{ settings.social-pinterest-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-instagram-url != blank %}
+        <li class="social-link instagram"><a href="{{ settings.social-instagram-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-kickstarter-url != blank %}
+        <li class="social-link kickstarter"><a href="{{ settings.social-kickstarter-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-vimeo-url != blank %}
+        <li class="social-link vimeo"><a href="{{ settings.social-vimeo-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-youtube-url != blank %}
+        <li class="social-link youtube-logo"><a href="{{ settings.social-youtube-url }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-email-address != blank %}
+        <li class="social-link email"><a href="mailto:{{ settings.social-email-address }}" target="_blank"></a></li>
+      {% endif %}
+      {% if settings.social-rss-url != blank %}
+        <li class="social-link rss"><a href="{{ settings.social-rss-url }}" target="_blank"></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

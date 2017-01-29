@@ -1,0 +1,22 @@
+{% assign using-linklist = false %}
+{% if linklists[settings.collections-link-list] and linklists[settings.collections-link-list].links.size > 0 %}
+  {% assign using-linklist = true %}
+{% endif %}
+
+{% paginate collections by {{settings.collections-per-page}} %}
+  <div class="collections-list showing-{{settings.collections-per-row}}-per-row">
+    {% if using-linklist %}
+      {% for link in linklists[settings.collections-link-list].links %}
+        {% include 'collection-list-item' with 'linklist' %}
+      {% endfor %}
+    {% else %}
+      {% for collection in collections %}
+        {% include 'collection-list-item' %}
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  {% if paginate.previous or paginate.next and using-linklist == false %}
+    {% include 'pagination' %}
+  {% endif %}
+{% endpaginate %}

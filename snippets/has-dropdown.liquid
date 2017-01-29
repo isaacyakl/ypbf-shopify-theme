@@ -1,0 +1,5 @@
+{% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+{% assign has-dropdown = false %}
+{% if linklists[link_handle] and linklists[link_handle].links.size > 0 %}
+  {% assign has-dropdown = true %}
+{% endif %}

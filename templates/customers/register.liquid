@@ -1,0 +1,31 @@
+{% form 'create_customer' %}
+
+  {% if form.errors %}
+    {{ form.errors | default_errors }}
+  {% endif %}
+
+  <div class="input-wrapper">
+    <label for="customer[first_name]">{{ 'customers.general.first_name' | t }}</label>
+    <input type="text" placeholder="" value="{{ form.first_name }}" name="customer[first_name]">
+  </div>
+
+  <div class="input-wrapper">
+    <label for="customer[last_name]">{{ 'customers.general.last_name' | t }}</label>
+    <input type="text" placeholder="" value="{{ form.last_name }}" name="customer[last_name]">
+  </div>
+
+  <div class="input-wrapper">
+    <label for="customer[email]">{{ 'general.email' | t }}</label>
+    <input type="text" placeholder="{{ 'general.email_placeholder' | t }}" value="{{ form.email }}" name="customer[email]">
+  </div>
+
+  <div class="input-wrapper">
+    <label for="customer[password]">{{ 'general.password' | t }}</label>
+    <input type="password" placeholder="" value="" name="customer[password]">
+  </div>
+
+  <div class="input-wrapper">
+    <input type="submit" value="{{ 'customers.register.submit' | t }}">
+  </div>
+
+{% endform %}

@@ -1,0 +1,67 @@
+{% assign variant = product.selected_or_first_available_variant %}
+{% if product.images.size > 0 %}
+  {% assign columns = settings.product-column-layout %}
+{% else %}
+  {% assign columns = "single-column" %}
+{% endif %}
+
+<div class="product-wrap {{columns}} clearfix" itemscope itemtype="http://schema.org/Product">
+
+  {% if settings.product-modules-order != blank %}
+    {% assign moduleOrder = settings.product-modules-order %}
+    {% if settings.product-column-layout == "two-column" %}
+      {% assign moduleOrder = moduleOrder | remove: "A" | prepend: "A-" %}
+    {% endif %}
+    {% assign modules = moduleOrder | split: "-" %}
+  {% else %}
+    {% assign modules = 'A-B-C-D' | split: "-" %}
+  {% endif %}
+
+  {% for module in modules %}
+    {% case module %}
+      {% when 'A' %}
+        {% include 'product-images' %}
+      {% when 'B' %}
+        {% include 'product-form' %}
+      {% when 'C' %}
+        {% include 'product-description' %}
+      {% when 'D' %}
+        {% include 'share-buttons' %}
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% if settings.enable-related-products %}
+  <div class="related-products">
+
+    <h4 class="section-title">{{ 'products.related_products.title' | t }}</h4>
+
+    {% assign numberOfRelatedProductsToShow = settings.collection-products-per-row | plus: 1 %}
+
+    {% if collection == null %}
+      {% assign collection = collections['all'] %}
+    {% endif %}
+
+    {% if collection.products.size > 1 %}
+      <div class="related-products-listing {{settings.collection-layout-style}}-layout {{settings.collection-product-text-style}}-style rows-of-{{settings.collection-products-per-row}}">
+        {% assign currentProductFound = false %}
+        {% for prod in collection.products limit: numberOfRelatedProductsToShow %}
+          {% if prod.title == product.title %}
+            {% assign currentProductFound = true %}
+          {% else %}
+            {% unless currentProductFound == false and forloop.last %}
+              {% include 'product-list-item' %}
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+{% endif %}
+
+<script>
+  // required for splitting variants
+  // see ProductView
+  window.productJSON = {{ product | json }};
+</script>

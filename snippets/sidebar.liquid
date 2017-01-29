@@ -1,0 +1,35 @@
+<div class="sidebar">
+
+  {% assign sidebarLinkLists = "sidebar-link-list-1|sidebar-link-list-2|sidebar-link-list-3" | split: "|" %}
+
+  {% for list in sidebarLinkLists %}
+
+    {% assign name = settings[list] %}
+
+    {% if linklists[name].links.size > 0 %}
+      <div class="sidebar-link-list">
+        <h4 class="sidebar-link-list-title meta">{{ linklists[name].title }}</h4>
+
+        <ul>
+          {% for link in linklists[name].links %}
+            {% include 'has-dropdown' %}
+            <li class="{% if link.active %}active{% endif %} {% if has-dropdown %}has-children{% endif %}">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+              {% if has-dropdown %}
+                <ul>
+                  <li class="{% if link.active %}active{% endif %} sidebar-link-list-mobile"><a href="{{ link.url }}">All {{ link.title}}</a></li>
+                  {% for link in linklists[link_handle].links %}
+                    <li {% if link.active %}class="active"{% endif %}>
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+</div>

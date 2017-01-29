@@ -1,0 +1,19 @@
+{% if current_tags %}
+  <h2>{{ 'blogs.blog.tag_page_title' | t: tag: current_tags.first }}</h2>
+{% endif %}
+
+{% paginate blog.articles by settings.articles-per-page %}
+
+  <div class="blog-posts">
+    {% for article in blog.articles %}
+      {% include 'article-list-item' %}
+    {% else %}
+      <span class="empty">{{ 'blogs.blog.empty' | t }}</span>
+    {% endfor %}
+  </div>
+
+  {% if paginate.previous or paginate.next %}
+    {% include 'pagination' %}
+  {% endif %}
+
+{% endpaginate %}

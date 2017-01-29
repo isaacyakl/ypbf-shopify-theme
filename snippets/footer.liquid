@@ -1,0 +1,225 @@
+{% assign adCount = 0 %}
+{% assign footerPromos = "footer-promo-1|footer-promo-2|footer-promo-3" | split: "|" %}
+{% for ad in footerPromos %}
+  {% capture enabled %}{{ad}}{% endcapture %}
+  {% if settings[enabled] %}
+    {% assign adCount = adCount | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+<div class="main-footer-wrapper">
+ 
+  <footer class="main-footer">
+
+    {% if adCount > 0 %}
+      <div class="footer-promos showing-{{adCount}}-ads">
+        {% for ad in footerPromos %}
+
+          {% capture enabled %}{{ad}}{% endcapture %}
+          {% capture url %}{{ad}}-url{% endcapture %}
+
+          {% if settings[enabled] %}
+            <div class="footer-promo">
+              <a href="{{settings[url]}}">
+                <img alt="" src="{{ ad | append:'.png' | asset_url }}">
+              </a>
+            </div>
+          {% endif %}
+
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if settings.footer-modules-order != blank %}
+      {% assign modules = settings.footer-modules-order | split: "-" %}
+
+      {% assign modulesCount = modules.size %}
+      {% if modulesCount > 3 %}
+        {% assign modulesCount = 3 %}
+      {% endif %}
+
+      <div class="footer-modules showing-{{ modulesCount }}-modules">
+
+        {% for module in modules limit: 3 %}
+
+          {% case module %}
+            {% when 'A' %}
+              {% include 'footer-link-lists' %}
+            {% when 'B' %}
+              {% include 'footer-text-box' %}
+            {% when 'C' %}
+              {% include 'footer-tweet' %}
+            {% when 'D' %}
+              {% include 'footer-instagram' %}
+            {% when 'E' %}
+              {% include 'footer-connect' %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    <div class="social-networks">
+      {% if settings.footer-titles %}
+      <h4>{{ 'layout.footer.social_icons_title' | t }}</h4>
+      {% endif %}
+
+      <ul>
+        {% if settings.social-facebook-url != blank %}
+        <li class="social-link facebook"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-twitter-url != blank %}
+        <li class="social-link twitter"><a href="{{ settings.social-twitter-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-tumblr-url != blank %}
+        <li class="social-link tumblr"><a href="{{ settings.social-tumblr-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-google-url != blank %}
+        <li class="social-link google-plus"><a href="{{ settings.social-google-plus-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-pinterest-url != blank %}
+        <li class="social-link pinterest"><a href="{{ settings.social-pinterest-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-instagram-url != blank %}
+        <li class="social-link instagram"><a href="{{ settings.social-instagram-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-kickstarter-url != blank %}
+        <li class="social-link kickstarter"><a href="{{ settings.social-kickstarter-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-vimeo-url != blank %}
+        <li class="social-link vimeo"><a href="{{ settings.social-vimeo-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-youtube-url != blank %}
+        <li class="social-link youtube-logo"><a href="{{ settings.social-youtube-url }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-email-address != blank %}
+        <li class="social-link email"><a href="mailto:{{ settings.social-email-address }}" target="_blank"></a></li>
+        {% endif %}
+        {% if settings.social-rss-url != blank %}
+        <li class="social-link rss"><a href="{{ settings.social-rss-url }}" target="_blank"></a></li>
+        {% endif %}
+      </ul>
+    </div>
+    
+  </footer>
+  
+  <div class="page-bottom" style="background: #DEDEDE;-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);">
+	<div class="bottom-flow wow bounceInLeft" style="text-align: center; padding: 30px 0px 30px 0px;">
+      <a href="/collections/vendors?q=Bob Long">
+        <img src="{{ 'bob_long.png' | asset_url }}" title="Browse Bob Long Products" alt="Bob Long" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1s"/>
+      </a>
+      <a href="/collections/vendors?q=Planet Eclipse">
+        <img src="{{ 'planet_eclipse.png' | asset_url }}" title="Browse Planet Eclipse Products" alt="Planet Eclipse" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.125s"/>
+      </a>
+      <a href="/collections/vendors?q=Empire">
+        <img src="{{ 'empire.png' | asset_url }}" title="Browse Empire Products" alt="Empire" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.25s"/>
+      </a>
+      <a href="/collections/vendors?q=DLX">
+        <img src="{{ 'dlx.png' | asset_url }}" title="Browse DLX Products" alt="DLX" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.375s"/>
+      </a>
+      <a href="/collections/vendors?q=Inception Designs">
+        <img src="{{ 'inception_designs.png' | asset_url }}" title="Browse Inception Designs Products" alt="Inception Designs" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.5s"/>
+      </a>
+      <a href="/collections/vendors?q=Virtue">
+        <img src="{{ 'virtue.png' | asset_url }}" title="Browse Virtue Products" alt="Virtue" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.625s"/>
+      </a>
+      <a href="/collections/vendors?q=MacDev">
+        <img src="{{ 'macdev.png' | asset_url }}" title="Browse MacDev Products" alt="MacDev" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.75s"/>
+      </a>
+      <a href="/collections/vendors?q=Ninja">
+        <img src="{{ 'ninja.png' | asset_url }}" title="Browse Ninja Products" alt="Ninja" style="width: 148; text-align: center; border: 0;" class="brandlogofeat wow pulse" data-wow-delay="1.875s"/>
+      </a>
+	</div>
+  </div>
+  
+  <div class="page-bottom">
+    
+    <!-- Bottom of lime menu //-->
+    <!--<div class="bottom-menu">   
+    </div>//-->
+    
+ 	<div class="footer-modules showing-x-modules bottom-flow">
+      <div class="footer-module">
+        {% if settings.footer-titles %}
+          <h4>{{ linklists['company'].title }}</h4>
+        {% endif %}
+        <ul>
+          {% for link in linklists['company'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer-module">
+        {% if settings.footer-titles %}
+          <h4>{{ linklists['customer'].title }}</h4>
+        {% endif %}
+        <ul>
+          {% for link in linklists['customer'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer-module">
+        {% if settings.footer-titles %}
+          <h4>{{ linklists['main-menu'].title }}</h4>
+        {% endif %}
+        <ul>
+          {% for link in linklists['main-menu'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
+        </ul>
+      </div>
+
+<!--      
+      <div class="footer-module">
+        {% if settings.footer-titles %}
+          <h4>{{ linklists.main-menu.title }}</h4>
+        {% endif %}
+        {% for link in linklists.main-menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+//-->
+      
+    </div>
+    
+    <div class="copyright bottom-flow">
+
+      {% capture year %}
+        {{ "now" | date: "%Y" }}
+      {% endcapture %}
+
+      <p role="contentinfo">
+      	{{ 'layout.footer.copyright_html' | t: year: year, shop_name: shop.name }}<br/>
+        <span style="line-height: 1.1; display: block; font-size: 10px;">
+			Design by <a href="http://www.izacktheyak.com/" target="_blank">Yak</a> based on <a href="https://www.pixelunion.net/themes/shopify/pacific/">Pacific theme</a> by <a href="http://www.pixelunion.net">Pixel Union</a>.<br/>
+        	Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
+      	</span>
+      </p>
+
+
+      {% if shop.enabled_payment_types.size > 0 and settings.footer-show-payment-options %}
+        <ul class="payment-options">
+          {% for type in shop.enabled_payment_types %}
+            <li class="{{ type | replace: '_','-' }}"></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-wrapper">
+  <div class="modal-content">
+    <h2 class="modal-title"></h2>
+
+    <div class="modal-message rte"></div>
+
+    <span class="modal-close modal-close-secondary">{{ 'general.close' | t }}</span>
+  </div>
+</div>
+
+
+<!-- Scroll to top code //-->
+
+
+
+
+<!-- End Scroll to top code //-->

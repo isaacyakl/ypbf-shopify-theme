@@ -1,0 +1,18 @@
+<div class="wow fadeIn footer-module footer-tweet">
+  {% if settings.footer-titles %}
+    <h4>{{ 'layout.footer.twitter_title' | t }}</h4>
+  {% endif %}
+
+  {% if settings.footer-twitter-id == blank %}
+    <div class="user">
+      <a href="/admin/themes/{{ theme.id }}/settings">
+        <img alt="" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPYvufQfwAHmAM12jbOLQAAAABJRU5ErkJggg==">
+        <span>
+          <span data-scribe="element:name">{{ 'general.name' | t }}</span>
+        </span>
+        <span data-scribe="element:screen_name">@{{ 'general.name' | t }}</span>
+      </a>
+    </div>
+    <p class="tweet">{{ 'onboarding.twitter_widget.tweet' | t }}</p>
+  {% endif %}
+</div>

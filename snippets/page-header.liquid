@@ -1,0 +1,96 @@
+{% include 'breadcrumbs' %}
+
+{% if template contains 'product' %}
+  <div class="product-details">
+    <h1 class="page-title" itemprop="name">{{ product.title }}</h1>
+    <a class="product-vendor vendor" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+  </div>
+{% elsif template contains 'collections' %}
+  <h1 class="page-title">
+    {% if settings.collections-title-override != blank %}
+      {{ settings.collections-title-override }}
+    {% else %}
+      {{ 'collections.listing.title' | t }}
+    {% endif %}
+  </h1>
+{% elsif template contains 'collection' %}
+  {% if collection.image and settings.collection-featured-image %}
+    <div class="collection-header">
+      <img alt="{{ collection.image.alt | escape }}" src="{{ collection | img_url: '1024x1024' }}">
+
+      <div class="collection-details">
+        <h1>{{ collection.title }}</h1>
+
+        {% if collection.description != blank and settings.collection-description %}
+          <div class="collection-description rte">
+            {{ collection.description | strip_html | truncatewords: 20 }}
+          </div>
+
+          {% capture shortDescription %}{{ collection.description | strip_html | truncatewords: 20 }}{% endcapture %}
+          {% if collection.description.size > shortDescription.size %}
+            <span class="collection-description-more">{{ 'collections.collection.read_more' | t }}</span>
+            <script>
+              window.collectionJSON = {{ collection | json }};
+            </script>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <h1 class="page-title">{{ collection.title }}</h1>
+
+    {% if collection.description != blank and settings.collection-description %}
+      <div class="collection-description rte">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+  {% endif %}
+{% elsif template contains 'blog' %}
+  <h1 class="page-title">
+    {% if current_tags %}<a href="{{ blog.url }}">{% endif %}
+    {{ blog.title }}
+    {% if current_tags %}</a>{% endif %}
+  </h1>
+
+  {% if settings.blog-show-rss-icon %}
+    <p class="blog-subscribe"><a href="{{ blog.url }}.atom">{{ 'blogs.blog.subscribe' | t }}</a></p>
+  {% endif %}
+{% elsif template contains 'article' %}
+  <h1 class="page-title">{{ article.title }}</h1>
+
+  {% if settings.blog-show-rss-icon %}
+    <p class="blog-subscribe"><a href="{{ blog.url }}.atom">{{ 'blogs.blog.subscribe' | t }}</a></p>
+  {% endif %}
+{% elsif template contains 'search' %}
+  <h1 class="page-title">
+    {% if search.performed %}
+      {{ 'general.search.title_after_search' | t }}
+    {% else %}
+      {{ 'general.search.title' | t }}
+    {% endif %}
+  </h1>
+{% elsif template contains '404' %}
+  <h1 class="page-title">{{ 'general.404.title' | t }}</h1>
+{% elsif template contains 'customer' %}
+  <h1 class="page-title">
+    {% if template contains 'account' %}
+      {{ 'customers.account.title' | t }}
+    {% elsif template contains 'activate' %}
+      {{ 'customers.activate_account.title' | t }}
+    {% elsif template contains 'addresses' %}
+      {{ 'customers.addresses.title' | t }}
+    {% elsif template contains 'login' %}
+      {{ 'customers.login.title' | t }}
+    {% elsif template contains 'order' %}
+      {{ 'customers.order.title' | t: order_number: order.name }}
+    {% elsif template contains 'register' %}
+      {{ 'customers.register.title' | t }}
+    {% elsif template contains 'reset' %}
+      {{ 'customers.reset_password.title' | t }}
+    {% endif %}
+  </h1>
+{% elsif template contains 'cart' %}
+  <h1 class="page-title">{{ 'cart.title' | t }}</h1>
+{% else %}
+  <h1 class="page-title">{{ page_title }}</h1>
+{% endif %}

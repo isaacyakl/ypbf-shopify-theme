@@ -1,0 +1,31 @@
+{% if settings.home-modules-order != blank %}
+  {% assign modules = settings.home-modules-order | split: "-" %}
+
+  {% for module in modules %}
+
+    {% case module %}
+      {% when 'A' %}
+        {% include 'home-slideshow' %}
+      {% when 'B' %}
+        {% include 'home-video' %}
+      {% when 'C' %}
+        {% assign features = "home-feature-1|home-feature-2|home-feature-3" | split: "|" %}
+        {% include 'home-feature-row' with 'home-feature-row-1' %}
+      {% when 'D' %}
+        {% assign features = "home-feature-4|home-feature-5|home-feature-6" | split: "|" %}
+        {% include 'home-feature-row' with 'home-feature-row-2' %}
+      {% when 'E' %}
+        {% assign features = "home-feature-7|home-feature-8|home-feature-9" | split: "|" %}
+        {% include 'home-feature-row' with 'home-feature-row-3' %}
+      {% when 'F' %}
+        {% include 'home-featured-collections' %}
+      {% when 'G' %}
+        {% include 'home-featured-products' %}
+      {% when 'H' %}
+        {% include 'home-imported-content' %}
+      {% when 'I' %}
+        {% include 'home-blog-posts' %}
+    {% endcase %}
+  {% endfor %}
+
+{% endif %}

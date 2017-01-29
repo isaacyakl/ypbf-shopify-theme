@@ -1,0 +1,90 @@
+{% assign items = "mega-nav-1|mega-nav-2|mega-nav-3|mega-nav-4|mega-nav-5" | split: "|" %}
+{% assign itemCount = 0 %}
+{% for item in items %}
+  {% capture enabled %}{{item}}{% endcapture %}
+  {% if settings[enabled] %}
+    {% assign itemCount = itemCount | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if settings.mega-nav-item-text != blank %}
+  {% assign megaNavTitle = settings.mega-nav-item-text %}
+{% else %}
+  {% assign megaNavTitle = link.title %}
+{% endif %}
+
+<li class="mega-nav has-{{itemCount}}-items">
+  <a href="{{ link.url }}">{{ megaNavTitle }} <span class="mobile-tier-toggle"></span></a>
+
+  <ul class="mega-nav-dropdown">
+
+    {% for item in items %}
+
+      {% capture enabled %}{{item}}{% endcapture %}
+      {% capture linkList %}{{item}}-list{% endcapture %}
+      {% assign linkList = settings[linkList] %}
+      {% capture useImage %}{{item}}-use-image{% endcapture %}
+      {% capture url %}{{item}}-url{% endcapture %}
+
+      {% if settings[enabled] %}
+        <li class="mega-nav-item">
+          {% if settings[useImage] %}
+            {% if settings[url] != blank %}<a class="mega-nav-item-image-wrapper" href="{{ settings[url] }}">{% endif %}
+            <img class="mega-nav-item-image" alt="" src="{{ item | append:'.jpg' | asset_url }}">
+            {% if settings[url] != blank %}</a>{% endif %}
+          {% endif %}
+
+          {% assign linkTag = 'a' %}
+          {% if settings[url] == blank %}
+            {% assign linkTag = 'span' %}
+          {% endif %}
+          <{{ linkTag }} class="meta tier-toggle-wrap" href="{{ settings[url] }}">
+            {{ linklists[linkList].title }} <span class="mobile-tier-toggle"></span>
+          </{{ linkTag }}>
+
+          {% assign firstTierTitle = linklists[linkList].title %}
+          <ul class="mega-nav-first-tier">
+            {% for link in linklists[linkList].links %}
+              {% include 'has-dropdown' %}
+              <li class="{% if has-dropdown %}has-children{% endif %}">
+                <a href="{{ link.url }}">{{ link.title }} {% if has-dropdown %}<span class="mobile-tier-toggle"></span>{% endif %}</a>
+                {% if has-dropdown %}
+                  <ul class="mega-nav-second-tier">
+                    <li class="mega-nav-breadcrumbs">
+                      <span>{{firstTierTitle}}</span>
+                      <span class="current-tier">{{ link.title }}</span>
+                      <span class="previous-tier">{{ 'layout.mega_navigation.back' | t }}</span>
+                    </li>
+                    {% assign secondTierTitle = link.title %}
+                    {% for link in linklists[link_handle].links %}
+                      {% include 'has-dropdown' %}
+                      <li class="{% if has-dropdown %}has-children{% endif %}">
+                        <a href="{{ link.url }}">{{ link.title }} {% if has-dropdown %}<span class="mobile-tier-toggle"></span>{% endif %}</a>
+                        {% if has-dropdown %}
+                          <ul class="mega-nav-third-tier">
+                            <li class="mega-nav-breadcrumbs">
+                              <span class="first-tier">{{firstTierTitle}}</span>
+                              <span>{{secondTierTitle}}</span>
+                              <span class="current-tier">{{ link.title }}</span>
+                              <span class="previous-tier">{{ 'layout.mega_navigation.back_to' | t: tier: secondTierTitle }}</span>
+                            </li>
+                            {% for link in linklists[link_handle].links %}
+                              {% include 'has-dropdown' %}
+                              <li class="{% if has-dropdown %}has-children{% endif %}">
+                                <a href="{{ link.url }}">{{ link.title }}</a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</li>
