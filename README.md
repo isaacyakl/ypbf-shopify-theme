@@ -1,5 +1,10 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.13.1 - 5/10/2016:PrdctPgLnks
+=========================================
++ Add link to "Free Lifetime Labor" badge on product pages. product-form.liquid:62
++ Add different warranty info for new and used guns on product pages. product-form.liquid:61-83
+
 1.13.0 - 4/26/2016:UpsellInCart
 =========================================
 + Add snippet "ypbf-upsell". ypbf-upsell.liquid
