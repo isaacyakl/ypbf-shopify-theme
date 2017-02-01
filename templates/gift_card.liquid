@@ -10,7 +10,6 @@
   <meta name="format-detection" content="telephone=no">
   <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
   <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
-  {% include 'fonts' %}
   {{ 'gift-card.scss.css' | asset_url | stylesheet_tag }}
   {{ 'modernizr.gift-card.js' | shopify_asset_url | script_tag }}
   <!--[if lt IE 9]>
@@ -36,8 +35,8 @@
 </head>
 <body class="gift-card-template">
   <div class="wrap">
-    <header role="banner">
-      <a href="{{ shop.url }}" class="shop-title">{{ shop.name }}</a>
+    <header role="banner" style="text-align: center;">
+      <a href="{{ shop.url }}" class="shop-title"><img class="logo-regular" width="300" alt="{{ shop.name | escape }}" src="https://cdn.shopify.com/s/files/1/0713/5287/files/YourPbFriend_Email_Logo.png?10062183378014982228"></a>
     </header>
       <main role="main">
           <div class="gift-card-outer-container" {% if gift_card.expired or gift_card.enabled != true %}class="disabled"{% endif %}>
@@ -61,7 +60,8 @@
                 <div class="corner top-right"></div>
                 <div class="corner bottom-left"></div>
                 <div class="gift-card">
-                  <img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}">
+                  <!--/<img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}">//-->
+                  <img src="https://cdn.shopify.com/s/files/1/0713/5287/files/YPBF_Gift_Card.jpg?11320998738630332835">
                   {% assign initial_value_size = formatted_initial_value | size %}
                   <div class="gift-card-amount" class="{% if initial_value_size > 6 %}medium{% endif %}">
                     {% if gift_card.balance != gift_card.initial_value %}

@@ -1,5 +1,11 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.7.2 - 11/27/2015:Gft Crd Cstm
+=========================================
+- Removed pointless asset which does not exist, "{% include 'fonts' %}". gift_card.liquid:13
+* Changed gift card background picture to YourPbFriend.com custom one. gift_card.liquid:63-64
+* Changed gift card container border background-color from #34aadc to #D0D0D0. gift-card.scss.liquid:328
+
 1.7.1 - 10/30/2015:Shrink Menus
 =========================================
 * Changed the height of each menu item in the drop-down menus. theme.scss.liquid
