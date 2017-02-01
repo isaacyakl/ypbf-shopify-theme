@@ -22,6 +22,8 @@
         name_supercatpeer = 'supercatpeer',
         name_activecat = 'activecat',
         name_activecatpeer = 'activecatpeer',
+        name_activeduplicat = 'activeduplicat',
+        name_subduplicat = 'subduplicat',
         name_productskey = '/products/',
         name_collectionskey = '/collections/',
 
@@ -215,6 +217,17 @@
             return id;
         },
 
+        isDuplicate = function (branch, active_categories, sofar) {
+            // sofar must be less than current branch number to avoid false-positives
+            for (var i = 0; i <= sofar; ++i) {
+                // if title and url match, it's a duplicate
+                if ((branch.title == active_categories[i].title) && (branch.url == active_categories[i].url)) {
+                    return true;
+                }
+            }
+            return false;
+        },
+
         processCategorySelect = function (element, active_categories) {
             // attach to the onchange event
             bind(element, 'change', function (e) {
@@ -253,6 +266,8 @@
                 // mark current selection(s)
                 for (var i = 0; i < active_categories.length; ++i) {
                     var branch = active_categories[i];
+                    // identify this branch as a duplicate if same as a previous active_category
+                    var dub = isDuplicate(branch, active_categories, i - 1);
                     // find all parents but exclude top-level container
                     var parents = getParents(branch);
                     // tag parents (supercats)
@@ -261,7 +276,7 @@
                         addClass(document.getElementById(getCatId(parent_branch)), name_supercat);
                         if (j == 0) {
                             // for the direct parent branch, find active category peers (activecatpeer)
-                            for (var m = 0; m<parent_branch.links.length; ++m) {
+                            for (var m = 0; m < parent_branch.links.length; ++m) {
                                 peer_branch = parent_branch.links[m];
                                 if (peer_branch == branch) {
                                     // don't tag it because it's already tagged as activecat
@@ -287,12 +302,20 @@
                     // tag active category
                     var active_cat_elem = document.getElementById(getCatId(branch));
                     addClass(active_cat_elem, name_activecat);
+                    // tag active category as duplicate if dub
+                    if (dub) {
+                        addClass(active_cat_elem, name_activeduplicat);
+                    }
                     // replace first link only (because nested <ul> may contain more links)
                     active_cat_elem.innerHTML = active_cat_elem.innerHTML.replace(/<a/, '<span').replace(/a>/, 'span>');
                     // tag first generation of children (subcatdirect)
                     processCategoryListTagLinks(branch.links, name_subcatdirect, false);
                     // tag all children and grandchildren (subcat)
                     processCategoryListTagLinks(branch.links, name_subcat, true);
+                    // tag all children and grandchildren as sub-category of duplicate if dub
+                    if (dub) {
+                        processCategoryListTagLinks(branch.links, name_subduplicat, true);
+                    }
                 }
             } else {
                 // if there are no active categories, tag-up the top of the tree
@@ -313,10 +336,10 @@
             if (links !== undefined) {
                 if (links.length > 0) {
                     // catch case that we've done these already (loop)
-                    if (links[0]['tagged-'+name] !== undefined) {
+                    if (links[0]['tagged-' + name] !== undefined) {
                         return;
                     } else {
-                        links[0]['tagged-'+name] = true;
+                        links[0]['tagged-' + name] = true;
                     }
                     // loop through links
                     for (var j = 0; j < links.length; ++j) {

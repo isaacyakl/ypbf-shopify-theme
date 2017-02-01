@@ -1,13 +1,13 @@
 {% if settings.header-promo and settings.header-promo-text != blank %}
   <div class="header-promo-wrapper" id="hdr1">
-    <div class="wow lightSpeedIn header-promo">
+    <div class="header-promo" style="padding: 5px 0px;">
       {% comment %}
       <span style="height: 36px; vertical-align: middle; display: inline-block;">
       <img src="{{ 'christmas_tree_cookie.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
       </span>
       {% endcomment %}
       
-      <span class="header-promo-text" style="font-size: 17pt; font-weight: 700;">{{ settings.header-promo-text }}</span>
+      <span class="header-promo-text" style="font-size: 13pt; font-weight: 600; letter-spacing: 5px;">{{ settings.header-promo-text }}</span> 
       
       {% comment %}
       <span style="height: 36px; vertical-align: middle; display: inline-block;">
@@ -96,7 +96,7 @@
     					Free U.S. shipping!
     				</span>
       			</div>
-                {% comment %}<span class="tradenowtxt"></span>{% endcomment %}<a href="/pages/trade-in/" title="Trade Now"><input type="button" value="Trade Now" class="wow bounce" data-wow-duration="1.5s" data-wow-iteration="4"/></a>
+                {% comment %}<span class="tradenowtxt"></span>{% endcomment %}<a href="/pages/trade-in/" title="Trade Now"><input type="button" value="Trade Now" data-wow-duration="1.5s" data-wow-iteration="3" data-wow-delay="3s" class="wow bounce"/></a>
               </div>
             </td>
           </tr>

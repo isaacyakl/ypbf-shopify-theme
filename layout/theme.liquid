@@ -16,14 +16,17 @@
     {% if current_page != 1 %}
       &ndash; {{ 'general.pagination.seo_title' | t }} {{ current_page }}
     {% endif %}
-    {% unless page_title contains shop.name %}
-      &ndash; {{ shop.name }}
-    {% endunless %}
+
+        {% unless page_title contains shop.name %}
+          &ndash; {{ shop.name }}
+        {% endunless %}
+
   </title>
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}" />
   {% endif %}
   <meta name="google-site-verification" content="GBKzMQ1rE7FUqqwiOZV1-nLnJC5SuEfI7cbQvzUDQv0" />
+  <meta name="msvalidate.01" content="ACA0CE5C9B4A929A69729E2E7D41B8D2" />
   <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon" />
   <link rel="canonical" href="{{ canonical_url }}" />
   <meta name="viewport" content="width=device-width" />

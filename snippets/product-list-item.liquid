@@ -55,9 +55,21 @@
         <span class="product-list-item-badge meta inventory">{{ stockText }}</span>
       {% elsif onSale %}
         <span class="product-list-item-badge meta sale">{{ saleText }}</span>
+	  {% elsif item.tags contains 'Pre-Order' %}
+      		<span class="product-list-item-badge inventory" style="color: #a741d7;">Pre-Order</span>
+	  {% elsif item.tags contains 'Back Order' %}
+      		<span class="product-list-item-badge inventory" style="color: #1B9DB0;">Back Order</span>
       {% endif %}
     {% else %}
-      <span class="product-list-item-badge inventory">{{ 'products.product.sold_out' | t }}</span>
+		{% if item.tags contains 'Archive' %}
+      		<span class="product-list-item-badge inventory" style="color: red;">Discontinued</span>
+		{% elsif item.tags contains 'Pre-Order' %}
+      		<span class="product-list-item-badge inventory" style="color: #a741d7;">Pre-Order</span>
+	  	{% elsif item.tags contains 'Back Order' %}
+      		<span class="product-list-item-badge inventory" style="color: #1B9DB0;">Back Order</span>
+		{% else %}
+      		<span class="product-list-item-badge inventory">{{ 'products.product.sold_out' | t }}</span>
+		{% endif %}
     {% endif %}
   </figure>
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
@@ -99,9 +111,17 @@
             <span class="price money">{{ item.price_min | money }}</span>
           {% endif %}
         {% endif %}
+      	<br/>
+      	<span style="font-size: smaller;">{% include 'shiptime-item' %}</span>
       {% else %}
-        {{ 'products.product.sold_out' | t }}
+        {% if item.tags contains 'Archive' %}
+      		No longer available.
+      	{% else %}
+      		{{ 'products.product.sold_out' | t }}
+      	{% endif %}
       {% endif %}
+      <br/>
+      
     </p>
     
     {% else %}

@@ -6,9 +6,11 @@
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
     <div class="prodnotes">
       {% if product.tags contains 'Pre-Order' %}
-	      <p>By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.</p>
+      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the pre-order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</label></p>
+      {% elsif product.tags contains 'Back Order' %}
+      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I am aware that this item is back-ordered.</label></p>
       {% elsif product.tags contains 'Custom Order' %}
-	      <p>By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</p>
+      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the custom order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</label></p>
       {% endif %}
 
       {% if product.tags contains 'Limited' %}
@@ -21,42 +23,15 @@
           <p>Shipping time may be longer than normal due to holiday sales.</p>
       {% endif %}
       
-      {% if product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'deny' and product.tags contains 'Archive' %}
+      {% if product.selected_or_first_available_variant.inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'deny' and product.tags contains 'Archive' %}
       	{% comment %}Archived{% endcomment %}
      	<p class="usualship" style="color: red;">Archived/Discontinued product.</p>
-      {% elsif product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'continue' %}
-      	{% comment %}Drop Ship Time{% endcomment %}
-      	{% if product.tags contains '1-2 Days' %}
-      		<p class="usualship">Usually ships in 1-2 business days.</p>
-      	{% elsif product.tags contains '2-3 Days' %}
-      		<p class="usualship">Usually ships in 2-3 business days.</p>
-      	{% elsif product.tags contains '3-4 Days' %}
-      		<p class="usualship">Usually ships in 3-4 business days.</p>
-      	{% elsif product.tags contains '1-2 Weeks' %}
-      		<p class="usualship">Usually ships in 1-2 weeks.</p>
-      	{% elsif product.tags contains '2-3 Weeks' %}
-      		<p class="usualship">Usually ships in 2-3 weeks.</p>
-      	{% elsif product.tags contains '3-4 Weeks' %}
-      		<p class="usualship">Usually ships in 3-4 weeks.</p>
-      	{% elsif product.tags contains '4-6 Weeks' %}
-      		<p class="usualship">Usually ships in 4-6 weeks.</p>
-      	{% elsif product.tags contains '6-8 Weeks' %}
-      		<p class="usualship">Usually ships in 6-8 weeks.</p>
-      	{% elsif product.tags contains 'Call For' %}
-      		<p class="usualship">Call for shipping time.</p>
-      	{% else %}
-      		{% comment %}Default Drop Ship Time If Not Set{% endcomment %}
-      		<p class="usualship">Usually ships in 3-4 business days.</p>
-      	{% endif %}
-      {% elsif product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'deny' %}
-      	{% comment %}Out Of Stock{% endcomment %}
-      	{% if product.tags contains 'Call For' %}
-      		<p class="usualship">Call for availability.</p>
-        {% endif %}
       {% else %}
-      	{% comment %}In Stock{% endcomment %}
-      	<p class="usualship">Usually ships in 1-2 business days.</p>
+      	<p class="usualship">
+      		{% include 'shiptime-product' %}
+      	</p>
       {% endif %}
+      
       
 	  Free U.S. shipping on all orders. No minimum!<br>
 	  Free shipping outside of the U.S. on orders above $1000.<br>
@@ -104,21 +79,29 @@
       </span>
       {% if variant.available %}
       	{% if product.tags contains 'Pre-Order' %}
-      		<input class="red" id="addToCart" type="submit" value="{{ 'products.product.pre_order' | t }}" />
+      		<input class="red disabled" id="addToCart" type="submit" value="{{ 'products.product.pre_order' | t }}" disabled="disabled"/>
         	<link itemprop="availability" href="http://schema.org/PreOrder">
       	{% elsif product.tags contains 'Custom Order' %}
-      		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" />
+      		<input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" disabled="disabled"/>
         	<link itemprop="availability" href="http://schema.org/InStock">
         {% elsif product.tags contains 'Back Order' %}
-      		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.back_order' | t }}" />
+      		<input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.back_order' | t }}" disabled="disabled"/>
         	<link itemprop="availability" href="http://schema.org/OutOfStock">
 		{% else %}
-      		<input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
-        	<link itemprop="availability" href="http://schema.org/InStock">
+   			<input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
+      		<link itemprop="availability" href="http://schema.org/InStock">
 	  	{% endif %}
       {% else %}
-        <input type="button" class="add-to-cart disabled" disabled="disabled" value="{{ 'products.product.sold_out' | t }}" />
-        <link itemprop="availability" href="http://schema.org/OutOfStock">
+      		{% if product.tags contains 'Pre-Order' %}
+                <input type="button" class="disabled" id="addToCartDsbld" value="{{ 'products.product.unavailable' | t }}" disabled="disabled"/>
+        		<link itemprop="availability" href="http://schema.org/PreOrder">
+            {% elsif product.tags contains 'Back Order' %}
+                <input type="button" class="disabled" id="addToCartDsbld" value="{{ 'products.product.unavailable' | t }}" disabled="disabled"/>
+        		<link itemprop="availability" href="http://schema.org/OutOfStock">
+			{% else %}
+                <input type="button" class="disabled" id="addToCartDsbld" value="{{ 'products.product.sold_out' | t }}" disabled="disabled"/>
+                <link itemprop="availability" href="http://schema.org/OutOfStock">
+      		{% endif %}
       {% endif %}
       
       {% if product.type == 'Marker' or product.type == 'Gun' %}

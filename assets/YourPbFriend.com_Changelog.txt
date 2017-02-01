@@ -1,3 +1,23 @@
+1.10.0 - 2/19/2016:PrdctNtfsBrdcrmbs
+=========================================
++ Add breadcrumbs via Uncomplicated Categories app. breadcrumbs.liquid:2-65
++ Add back order notification to product page. product-form.liquid:12-3
+* Move shipping times from individual files into shiptime-product and shiptime-item liquid files. shiptime-product.liquid,shiptime-item.liquid
++ Add flexibility for shipping times tags and optimize detection code. shiptime-product.liquid,shiptime-item.liquid
++ Add release date and back in stock date tags support for pre-orders and back order items. shiptime-product.liquid,shiptime-item.liquid
++ Add display for product types on products on collection pages. product-list-item.liquid
++ Add product notification system to cart page. cart.liquid:27-37
+* Update notification verbage for pre-order, custom order, and back order types across all pages.
++ Add hover style for disabled buttons too look disabled still. theme.scss.liquid:1925-28
+* Update email notifications theme.
++ Add product notification system for pos receipt and order confirmation email notifications.
+* Change breadcrumb separator to / instead of &rsaquo;. uncomplicated.categories.catbread.liquid.
++ Increase size of breadcrumb separators, add padding, and replace them with forward slashes. uncomplicated.categories.catbread.liquid:5639-43,scripts-combined.js:10
+* Remove animation from promo bar. header.liquid:3
+* Tone down header promo bar text. header.liquid:3,10
+* Improve right arrow in menus used to indicate further menus. Change it from > to \203A and increase size to 16px. theme.scss.liquid:5819-20,28
+* Add delay of 3s before trade now button does its dance. header.liquid:99
+
 1.9.2 - 1/26/2016:WeekShipProdTags
 =========================================
 + Add week shipping time estimates: 1-2,2-3,3-4,4-6,6-8. product-form.liquid:35-44
