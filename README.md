@@ -1,5 +1,13 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.3.1 - 9/22/2015:Optmz Imgs & Enlrg Btm Mns
+=========================================
+* Optimized images in slideshow, features, background, and footer brand logos.
+* Enlarged footer menu fonts for improved mobile site ux. theme.scss.liquid:5988-5989,5996
+* Improved tap-ability of credits section for mobile site. footer.liquid:200;theme.scss.liquid:6414-6416,6420-6432
++ Animated social icons to draw more attention to them. footer.liquid:70-100
+* Improved tap-ability for mobile site ux on top menu. theme.scss.liquid:7252-7257
+
 1.3.0 - 9/11/2015:Add Articles & Opt Thmbnls
 =========================================
 + Added articles section to bottom of pages. footer.liquid:161-8

@@ -67,37 +67,37 @@
 
       <ul>
         {% if settings.social-facebook-url != blank %}
-        <li class="social-link facebook"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>
+        <li class="social-link facebook wow bounceInUp" data-wow-delay="0s"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-twitter-url != blank %}
-        <li class="social-link twitter"><a href="{{ settings.social-twitter-url }}" target="_blank"></a></li>
+        <li class="social-link twitter wow bounceInUp" data-wow-delay="0.125s"><a href="{{ settings.social-twitter-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-tumblr-url != blank %}
-        <li class="social-link tumblr"><a href="{{ settings.social-tumblr-url }}" target="_blank"></a></li>
+        <li class="social-link tumblr wow bounceInUp"><a href="{{ settings.social-tumblr-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-google-url != blank %}
-        <li class="social-link google-plus"><a href="{{ settings.social-google-plus-url }}" target="_blank"></a></li>
+        <li class="social-link google-plus wow bounceInUp" data-wow-delay="0.25s"><a href="{{ settings.social-google-plus-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-pinterest-url != blank %}
-        <li class="social-link pinterest"><a href="{{ settings.social-pinterest-url }}" target="_blank"></a></li>
+        <li class="social-link pinterest wow bounceInUp"><a href="{{ settings.social-pinterest-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-instagram-url != blank %}
-        <li class="social-link instagram"><a href="{{ settings.social-instagram-url }}" target="_blank"></a></li>
+        <li class="social-link instagram wow bounceInUp" data-wow-delay="0.375s"><a href="{{ settings.social-instagram-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-kickstarter-url != blank %}
-        <li class="social-link kickstarter"><a href="{{ settings.social-kickstarter-url }}" target="_blank"></a></li>
+        <li class="social-link kickstarter wow bounceInUp"><a href="{{ settings.social-kickstarter-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-vimeo-url != blank %}
-        <li class="social-link vimeo"><a href="{{ settings.social-vimeo-url }}" target="_blank"></a></li>
+        <li class="social-link vimeo wow bounceInUp"><a href="{{ settings.social-vimeo-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-youtube-url != blank %}
-        <li class="social-link youtube-logo"><a href="{{ settings.social-youtube-url }}" target="_blank"></a></li>
+        <li class="social-link youtube-logo wow bounceInUp" data-wow-delay="0.5s"><a href="{{ settings.social-youtube-url }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-email-address != blank %}
-        <li class="social-link email"><a href="mailto:{{ settings.social-email-address }}" target="_blank"></a></li>
+        <li class="social-link email wow bounceInUp"><a href="mailto:{{ settings.social-email-address }}" target="_blank"></a></li>
         {% endif %}
         {% if settings.social-rss-url != blank %}
-        <li class="social-link rss"><a href="{{ settings.social-rss-url }}" target="_blank"></a></li>
+        <li class="social-link rss wow bounceInUp"><a href="{{ settings.social-rss-url }}" target="_blank"></a></li>
         {% endif %}
       </ul>
     </div>
@@ -197,7 +197,7 @@
 
       <p role="contentinfo">
       	{{ 'layout.footer.copyright_html' | t: year: year, shop_name: shop.name }}<br/>
-        <span style="line-height: 1.1; display: block; font-size: 10px;">
+        <span class="credits">
 			Design by <a href="http://www.izacktheyak.com/" target="_blank">Yak</a> based on <a href="https://www.pixelunion.net/themes/shopify/pacific/">Pacific theme</a> by <a href="http://www.pixelunion.net">Pixel Union</a>.<br/>
         	Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
       	</span>
