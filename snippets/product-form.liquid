@@ -32,6 +32,16 @@
       		<p class="usualship">Usually ships in 2-3 business days.</p>
       	{% elsif product.tags contains '3-4 Days' %}
       		<p class="usualship">Usually ships in 3-4 business days.</p>
+      	{% elsif product.tags contains '1-2 Weeks' %}
+      		<p class="usualship">Usually ships in 1-2 weeks.</p>
+      	{% elsif product.tags contains '2-3 Weeks' %}
+      		<p class="usualship">Usually ships in 2-3 weeks.</p>
+      	{% elsif product.tags contains '3-4 Weeks' %}
+      		<p class="usualship">Usually ships in 3-4 weeks.</p>
+      	{% elsif product.tags contains '4-6 Weeks' %}
+      		<p class="usualship">Usually ships in 4-6 weeks.</p>
+      	{% elsif product.tags contains '6-8 Weeks' %}
+      		<p class="usualship">Usually ships in 6-8 weeks.</p>
       	{% elsif product.tags contains 'Call For' %}
       		<p class="usualship">Call for shipping time.</p>
       	{% else %}
@@ -40,6 +50,9 @@
       	{% endif %}
       {% elsif product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'deny' %}
       	{% comment %}Out Of Stock{% endcomment %}
+      	{% if product.tags contains 'Call For' %}
+      		<p class="usualship">Call for availability.</p>
+        {% endif %}
       {% else %}
       	{% comment %}In Stock{% endcomment %}
       	<p class="usualship">Usually ships in 1-2 business days.</p>

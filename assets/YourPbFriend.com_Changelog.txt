@@ -1,3 +1,11 @@
+1.9.2 - 1/26/2016:WeekShipProdTags
+=========================================
++ Add week shipping time estimates: 1-2,2-3,3-4,4-6,6-8. product-form.liquid:35-44
++ Add call for availability tag when out of stock and not available. product-form.liquid:53-55
++ Add blockquote style for quoting manufacturers, etc. on website and/or in descriptions. theme.scss.liquid:1625-56
+* Fix Facebook like button url issues. product_fb_like.liquid:1
++ Add Google webmaster verification tag to header. theme.liquid:26
+
 1.9.1 - 1/21/2016:ProdTagFixes
 =========================================
 * Fix product tag logic issues. product-form.liquid

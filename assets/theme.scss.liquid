@@ -1622,6 +1622,39 @@ blockquote {
 
 }
 
+.blockquote
+{
+    padding: 20px;
+    color: black;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.16);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.16);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.16);
+    margin: 0%;
+ 	font-size: smaller;
+    background: #f2f2f2; /* Old browsers */
+        	font-family: cursive;
+  
+  	.quote
+  	{
+    	
+    }
+  
+  	.by
+	{
+      	font-family: "Source Sans Pro",sans-serif;
+		width: 100%;
+      	text-align: right;
+      	display: block;
+      	padding-top: 10px;
+      	
+	    &:before
+      	{
+           padding-right: 3px;
+       	   content: "\2015 ";
+      	}
+  	}
+}
+
 cite {
   display: block;
   margin-top: 10px !important; // override the first/last child resets on blockquotes
