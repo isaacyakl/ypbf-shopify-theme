@@ -1,3 +1,9 @@
+1.3.0 - 9/11/2015:Add Articles & Opt Thmbnls
+=========================================
++ Added articles section to bottom of pages. footer.liquid:161-8
+* Updated embed video on front page to not use YouTube privacy mode so that it would have a higher res thumbnail. home-video.liquid:25
+* Optimized thumbnail sizes in collections for faster load time; from 'grande' to 'large'. product-list-item.liquid:49
+
 1.2.0 - 9/5/2015:Add FB Like Btn To Prdcts
 =========================================
 + Added file product_fb_like.liquid for product like button code.

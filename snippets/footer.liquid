@@ -160,6 +160,15 @@
       
       <div class="footer-module">
         {% if settings.footer-titles %}
+          <h4>{{ linklists['articles'].title }}</h4>
+        {% endif %}
+        <ul>
+          {% for link in linklists['articles'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer-module">
+        {% if settings.footer-titles %}
           <h4>{{ linklists['main-menu'].title }}</h4>
         {% endif %}
         <ul>

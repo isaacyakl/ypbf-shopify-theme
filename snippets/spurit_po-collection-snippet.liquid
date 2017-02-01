@@ -21,12 +21,44 @@
 				});
 			}
 		});
-		$('body').on('click', 'span.quick_shop', function() {//quick shop retina
-			var modalId = $(this).attr('data-fancybox-href');
+        $('body').on('click', 'span.quick_shop', function() {//quick shop retina & parallax & kumi
+            var url = '';
+            var selectorPrefix = '';
+            var handle = $(this).attr('data-handle');
+            if(handle){
+                url = '/products/'+ handle;
+                selectorPrefix = '#quick-shop-modal ';
+            }else{
+                var modalId = $(this).attr('data-fancybox-href');
+                if(modalId){
+                    var productModal = $(modalId);
+                    if(productModal.length){
+                        url = productModal.attr('data-product-url');
+                        if(!url){
+                            url = productModal.find('.view_product_info').attr('href');
+                        }
+                        selectorPrefix = '.fancybox-inner ';
+                    }
+                }
+            }
+            if(url){
+                $.getJSON( url +".json", function( data ) {
+                    if(data.product !== undefined ){
+                        spoProduct.setConfigValue('selector_prefix', selectorPrefix);
+                        spoProduct.quickView(data.product);
+                        $('.fancybox-close').on('click', function(){
+                            spoProduct.flush();
+                        });
+                    }
+                });
+            }
+        });
+		$('body').on('click', 'a.quick_shop', function() {//quick shop mobilla
+			var modalId = $(this).attr('href');
 			if(modalId){
-				var productModal = $(modalId);
+				var productModal = $(modalId + ' .view_product_info');
 				if(productModal.length){
-					var url = productModal.attr('data-product-url');
+					var url = productModal.attr('href');
 					$.getJSON( url +".json", function( data ) {
 						if(data.product !== undefined ){
 							spoProduct.setConfigValue('selector_prefix', '.fancybox-inner ');
@@ -40,9 +72,10 @@
 			}
 		});
 		$('body').on('click', '.overlay', function() {//quick shop atlantic (add data-handle to the overlay, button id into quick form)
-			var handle = $(this).attr('data-handle');
-			if(handle){
-				var url = '/products/' + handle;
+			var productId = $(this).attr('data-id');
+			var quickEl = $('#quick-shop-'+productId + ' .go-to-product');
+			if(quickEl.length){
+				var url = quickEl.attr('href');
 				$.getJSON( url +".json", function( data ) {
 					if(data.product !== undefined ){
 						spoProduct.setConfigValue('selector_prefix', '.quick-shop ');
@@ -50,6 +83,53 @@
 					}
 				});
 			}
+		});
+		$('body').on('click', 'span.quick-view', function() {//quick shop fluid
+			var modalId = $(this).attr('data-prdid');
+			var quickEl = $(modalId + ' .product-details > a');
+			if(quickEl.length){
+				var url = quickEl.attr('href');
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', modalId + ' ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', 'a[rel="quick-view"]', function() {//quick shop qrack
+			var url = $(this).attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', '.white-popup.quick-view ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', 'a.quick-buy', function() {//quick shop canopy
+			var url = $(this).parent().prev().attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('mousedown', 'div.quickview-button > a', function() {//quick shop ella
+			try{
+				var handle = $(this).attr('id');
+				if(handle){
+					$.getJSON( '/products/'+ handle +".json", function( data ) {
+						if(data.product !== undefined ){
+							spoProduct.setConfigValue('selector_prefix', '.quick-view ');
+							setTimeout(function(){spoProduct.quickView(data.product);},500);
+						}
+					});
+				}
+			}catch(e){ console.log(e.toString()); }
 		});
 	});
 </script>
