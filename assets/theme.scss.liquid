@@ -1803,7 +1803,7 @@ input[type="button"] {
     text-transform: uppercase;
   {% endif %}
 
-  &.secondary {
+  &.teal {
     /*background: $secondary-button-background;*/
     background: #1b9db0;
     background: -moz-linear-gradient(top,  #1b9db0 0%, #178494 100%);
@@ -1832,10 +1832,67 @@ input[type="button"] {
       color: $secondary-button-color;
     }
   }
+  
+  &.purple {
+    background: #a741d7;
+    background: -moz-linear-gradient(top,  #a741d7 0%, #7f3f98 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a741d7), color-stop(100%,#7f3f98));
+    background: -webkit-linear-gradient(top,  #a741d7 0%,#7f3f98 100%);
+    background: -o-linear-gradient(top,  #a741d7 0%,#7f3f98 100%);
+    background: -ms-linear-gradient(top,  #a741d7 0%,#7f3f98 100%);
+    background: linear-gradient(to bottom,  #a741d7 0%,#7f3f98 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a741d7', endColorstr='#7f3f98',GradientType=0 );
+    
+    color: $secondary-button-color;
+
+    &:hover {
+      background: #993cc4;
+      background: -moz-linear-gradient(top,  #993cc4 0%, #6c3682 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#993cc4), color-stop(100%,#6c3682));
+      background: -webkit-linear-gradient(top,  #993cc4 0%,#6c3682 100%);
+      background: -o-linear-gradient(top,  #993cc4 0%,#6c3682 100%);
+      background: -ms-linear-gradient(top,  #993cc4 0%,#6c3682 100%);
+      background: linear-gradient(to bottom,  #993cc4 0%,#6c3682 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#993cc4', endColorstr='#6c3682',GradientType=0 );
+      
+      color: $secondary-button-color;
+    }
+  }
+  
+  &.red {
+    background: #e52d27;
+    background: -moz-linear-gradient(top,  #e52d27 0%, #b31217 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e52d27), color-stop(100%,#b31217));
+    background: -webkit-linear-gradient(top,  #e52d27 0%,#b31217 100%);
+    background: -o-linear-gradient(top,  #e52d27 0%,#b31217 100%);
+    background: -ms-linear-gradient(top,  #e52d27 0%,#b31217 100%);
+    background: linear-gradient(to bottom,  #e52d27 0%,#b31217 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e52d27', endColorstr='#b31217',GradientType=0 );
+    
+    color: $secondary-button-color;
+
+    &:hover {
+      background: #b31217;
+      background: -moz-linear-gradient(top,  #b31217 0%, #a01114 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b31217), color-stop(100%,#a01114));
+      background: -webkit-linear-gradient(top,  #b31217 0%,#a01114 100%);
+      background: -o-linear-gradient(top,  #b31217 0%,#a01114 100%);
+      background: -ms-linear-gradient(top,  #b31217 0%,#a01114 100%);
+      background: linear-gradient(to bottom,  #b31217 0%,#a01114 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b31217', endColorstr='#a01114',GradientType=0 );
+      
+      color: $secondary-button-color;
+    }
+  }
 
   &.disabled {
     background: $disabled-button-background;
     color: $disabled-button-color;
+  }
+  
+  .add-to-cart.pre-order
+  {
+    display: none;
   }
 }
 

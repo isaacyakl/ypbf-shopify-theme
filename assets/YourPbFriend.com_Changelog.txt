@@ -1,3 +1,9 @@
+1.5.0 - 9/25/2015:Pre-/Cstm Ord Ntcs & Btns
+=========================================
++ Added "Pre-Order", "Custom Order", and "Trade Towards" strings to the english locale file for specific order types. en.default.json:250-252
++ Added button color schemes purple, teal, and red. theme.scss.liquid:1806-1886
++ Added pre-order, customer order, and color swap notices to products when particular tags and types are added to the product. product-form.liquid
+
 1.4.0 - 9/25/2015:Ltst Uplds
 =========================================
 + Added a latest uploads and weekly gun show section on homepage. home-video.liquid;theme.scss.liquid:4590-4650
