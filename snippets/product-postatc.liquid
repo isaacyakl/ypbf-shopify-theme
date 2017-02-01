@@ -1,0 +1,11 @@
+<div class="product-postatc">
+  {% include 'share-buttons' %}
+  <div class="product-sku">
+    <span class="skulabel" unselectable="on">
+      SKU:
+    </span>
+    <span id="variant-sku" itemprop="sku">
+      {{ product.selected_or_first_available_variant.sku }}
+    </span>
+  </div>
+</div>

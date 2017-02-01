@@ -1,5 +1,17 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.11.0 - 4/8/2016:PrdctPgRrngImpr
+=========================================
++ Add product review badge to product page. product-form.liquid
++ Add stock level indicator to product pages. product-form.liquid,theme.liquid
+* Move quantity field next to "Add to Cart" button. product-form.liquid,theme.scss.liquid
+* Rearrange product page and improve visual appeal. product-form.liquid
++ Add handling time based on inventory levels to product pages. product-form.liquid,theme.liquid
+* Change font-size for options. theme.scss.liquid:5477
+* Add sku update when different variant is chosen. product-form.liquid,theme.liquid
+* Change color of handling time on product in collections. product-list-item.liquid:115
+* Removed "Share This!" from share buttons by making font-size: 0. theme.scss.liquid:7714
+
 1.10.2 - 3/29/2016:SchmUpdt
 =========================================
 - Remove "YourPbFriend.com" branding from the end of page titles.theme.liquid:28-32

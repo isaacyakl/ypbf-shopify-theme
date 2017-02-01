@@ -1,51 +1,90 @@
-<div class="product-form" style="padding-top: 0px;">
+<div class="product-form">
   <meta itemprop="name" content="{{ product.title }}">
   <meta itemprop="brand" content="{{ product.vendor }}">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
-    <div class="prodnotes">
-      {% if product.selected_or_first_available_variant.inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'continue' %}
-        {% if product.tags contains 'Pre-Order' %}
-        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the pre-order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</label></p>
-        {% elsif product.tags contains 'Back Order' %}
-        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I am aware that this item is back-ordered.</label></p>
-        {% elsif product.tags contains 'Custom Order' %}
-        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the custom order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</label></p>
+    
+    <div class="prodinfo">
+      <span class="product-price">
+        <span class="product-price-minimum money" itemprop="price">
+          {{ variant.price | money }}
+        </span>
+        <span class="product-price-compare money">
+          {% if variant.compare_at_price_min > variant.price_min %}
+            {{ variant.compare_at_price_min | money }}
+          {% endif %}
+        </span>
+      </span>
+      
+      <p class="prodordrtyp">
+        {% if product.tags contains 'Archive' %}{% comment %}Archived{% endcomment %}
+            Archived/Discontinued.
+        {% elsif product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+          {% if product.tags contains 'Pre-Order' %}
+            Pre-Order Item
+          {% elsif product.tags contains 'Back Order' %}
+            Back Order Item
+          {% elsif product.tags contains 'Custom Order' %}
+            Custom Order Item
+          {% endif %}
         {% endif %}
-      {% endif %}
+      </p>
+    </div>
+    
+    <div class="prodship">
+      
+      <p class="prodinv" id="inventory">
 
-      {% if product.tags contains 'Limited' %}
-          <p>Limited availability item. Please call us for availability before ordering!</p>
-      {% endif %}
-      {% if product.tags contains 'Color Swap' %}
-          <p> This is a swap between two items, which means this item will most likely take longer than normal to fulfill.</p>
-      {% endif %}
-      {% if product.tags contains 'Holiday Shipping' %}
-          <p>Shipping time may be longer than normal due to holiday sales.</p>
-      {% endif %}
-      
-      {% if product.selected_or_first_available_variant.inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'deny' and product.tags contains 'Archive' %}
-      	{% comment %}Archived{% endcomment %}
-     	<p class="usualship" style="color: red;">Archived/Discontinued product.</p>
+      </p>
+      <p class="prodhand">
+      {% if product.tags contains 'Archive' %}
+          {% comment %}Skip{% endcomment %}
       {% else %}
-      	<p class="usualship">
-      		{% include 'shiptime-product' %}
-      	</p>
+              {% include 'shiptime-product' %}
       {% endif %}
+      </p>
       
-      
-	  Free U.S. shipping on all orders. No minimum!<br>
-	  Free shipping outside of the U.S. on orders above $1000.<br>
-	  <a href="/pages/shipping#exclusions"><small><span style="font-style: italic;">Exclusions Apply</span></small></a>
-  	</div>
+    </div>
+    
+    <div class="prodsellpoints">
+      <a href="#reviews" style="color: #1b9db0;" title="Reviews"><div class="shopify-product-reviews-badge" style="margin-bottom: 10px;" data-id="{{ product.id }}"></div></a>
+      <a href="/pages/shipping" title="Shipping Details" class="prodsellpoint">
+      <div class="prodsellpoint">
+       	<img src="data:image/png;base64,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" alt="Free Shipping"/>
+        Free shipping: <strong>U.S.</strong> (No Minimum). <strong>International</strong> ($1000+).<br>
+        <!--<small><span style="font-style: italic;">Exclusions Apply</span></small>//-->
+      </div>
+      </a>
+	  {% if product.type == "Gun" or product.type == "Marker" %}
+      <a href="/pages/warranty-and-returns" title="Free Lifetime Labor" class="prodsellpoint">
+      <div class="prodsellpoint">
+        <img src="data:image/png;base64,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" alt="Free Lifetime Labor" />
+        Free Lifetime Labor Included
+  	  </div>
+      </a>
+      {% if product.tags contains 'Used Paintball Guns' %}
+        <a href="/pages/warranty-and-returns" title="Free 30-Day Guarantee" class="prodsellpoint">
+        <div class="prodsellpoint">
+          <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDQ5MS43NzMgNDkxLjc3MyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDkxLjc3MyA0OTEuNzczOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTIwNC4zMTIsNzIuMzA0YzExLjk1Ni01LjE2LDI1LjExOS04LjA1NywzOC45NzEtOC4wNTdjNTQuMzUxLDAsOTguNDEsNDQuMDY2LDk4LjQxLDk4LjQxNyAgIGMwLDUxLjY0Ny0zOS44MDEsOTMuOTE5LTkwLjM5Niw5OC4wMTFjMC4zMjMtMS41MTUsMC42NTYtMy4wMywxLjE1NC00LjYxOGM2LjAzMi0xOS4xMzIsMjguNjU5LTMxLjY2LDQyLjY4Mi00NC40MTMgICBjMzUuNDM4LTMyLjIyNCwzNy42MDQtOTAuMDQyLTExLjExOS0xMDkuODg4Yy0xOS42NTUtOC4wMDUtNDEuMTE4LTkuODEyLTYxLjEyMi0xNi43NTMgICBDMjE1Ljc1OSw4Mi41MzEsMjA4Ljc4Myw3OC40OTUsMjA0LjMxMiw3Mi4zMDR6IE0xNDQuODcyLDE2Mi42NjhjMCw0Ny4zMDMsMzMuMzg0LDg2Ljc3Miw3Ny44NjUsOTYuMjM0ICAgYzMuMDYzLTE3LjYyLDEyLjU4My0zMi45MzksMjYuNDUzLTQ1LjQ0NmMxNC4wNzUtMTIuNjg0LDM2LjU4MS0yNS4yNTgsNDIuMzA1LTQ0LjU0NGM2LjAyOS0yMC4zMzEtMS45OTctMzUuNjk5LTIxLjgtNDIuMTM3ICAgYy0yNS45MTgtOC40MTctNzMuNzM3LTEyLjcyNi05MC41MzItMzguNjY1QzE1OC4yMDMsMTA2LjE1OSwxNDQuODcyLDEzMi44MzcsMTQ0Ljg3MiwxNjIuNjY4eiBNMTgyLjczOCwyNC4ybC00Ni4yMSw4LjM5OSAgIGMtMi41NzMsMC40Ny01LjA5MiwxLjI0LTcuNDg3LDIuMjg0Yy0xMC42NDYsNC42NTItMTguMjc4LDE0LjY5My0xOS45MTUsMjYuMTk4bC02LjU4OCw0Ni40OTZMNzUuODA0LDE0Ni4xOSAgIGMtOC4yOTgsMTEuOTg2LTcuOTk0LDI3Ljg2NiwwLjc2NCwzOS41MDhsMjguMjE3LDM3LjU0OGw4LjM5Myw0Ni4yMDVjMi4zMTUsMTIuNzM5LDExLjYxMiwyMi44MywyMy43NzEsMjYuMzdsLTg3LjU0LDE0My42MTMgICBjLTEuNTgzLDIuNTkzLTEuMTg4LDUuOTMxLDAuOTUxLDguMDg3YzIuMTM0LDIuMTYyLDUuNDc1LDIuNTgzLDguMDgsMS4wMjNsNzEuMzM1LTQyLjY3MWMwLjgyNCw4LjEzNCwyLjAzNiwyMC4wMzksMy4yNjgsMzEuOTQ1ICAgYzEuMDg4LDEwLjU5MSwyLjE5NywyMS4xNzEsMy4wNjEsMjkuMTA3YzAuNDM1LDMuOTg3LDAuODA2LDcuMzIyLDEuMDgxLDkuNjQ3YzAuNTA0LDQuMTg0LDEuMTE5LDkuMzg1LDYuOTk0LDkuNDU5ICAgYzAuMDI2LDAsMC4wNTksMCwwLjA4NiwwYzEuNzM3LDAsMy40MDktMC42ODksNC42NDYtMS45MDRjMS4wMzctMS4wMTgsMS43MDQtMi40NzQsMS45MTktMy45MjcgICBjMi4yMTgtNy45NywzNi41OTMtODkuNDM3LDY1LjUyNC0xNTcuMjM5bDEwLjQxMSw3LjIxMWM3LjAyLDQuODY1LDE1LjY2NSw2Ljc4LDIzLjk4LDUuNjI2ICAgYy00LjE3My02LjU3OC05LjM1Ni0xMi43MTEtMTQuMjAzLTE5LjUxOWMtOC43MjktMTIuMjY5LTE0LjA1Mi0yNi4xMTItMTQuODM3LTQxLjI0MmMtMC4wMjItMC40MDUsMC4wMjEtMC43ODMsMC4wMTItMS4xODggICBjLTUyLjI0OC0xMC4wNzgtOTEuNzI3LTU1Ljk5NC05MS43MjctMTExLjE4MmMwLTM2LjI4MiwxNy4xMjQtNjguNTAxLDQzLjY1NC04OS4yMzJjLTAuNTYxLTMuNjYxLTAuNjg5LTcuNTk4LTAuMjQ2LTExLjkwNyAgICBNNDQyLjMzMSw0NDQuMTQ2bC05NC4yODktMTUwLjk3OWwyLjAwMy0wLjM2NmMyLjU2OC0wLjQ3MSw1LjA4OS0xLjI0Miw3LjQ4LTIuMjg3YzEwLjY0OS00LjY1NiwxOC4yNzUtMTQuNjkzLDE5LjkxNC0yNi4yMDQgICBsNi41ODgtNDYuNDkybDI2LjczNC0zOC42MTNjOC4yOS0xMS45ODYsNy45ODktMjcuODY2LTAuNzY1LTM5LjUxNmwtMjguMjE1LTM3LjU0MWwtOC4zOTUtNDYuMjA2ICAgYy0yLjYxLTE0LjMzOS0xNC4wNTItMjUuMzQ5LTI4LjQ4Ny0yNy4zOTZsLTQ2LjUtNi42TDI2Ni43MDEsMGMtMjAuMTkyLDE1LjQ2NC00My4wMjMsMjguNDAyLTU3LjcxNyw0OS4xNzMgICBjLTEuNTI5LDIuMTYyLTMuMjM0LDQuNjIyLTQuNjExLDcuMjA3YzEyLjE0Ni00LjQ1MSwyNS4yMTQtNy4wMDQsMzguOTA1LTcuMDA0YzYyLjU2MywwLDExMy4yODksNTAuNzIsMTEzLjI4OSwxMTMuMjg3ICAgYzAsNjAuMDUyLTQ2Ljc2NSwxMDkuMDU0LTEwNS44MzQsMTEyLjkxNGMzLjA0OCwyMS4xODUsMjEuOTgxLDM2LjU4OSwzMS4xOTUsNTcuMjk1YzMuOTA3LDguNzYxLDUuNjA0LDE4LjA0Nyw1LjcyNCwyNy40NDkgICBjMjUuOTIyLDU5LjIyNCw1MS43MjksMTE4LjkyNyw1My42OTMsMTI1LjY4YzAuMjMsMS40NjYsMC45MTcsMi45MSwxLjk1MiwzLjkxMmMxLjI1MywxLjIwOSwyLjkyOCwxLjg3Nyw0LjY2OSwxLjg2ICAgYzAuMDI1LDAsMC4wNTksMCwwLjA4NiwwYzUuODc3LTAuMTM3LDYuNDM1LTUuMzUyLDYuODktOS41MzZjMC4yNTctMi4zMzMsMC41ODUtNS42NjMsMC45ODYtOS42NiAgIGMwLjc3NS03Ljk0MiwxLjc2Ni0xOC41NDUsMi43NDUtMjkuMTQ0YzEuMTAyLTExLjkxMiwyLjE3OC0yMy44MzYsMi45MTgtMzEuOTcxbDcxLjc5OCw0MS44OTJjMi42MiwxLjUzMiw1Ljk1MiwxLjA3Myw4LjA2NC0xLjEwMSAgIEM0NDMuNTc3LDQ1MC4wNzEsNDQzLjkzOCw0NDYuNzI1LDQ0Mi4zMzEsNDQ0LjE0NnoiIGZpbGw9IiMwMDAwMDAiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" alt="Free 30-Day Guarantee" />
+          30-Day Guarantee
+        </div>
+        </a>
+      {% endif %}
+      {% endif %}
+    </div>
+    
+    <a href="https://yourpbfriend.com/pages/financing" target="_blank" title="PayPal Credit Available">
+      <div class="product-promos paypal">
+      </div>
+  	</a>
     
     <div class="product-options">
       <select name="id" id="product-variants">
         {% for variant in product.variants %}
-        <!-- Bold: CSP 5 (for variant) -->
-{% include 'boldcsp_helper' with 'variants' %}
-<!-- // end bold code -->
+          {% comment %}<!-- Bold: CSP 5 (for variant) -->
+          {% include 'boldcsp_helper' with 'variants' %}
+          <!-- // end bold code -->{% endcomment %}
           <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
         {% endfor %}
       </select>
@@ -60,26 +99,51 @@
       </div>
       {% endcomment %}
     </div>
-    {% if settings.enable-product-quantity %}
-      <div class="product-quantity">
-        <div class="input-wrapper">
-          <label for="quantity">{{ 'general.quantity' | t }}</label>
-          <input type="text" name="quantity" id="quantity" value="1" />
-        </div>
-      </div>
-    {% endif %}
-    <div class="product-submit" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <span class="product-price">
-        <span class="product-price-minimum money" itemprop="price">
-          {{ variant.price | money }}
-        </span>
-        <span class="product-price-compare money">
-          {% if variant.compare_at_price_min > variant.price_min %}
-            {{ variant.compare_at_price_min | money }}
+    
+    <div class="prodnotes">
+
+        {% if product.tags contains 'Archive' %}
+      	
+      	{% else %}
+          {% if product.tags contains 'Limited' %}
+              <p>Limited availability item. Please call us for availability before ordering!</p>
           {% endif %}
-        </span>
-      </span>
-      {% if variant.available %}
+          {% if product.tags contains 'Color Swap' %}
+              <p> This is a swap between two items, which means this item will most likely take longer than normal to fulfill.</p>
+          {% endif %}
+          {% if product.tags contains 'Holiday Shipping' %}
+              <p>Shipping time may be longer than normal due to holiday sales.</p>
+          {% endif %}
+      	{% endif %}
+      
+		{% if product.tags contains 'Archive' %}
+      		
+        {% elsif product.selected_or_first_available_variant.inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+          {% if product.tags contains 'Pre-Order' %}
+          <p class="agreecheckbox"><input id="agree" style="vertical-align: middle;" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the pre-order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</label></p>
+          {% elsif product.tags contains 'Back Order' %}
+          <p class="agreecheckbox"><input id="agree" style="vertical-align: middle;" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I am aware that this item is back-ordered.</label></p>
+          {% elsif product.tags contains 'Custom Order' %}
+          <p class="agreecheckbox"><input id="agree" style="vertical-align: middle;" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the custom order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</label></p>
+          {% endif %}
+        {% endif %}
+        
+      </div>
+    
+    <div class="product-submit" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      {% if settings.enable-product-quantity %}
+        <div class="product-quantity">
+          <div class="input-wrapper">
+            <label for="quantity">{{ 'general.quantity' | t }}</label>
+            <input type="text" name="quantity" id="quantity" value="1" />
+          </div>
+        </div>
+      {% endif %}
+      
+	  {% if product.tags contains 'Archive' %}
+      	  <link itemprop="availability" href="http://schema.org/Discontinued">
+      	  <input type="button" class="disabled" id="addToCartDsbld" value="{{ 'products.product.unavailable' | t }}" disabled="disabled"/>
+      {% elsif variant.available %}
         {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
           <input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
           <link itemprop="availability" href="http://schema.org/InStock">
@@ -109,7 +173,9 @@
       		{% endif %}
       {% endif %}
       
-      {% if product.type == 'Marker' or product.type == 'Gun' %}
+	  {% if product.tags contains 'Archive' %}
+      
+      {% elsif product.type == 'Marker' or product.type == 'Gun' %}
       	<a href="http://yourpbfriend.com/pages/trade-in" title="Let's trade!"><input type="button" value="{{ 'products.product.trade_towards' | t }}" /></a>
       {% endif %}
     </div>

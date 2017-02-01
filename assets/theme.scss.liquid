@@ -3725,7 +3725,7 @@ td.cart-item-total {
     min-height: 300px;
   }
   
-  &:hover {
+  &:hover {transition: all 0.5s ease; /* added by Yak */
     -webkit-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.3);
 	box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.3);
@@ -4006,43 +4006,119 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQV
   }
 }
 
-.prodnotes
+.prodordrtyp
 {
-  width: 90%;
+  width: 100%;
   padding: 10px;
   margin: auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
   text-align: center;
-  /*border: 1px solid #8fca5b;*/
-  border-radius: 5px;
-  background: #f7f7f7;
-  font-size: small;
-  
-  /*
-  -webkit-box-shadow: 0px 0px 68px -31px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 68px -31px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 68px -31px rgba(0,0,0,0.75);
-  */
-  
-  @include breakpoint(m) {
-    width: 100%;
-  	font-size: initial;
-  }
+  color: red;
+  font-weight: 600;
+}
+
+.prodinfo
+{
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
   
   p
   {
     margin: 0px;
-    font-weight: 400;
-    color: red;
-    margin-bottom: 20px;
-    font-size: initial;
+    padding: 0px;
+    font-size: small;
+  }
+}
+
+.prodship
+{
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  
+  p
+  {
+    margin: 0px;
+    padding: 0px;
   }
   
-  p.usualship
+  p.prodhand
   {
-	font-weight: 600;
-    color: black;
+    font-size: small;
+    color: #909497;
+  }
+
+  p.prodinv
+  {
+	
+  }
+}
+
+.green
+{
+  color: #008a00;
+}
+
+.red
+{
+  color: red;
+}
+
+.prodsellpoints
+{
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+
+
+  
+  .prodsellpoint {
+	 margin: auto;
+     border: 0px;
+     text-align: center;
+     border-radius: 5px;
+     transition: all 0.5s ease;
+
+     img {
+       vertical-align: middle;
+       height: 20px;
+       margin-right: 12px;
+     }
+  }
+  
+  .prodsellpoint:hover {
+    -ms-transform: scale(1.03,1.03); /* IE 9 */
+    -webkit-transform: scale(1.03,1.03); /* Safari */
+    transform: scale(1.03,1.03);
+  }
+}
+
+a.prodsellpoint
+{
+  text-decoration: none;
+  color: black;
+}
+
+.prodnotes
+{
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  /*margin-bottom: 20px;*/
+  text-align: center;
+  
+  p
+  {
+    margin: 0px;
+    padding: 0px;
+    font-size: small;
+  }
+  
+  p.agreecheckbox
+  {
+    
   }
 }
 
@@ -5254,6 +5330,33 @@ $slideshowSpeed: 0.3s;
   }
 }
 
+.product-promos {
+  width: 100%;
+  height: 60px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 0px;
+  opacity: 1;
+  overflow: hidden;
+  text-align: center;
+    
+  &.paypal {
+    background-image: url('{{ 'PlayNowPayLater.jpg' | asset_url }}');
+  	opacity: 0.9;
+  }
+  
+  img {
+    vertical-align: middle;
+    height: 45%;
+    margin-right: 10px;
+  }
+}
+
+.product-promos:hover {
+  opacity: 1;
+}
+
 .product-details {
   text-align: center;
 }
@@ -5270,8 +5373,8 @@ $slideshowSpeed: 0.3s;
   > div {
     width: 65%;
     margin: 35px auto 0;
-    padding-top: 35px;
-    border-top: 1px solid $border-color;
+    /*padding-top: 35px;*/
+    /*border-top: 1px solid $border-color;*/
 
     &:first-child {
       padding-top: 0;
@@ -5386,20 +5489,19 @@ $slideshowSpeed: 0.3s;
 }
 
 .product-description {
-  margin-top: 45px;
+  padding: 45px 0 45px 0;
+  border-top: 1px solid $border-color;
 
   @include breakpoint(l) {
     clear: both;
     width: 70%;
     margin: 0 auto;
-    padding-top: 45px;
   }
 
   @include breakpoint(m) {
     display: block;
     width: 100%;
     margin: 45px 0 0;
-    padding-top: 0;
   }
 }
 
@@ -5408,7 +5510,7 @@ $slideshowSpeed: 0.3s;
 }
 
 .product-form {
-  margin-top: 35px;
+  margin-top: 0px;
 
   form > *:first-child {
     margin-top: 0;
@@ -5422,9 +5524,11 @@ $slideshowSpeed: 0.3s;
 }
 
 .product-options {
-  font-size: 0;
+  /*font-size: 0;*/
+  font-size: 18px;
   text-align: center;
-  margin: 0 -10px;
+  margin: 20px -10px;
+  padding: 10px;
 
   &.no-options {
     display: none;
@@ -5458,9 +5562,12 @@ $slideshowSpeed: 0.3s;
 
 .product-quantity {
   text-align: center;
+  display: inline; /* Added by Yak */
+  vertical-align: middle; /* Added by Yak */
 
   .input-wrapper {
     margin-top: 20px;
+    display: inline; /* Added by Yak */
 
     .no-options+ & {
       margin-top: 0;
@@ -5484,7 +5591,7 @@ $slideshowSpeed: 0.3s;
 
 .product-submit {
   text-align: center;
-  margin-top: 35px;
+  /*margin-top: 35px;*/
 
   .no-options + & {
     margin-top: 0;
@@ -5492,8 +5599,8 @@ $slideshowSpeed: 0.3s;
 }
 
 .product-price {
-  font-size: 18px;
-  margin-right: 20px;
+  font-size: 23px; /*18px*/
+  /*margin-right: 20px;*//*dont need this anymore because quantity moved next to add to cart button*/
 
   @include breakpoint(s) {
     display: block;
@@ -5512,17 +5619,26 @@ $slideshowSpeed: 0.3s;
   opacity: 0.7;
 }
 
-.product-sku { /* Added by Yak */
-    text-align: center;
-    position: relative;
-    top: -18px;
-    height: 0px;
-    /*font-style: italic;*/
-	padding-bottom: 15px;
+.product-postatc
+{
+  padding-top: 35px;
+  border-top: 1px solid #e5e5e5;
+  margin: 0px;
   
-  @include breakpoint(m) {
-    padding-bottom: 10px;
-  }
+    .product-sku
+  	{
+      text-align: center;
+
+      .skulabel
+      {
+       	font-weight: 600;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none; 
+      }
+  	}
 }
 
 .related-products {
@@ -7596,7 +7712,7 @@ ul li.pagination-position {
 
 .share-buttons {
   font-size: 0;
-  margin: 45px -5px 0;
+  /*margin: 45px -5px 0;*/
 
   a {
     display: inline-block;
@@ -7633,6 +7749,12 @@ ul li.pagination-position {
         color: white;
       }
     }
+  }
+  
+  .share-buttons-label
+  {
+  	font-weight: 400;
+    /*font-size: 16px;*/
   }
 }
 

@@ -1,5 +1,5 @@
 {% assign dateInfo = false %}
-{% if item.tags contains 'Pre-Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
+{% if item.tags contains 'Pre-Order' and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
   {% for tag in item.tags %}
       {% if tag contains 'Releases ' %}
           Releases: {{ tag | remove_first: "Releases " }}
@@ -10,7 +10,7 @@
   {% if dateInfo == false %}
 	  Call For More Info
   {% endif %}
-{% elsif item.tags contains 'Back Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
+{% elsif item.tags contains 'Back Order' and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
   {% for tag in item.tags %}
       {% if tag contains "Back In Stock" %}
           Back In Stock: {{ tag | remove_first: "Back In Stock " }}
@@ -22,21 +22,21 @@
 	  Call For More Info
   {% endif %}
 {% elsif item.tags contains 'Used Guns' or item.selected_or_first_available_variant.inventory_quantity >= 1 %}
-	Usually ships in 1-2 business days.
+	Estimated handling time: 1-2 business days.
 {% elsif item.tags contains 'Call For' %}
 	Call for shipping time.
 {% elsif item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
 	{% assign found = false %}
     {% for tag in item.tags %}
           {% if tag contains 'Hours' or tag contains 'Days' or tag contains 'Weeks' or tag contains 'Months' or tag contains 'Years' %}
-              	Usually ships in {{tag}}.
+              	Estimated handling time: {{tag}}.
 				{% assign found = true %}
 				{% break %}
           {% endif %}
     {% endfor %}
 	{% if found == false %}
 		{% comment %}Default Ship Time If Not Set{% endcomment %}
-		Usually ships in 3-4 business days.
+		Estimated handling time: 3-4 business days.
 	{% endif %}
 {% else %}
 

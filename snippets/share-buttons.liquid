@@ -13,8 +13,8 @@
 {% if settings.share-widget-google-plus %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 {% if settings.share-widget-email %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 {% if platforms > 0 %}
-  <div class="share-buttons" style="border-width: 0px;padding-top: 0px;margin-top: 30px;">
-    <span style="font-weight: 400;font-size: 16px;">
+  <div class="share-buttons">
+    <span class="share-buttons-label">
     	Share this!
     </span>
     {% if settings.share-widget-facebook %}
