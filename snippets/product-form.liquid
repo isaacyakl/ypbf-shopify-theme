@@ -5,12 +5,14 @@
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
     <div class="prodnotes">
-      {% if product.tags contains 'Pre-Order' %}
-      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the pre-order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</label></p>
-      {% elsif product.tags contains 'Back Order' %}
-      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I am aware that this item is back-ordered.</label></p>
-      {% elsif product.tags contains 'Custom Order' %}
-      <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the custom order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</label></p>
+      {% if product.selected_or_first_available_variant.inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+        {% if product.tags contains 'Pre-Order' %}
+        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the pre-order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</label></p>
+        {% elsif product.tags contains 'Back Order' %}
+        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I am aware that this item is back-ordered.</label></p>
+        {% elsif product.tags contains 'Custom Order' %}
+        <p><input id="agree" type="checkbox" onclick="$( '#addToCart' ).prop( 'disabled', false );$( '#addToCart' ).removeClass( 'disabled' );$( '#agree' ).prop( 'disabled', true );"> <label for="agree" id="agreeTxt">I agree to the custom order <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</label></p>
+        {% endif %}
       {% endif %}
 
       {% if product.tags contains 'Limited' %}
@@ -78,19 +80,22 @@
         </span>
       </span>
       {% if variant.available %}
-      	{% if product.tags contains 'Pre-Order' %}
-      		<input class="red disabled" id="addToCart" type="submit" value="{{ 'products.product.pre_order' | t }}" disabled="disabled"/>
-        	<link itemprop="availability" href="http://schema.org/PreOrder">
-      	{% elsif product.tags contains 'Custom Order' %}
-      		<input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" disabled="disabled"/>
-        	<link itemprop="availability" href="http://schema.org/InStock">
+        {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+          <input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
+          <link itemprop="availability" href="http://schema.org/InStock">
+        {% elsif product.tags contains 'Pre-Order' %}
+          <input class="red disabled" id="addToCart" type="submit" value="{{ 'products.product.pre_order' | t }}" disabled="disabled"/>
+          <link itemprop="availability" href="http://schema.org/PreOrder">
+        {% elsif product.tags contains 'Custom Order' %}
+          <input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" disabled="disabled"/>
+          <link itemprop="availability" href="http://schema.org/InStock">
         {% elsif product.tags contains 'Back Order' %}
-      		<input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.back_order' | t }}" disabled="disabled"/>
-        	<link itemprop="availability" href="http://schema.org/OutOfStock">
-		{% else %}
-   			<input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
-      		<link itemprop="availability" href="http://schema.org/InStock">
-	  	{% endif %}
+          <input class="teal disabled" id="addToCart" type="submit" value="{{ 'products.product.back_order' | t }}" disabled="disabled"/>
+          <link itemprop="availability" href="http://schema.org/OutOfStock">
+        {% else %}
+          <input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
+          <link itemprop="availability" href="http://schema.org/InStock">
+        {% endif %}
       {% else %}
       		{% if product.tags contains 'Pre-Order' %}
                 <input type="button" class="disabled" id="addToCartDsbld" value="{{ 'products.product.unavailable' | t }}" disabled="disabled"/>

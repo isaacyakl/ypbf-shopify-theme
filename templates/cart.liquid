@@ -28,12 +28,14 @@
 				{% include 'shiptime-item' %}
               </span>
               
-              {% if item.product.tags contains 'Pre-Order' %}
-      			<span class="cart-item-option" style="color: red; font-weight: 600;">Pre-Order Item - Ordering this indicates you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</span>
-              {% elsif item.product.tags contains 'Custom Order' %}
-              	<span class="cart-item-option" style="color: red; font-weight: 600;">Custom Order - Ordering this indicates you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</span>
-		      {% elsif item.product.tags contains 'Back Order' %}
-              	<span class="cart-item-option" style="color: red; font-weight: 600;">Back Order - Ordering this indicates that you're aware this is back-ordered.</span>
+              {% if item.product.selected_or_first_available_variant.inventory_quantity <= 0 and item.product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+                {% if item.product.tags contains 'Pre-Order' %}
+                  <span class="cart-item-option" style="color: red; font-weight: 600;">Pre-Order Item - Ordering this indicates you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.</span>
+                {% elsif item.product.tags contains 'Custom Order' %}
+                  <span class="cart-item-option" style="color: red; font-weight: 600;">Custom Order - Ordering this indicates you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</span>
+                {% elsif item.product.tags contains 'Back Order' %}
+                  <span class="cart-item-option" style="color: red; font-weight: 600;">Back Order - Ordering this indicates that you're aware this is back-ordered.</span>
+                {% endif %}
               {% endif %}
               
               {% if item.properties.size > 0 %}

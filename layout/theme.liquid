@@ -4,10 +4,19 @@
 <!--[if IE 9]><html class="no-js ie9 lt-ie10"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
+
+    <script>
+      {% if customer.tags.size > 0 %}
+        window.upsell_customer_tags = "{{customer.tags |join: ','}}";
+      {% endif %}
+    </script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   {% capture protocol %}{{ 'reset.css' | asset_url | truncate: 5, '' }}{% endcapture %}
   {% if protocol =='https' %}<meta name="robots" content="noindex, follow" />{% endif %}
+  {% if template contains 'page.nofollow' %}
+	<meta name="robots" content="noindex">
+  {% endif %}
   <title>
     {{ page_title }}
     {% if current_tags %}
@@ -161,6 +170,6 @@ var shappify_customer_tags ={{ customer.tags|json }}
 
 {% include 'zopim' %}
 
-<script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
+<!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END --><script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
 </body>
 </html>

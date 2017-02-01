@@ -62,6 +62,9 @@
 
     // raw javascript class functions, thanks to Jake Trent (http://jaketrent.com/post/addremove-classes-raw-javascript/)
         hasClass = function (el, className) {
+            if ((el == null) || (el == undefined)) {
+                return false;
+            }
             if (el.classList) {
                 return el.classList.contains(className)
             }
@@ -71,6 +74,9 @@
         },
 
         addClass = function (el, className) {
+            if ((el == null) || (el == undefined)) {
+                return;
+            }
             if (el.classList) {
                 el.classList.add(className)
             }
@@ -80,6 +86,9 @@
         },
 
         removeClass = function (el, className) {
+            if ((el == null) || (el == undefined)) {
+                return;
+            }
             if (el.classList) {
                 el.classList.remove(className)
             }
@@ -104,16 +113,19 @@
         },
 
     // tree and list functions
-        flattenTree = function (branch) {
+        flattenTree = function (branch, exclude_top_head) {
             var list = [];
-            // we're only interested in flattening items that can be linked to
-            if (branch.url !== undefined) {
-                list = [{"title": branch.title, "url": branch.url, "pointer": branch}];
+            if (!exclude_top_head) {
+                // we're only interested in flattening items that can be linked to
+                if (branch.url !== undefined) {
+                    list = [{"title": branch.title, "url": branch.url, "pointer": branch}];
+                }
             }
             // recurse on subtree if we have one
             if (branch.links !== undefined) {
                 for (var i = 0; i < branch.links.length; ++i) {
-                    var sublist = flattenTree(branch.links[i]);
+                    // never exclude head of subtree because it's not the head of the whole tree
+                    var sublist = flattenTree(branch.links[i], false);
                     // merge the sublist into list nicely (list = list + sublist)
                     list.push.apply(list, sublist);
                 }
@@ -301,20 +313,23 @@
                     }
                     // tag active category
                     var active_cat_elem = document.getElementById(getCatId(branch));
-                    addClass(active_cat_elem, name_activecat);
-                    // tag active category as duplicate if dub
-                    if (dub) {
-                        addClass(active_cat_elem, name_activeduplicat);
-                    }
-                    // replace first link only (because nested <ul> may contain more links)
-                    active_cat_elem.innerHTML = active_cat_elem.innerHTML.replace(/<a/, '<span').replace(/a>/, 'span>');
-                    // tag first generation of children (subcatdirect)
-                    processCategoryListTagLinks(branch.links, name_subcatdirect, false);
-                    // tag all children and grandchildren (subcat)
-                    processCategoryListTagLinks(branch.links, name_subcat, true);
-                    // tag all children and grandchildren as sub-category of duplicate if dub
-                    if (dub) {
-                        processCategoryListTagLinks(branch.links, name_subduplicat, true);
+                    // only tag up subcats/dups if we can find the activecat
+                    if (active_cat_elem != null) {
+                        addClass(active_cat_elem, name_activecat);
+                        // tag active category as duplicate if dub
+                        if (dub) {
+                            addClass(active_cat_elem, name_activeduplicat);
+                        }
+                        // replace first link only (because nested <ul> may contain more links)
+                        active_cat_elem.innerHTML = active_cat_elem.innerHTML.replace(/<a/, '<span').replace(/a>/, 'span>');
+                        // tag first generation of children (subcatdirect)
+                        processCategoryListTagLinks(branch.links, name_subcatdirect, false);
+                        // tag all children and grandchildren (subcat)
+                        processCategoryListTagLinks(branch.links, name_subcat, true);
+                        // tag all children and grandchildren as sub-category of duplicate if dub
+                        if (dub) {
+                            processCategoryListTagLinks(branch.links, name_subduplicat, true);
+                        }
                     }
                 }
             } else {
@@ -397,8 +412,8 @@
                     processed('tree', true);
                     // link each tree node to its parent
                     doublyLinkTree(tree);
-                    // transform category tree into simple linear list
-                    var list = flattenTree(tree);
+                    // transform category tree into simple linear list, but exclude head
+                    var list = flattenTree(tree, true);
                     // loop through list to find matching branches
                     window.uncompt_cat.matches = searchList(window.location.pathname, list);
                 }

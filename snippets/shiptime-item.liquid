@@ -1,17 +1,26 @@
-{% if item.tags contains 'Pre-Order' %}
+{% assign dateInfo = false %}
+{% if item.tags contains 'Pre-Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
   {% for tag in item.tags %}
       {% if tag contains 'Release ' %}
           Release: {{ tag | remove_first: "Release " }}
+		  {% assign dateInfo = true %}
 		  {% break %}
       {% endif %}
   {% endfor %}
-{% elsif item.tags contains 'Back Order' %}
+  {% if dateInfo == false %}
+	  Call For More Info
+  {% endif %}
+{% elsif item.tags contains 'Back Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
   {% for tag in item.tags %}
-      {% if tag contains 'Back' %}
-          Back In Stock: {{ tag | remove_first: "Back " }}
+      {% if tag contains "Back In Stock" %}
+          Back In Stock: {{ tag | remove_first: "Back In Stock " }}
+		  {% assign dateInfo = true %}
 		  {% break %}
       {% endif %}
   {% endfor %}
+  {% if dateInfo == false %}
+	  Call For More Info
+  {% endif %}
 {% elsif item.tags contains 'Used Guns' or item.selected_or_first_available_variant.inventory_quantity >= 1 %}
 	Usually ships in 1-2 business days.
 {% elsif item.tags contains 'Call For' %}

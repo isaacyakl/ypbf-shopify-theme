@@ -1,5 +1,16 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.10.1 - 3/15/2016:NtfctnHddnInStck
+=========================================
+* Update so that notifications, buttons, and checkboxes (e.g. Pre-Order) will not show up when there is stock for a product. product-form.liquid,shiptime-product.liquid,shiptime-item.liquid,cart.liquid,product-list-item.liquid,email notifications
+* Lower z-index of select wrapper select items (filter options) on collections page to keep from  interfering with drop-down menus. theme.scss.liquid:2083
++ Add price on products in a collection even when out of stock. product-list-item.liquid:117-124
+* Change date tag for when a product will be back in stock on back orders to "Back In Stock <Date>" instead of "Back <Date>" which conflicted with back order tag "Back Order". shiptime-item.liquid:13-14,shiptime-product.liquid:13-14
+* Lower z-index of featured images on homepage. theme.scss.liquid:4862
+* Add page.nofollow.liquid template for non-indexed pages.
+* Add code to detect whether to add nofollow meta element or not. theme.liquid:17-9
+* Fix double drop-down menu option arrows on product pages and in cart. Also changed dd arrow style to match main menu dd arrows. theme.scss.liquid:2060-79
+
 1.10.0 - 2/19/2016:PrdctNtfsBrdcrmbs
 =========================================
 + Add breadcrumbs via Uncomplicated Categories app. breadcrumbs.liquid:2-65

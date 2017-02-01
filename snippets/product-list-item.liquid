@@ -55,9 +55,9 @@
         <span class="product-list-item-badge meta inventory">{{ stockText }}</span>
       {% elsif onSale %}
         <span class="product-list-item-badge meta sale">{{ saleText }}</span>
-	  {% elsif item.tags contains 'Pre-Order' %}
+	  {% elsif item.tags contains 'Pre-Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
       		<span class="product-list-item-badge inventory" style="color: #a741d7;">Pre-Order</span>
-	  {% elsif item.tags contains 'Back Order' %}
+	  {% elsif item.tags contains 'Back Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
       		<span class="product-list-item-badge inventory" style="color: #1B9DB0;">Back Order</span>
       {% endif %}
     {% else %}
@@ -114,7 +114,15 @@
       	<br/>
       	<span style="font-size: smaller;">{% include 'shiptime-item' %}</span>
       {% else %}
-        {% if item.tags contains 'Archive' %}
+		{% if onSale %}
+            <span class="price on-sale">
+              <span class="money">{{ item.price_min | money }}</span>
+              <span class="original money">{{ item.compare_at_price_min | money }}</span>
+            </span><br/>
+        {% else %}
+            <span class="price money">{{ item.price_min | money }}</span><br/>
+        {% endif %}
+      	{% if item.tags contains 'Archive' %}
       		No longer available.
       	{% else %}
       		{{ 'products.product.sold_out' | t }}

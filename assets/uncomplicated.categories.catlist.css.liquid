@@ -30,11 +30,11 @@
 }
 
 /* by default when styled, don't show product count on categories with 0 products */
-.category-list.show-styled .pc-zero-hide {
+.category-list.show-styled span.pc-zero-hide {
     display: none;
 }
 
-.category-list.show-styled.show-nopc .pc {
+.category-list.show-styled.show-nopc span.pc {
     display: none;
 }
 
@@ -170,6 +170,14 @@
 
 /* remove duplicates and all their children */
 .category-list.show-styled.show-nodups li.activeduplicat, .category-list.show-styled.show-nodups li.subduplicat {
+    display: none;
+}
+
+
+/* show-hide-catpc-zero */
+
+/* hide categories that have zero products and zero sub-categories */
+.category-list.show-styled.show-hide-catpc-zero li.catpc-zero {
     display: none;
 }
 

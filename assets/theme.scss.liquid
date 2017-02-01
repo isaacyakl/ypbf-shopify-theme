@@ -2057,36 +2057,40 @@ select {
     margin-top: 10px;
   }
   
-  .selected-text:after { /* Added down arrow by Yak */
-    content: '\E006';
+  .selected-text:after {
     margin-left: 10px;
     @include icon-font();
+  }
+  
+  label.selected-text:after { /* Added down arrow to collection filters by Yak */
+   	content: '\E006'; 
   }
 
   @include compliment($body-background-color);
 
   &:after {
-    content: '\E007';
+    /*content: '\E007';*/ /* Changed down arrow style in options dd menus by Yak */
+    content: '\E006';
     position: absolute;
     right: 15px;
     top: 50%;
     margin-top: -7px;
     @include icon-font();
   }
-
+  
   select {
     @extend %cover;
     color: black;
     opacity: 0;
     filter: alpha(opacity=0); /* IE8 */
     cursor: pointer;
-    z-index: 2;
+    z-index: 1; /*was 2*/
     width: 100%; /* needed for Firefox */
     height: 100%; /* needed for IE */
 
     -webkit-appearance: none;
   }
-
+  
 }
 
 /* iframes and embeds */
@@ -4859,7 +4863,7 @@ $slideshowSpeed: 0.3s;
   bottom: 0;
   left: 15px;
   display: block;
-  z-index: 2;
+  z-index: 1; /* was 2 but lowered to avoid dropdown menu conflicts */
   
   transition: all 0.5s ease 0s; /* Add smooth transitions. Added by Yak */
 
