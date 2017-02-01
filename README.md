@@ -1,5 +1,27 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.13.2 - 5/24/2016:LdngTimeOptmztn
+=========================================
+- Removed upsell script leftovers. theme.liquid:7
+- Remove commented out show title append. theme.liquid:20
+* Change slide sizes from 1440x640 to 1260x560. settings_schema.json:1631-2,1701-2,1771-2,1841-2,1911-2
+* Change home feature sizes from 600xX to 540xX. settings_schema.json:2083,2154,2225,2312,2383,2454,2541,2612,2683
+* Change size of product list images to medium instead of large. product-list-item.liquid:42
+* Change free shipping notification to say "U.S.A." instead of "U.S.". header.liquid:96
+* Minified and stored original source for updating inventory on product pages in update-inventor.js. +update-inventory.js;theme.liquid:148-9
+* Minified contact us information in header and stored original source in contact-us-info.js. +contact-us-info.js;header.liquid:34-5
+* Minified the modified option_selection.js script and embedded it into theme.liquid. theme.liquid:149-50
+- Remove freepik & flaticons attribution under CreativeCommons license 3.0. footer.liquid:157
+* Improve comments on code. footer.liquid:156,161
+* Minified theme.js code and made theme.min.js.liquid obsolete by moving contents into scripts-combined.min.js.liquid. theme.min.js.liquid,scripts-combined.min.js.liquid
+- Remove Facebook widget from homepage footer and Facebook script include. index.liquid:35,theme.liquid:94
+* Correct error in minified version of theme.js which ignored the number of images to display. scripts-combined.min.js.liquid:27-8
++ Preserve original theme.js in theme-BAK.js.liquid.
++ Keep theme.js.liquid for reference and modifying before minifying and embedding into scripts-combined.min.js.liquid.
+* Change instagram image sizes from standard_resolution to low_resolution. scrits-combined.min.js.lqidui:27-8;theme.js.liquid:477
+- Remove main menu from footer menus and fix the layout for three menus instead of four. footer.liquid:85-93,61
+* Move content_for_header liquid tag to scripts section of head. theme.liquid:49
+
 1.13.1 - 5/10/2016:PrdctPgLnks
 =========================================
 + Add link to "Free Lifetime Labor" badge on product pages. product-form.liquid:62

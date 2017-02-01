@@ -474,7 +474,7 @@
               results = [];
               for (j = 0, len = ref.length; j < len; j++) {
                 photo = ref[j];
-                results.push(_this.$(".footer-instagram-photos").append("<a class='footer-instagram-photo' href='" + photo.link + "' target='_blank'><img alt='' src='" + photo.images.low_resolution.url + "'></a>"));
+                results.push(_this.$(".footer-instagram-photos").append("<a class='footer-instagram-photo' href='" + photo.link + "' target='_blank'><img alt='' src='" + photo.images.standard_resolution.url + "'></a>"));
               }
               return results;
             } else {

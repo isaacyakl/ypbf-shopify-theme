@@ -58,7 +58,7 @@
     <div class="bottom-menu">
     </div>
     {% endcomment %}
- 	<div class="footer-modules showing-x-modules bottom-flow">
+ 	<div class="footer-modules showing-3-modules bottom-flow">
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists['company'].title }}</h4>
@@ -82,7 +82,7 @@
         <ul>
           {% for link in linklists['articles'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
-      </div>
+      </div>{% comment %}
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists['main-menu'].title }}</h4>
@@ -90,7 +90,7 @@
         <ul>
           {% for link in linklists['main-menu'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
-      </div>
+      </div>{% endcomment %}
 	  {% comment %}
       <div class="footer-module">
         {% if settings.footer-titles %}
@@ -154,7 +154,6 @@
       	{{ 'layout.footer.copyright_html' | t: year: year, shop_name: shop.name }}<br/>
         <span class="credits">
 			Design by <a href="http://www.izacktheyak.com/" target="_blank">Yak</a> based on <a href="https://www.pixelunion.net/themes/shopify/pacific/">Pacific theme</a> by <a href="http://www.pixelunion.net">Pixel Union</a>.<br/>
-        	Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
       	</span>
       </p>
       {% if shop.enabled_payment_types.size > 0 and settings.footer-show-payment-options %}
@@ -174,4 +173,3 @@
     <span class="modal-close modal-close-secondary">{{ 'general.close' | t }}</span>
   </div>
 </div>
-{% comment %} Add Scroll to top code {% endcomment %}

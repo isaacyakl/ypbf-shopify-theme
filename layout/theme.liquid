@@ -4,19 +4,8 @@
 <!--[if IE 9]><html class="no-js ie9 lt-ie10"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-
-    <script>
-      {% if customer.tags.size > 0 %}
-        window.upsell_customer_tags = "{{customer.tags |join: ','}}";
-      {% endif %}
-    </script>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  {% capture protocol %}{{ 'reset.css' | asset_url | truncate: 5, '' }}{% endcapture %}
-  {% if protocol =='https' %}<meta name="robots" content="noindex, follow" />{% endif %}
-  {% if template contains 'page.nofollow' %}
-	<meta name="robots" content="noindex">
-  {% endif %}
+  
+  {% comment %} == Title ======================================= {% endcomment %}
   <title>
     {{ page_title }}
     {% if current_tags %}
@@ -25,40 +14,39 @@
     {% if current_page != 1 %}
       &ndash; {{ 'general.pagination.seo_title' | t }} {{ current_page }}
     {% endif %}
-	{% comment %}
-        {% unless page_title contains shop.name %}
-          &ndash; {{ shop.name }}
-        {% endunless %}
-	{% endcomment %}
   </title>
+    
+  
+  {% comment %} == META ======================================= {% endcomment %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  {% capture protocol %}{{ 'reset.css' | asset_url | truncate: 5, '' }}{% endcapture %}
+  {% if protocol =='https' %}<meta name="robots" content="noindex, follow" />{% endif %}
+  {% if template contains 'page.nofollow' %}<meta name="robots" content="noindex">{% endif %}
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}" />
   {% endif %}
-  <meta name="google-site-verification" content="GBKzMQ1rE7FUqqwiOZV1-nLnJC5SuEfI7cbQvzUDQv0" />
-  <meta name="msvalidate.01" content="ACA0CE5C9B4A929A69729E2E7D41B8D2" />
+  {% if template contains 'index' %}
+    <meta name="google-site-verification" content="GBKzMQ1rE7FUqqwiOZV1-nLnJC5SuEfI7cbQvzUDQv0" />
+    <meta name="msvalidate.01" content="ACA0CE5C9B4A929A69729E2E7D41B8D2" />
+  {% endif %}
   <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon" />
   <link rel="canonical" href="{{ canonical_url }}" />
   <meta name="viewport" content="width=device-width" />
-  {{ content_for_header }}
   {% include 'social-meta' %}
+  
+  {% comment %} == CSS ======================================= {% endcomment %}
   <!-- Theme CSS -->
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-  <!-- Add media query support to IE8 -->
-  <!--[if lt IE 9]>
-  <script src="{{ 'respond.min.js' | asset_url }}"></script>
-  <link href="{{ 'respond-proxy.html' | asset_url | split: '?' | first }}" id="respond-proxy" rel="respond-proxy" />
-  {% assign respond_js_secret_key = shop.domain | md5 %}
-  <link href="//{{ shop.domain }}/search?q={{ respond_js_secret_key }}" id="respond-redirect" rel="respond-redirect" />
-  <script src="//{{ shop.domain }}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
-  <![endif]-->
-  <!-- Theme object -->
-  {% include 'theme-options' %}
   {% if settings.custom-css != blank %}
     <!-- Custom CSS -->
     <style>
       {{ settings.custom-css }}
     </style>
   {% endif %}
+  
+  {% comment %} == Javascript ======================================= {% endcomment %}
+  {{ content_for_header }}
   <script>
     {% comment %}
     var today = new Date(); // Today's Date
@@ -74,7 +62,20 @@
     {% endif %}
 
   </script>
+  <!-- Add media query support to IE8 -->
+  <!--[if lt IE 9]>
+  <script src="{{ 'respond.min.js' | asset_url }}"></script>
+  <link href="{{ 'respond-proxy.html' | asset_url | split: '?' | first }}" id="respond-proxy" rel="respond-proxy" />
+  {% assign respond_js_secret_key = shop.domain | md5 %}
+  <link href="//{{ shop.domain }}/search?q={{ respond_js_secret_key }}" id="respond-redirect" rel="respond-redirect" />
+  <script src="//{{ shop.domain }}/search?q={{ respond_js_secret_key }}" type="text/javascript"></script>
+  <![endif]-->
+  <!-- Theme object -->
+  {% include 'theme-options' %}
+
 </head>
+
+{% comment %} == Sidebar ======================================= {% endcomment %}
 {% assign sidebar = false %}
 {% if settings.enable-sidebar == 'all' %}
   {% if template contains 'index' %}
@@ -85,19 +86,11 @@
 {% elsif settings.enable-sidebar == 'not-home' and template contains 'collection' %}
   {% assign sidebar = true %}
 {% endif %}
+
 <body class="{% if customer %}customer-logged-in{% endif %} sidebar-{% if sidebar %}enabled{% else %}disabled{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
-  {% if template contains 'index' %}
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) return;
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-    </script>
-  {% endif %}
+  
   {% include 'header' %}
+  
   <div class="main-content-wrapper">
     {% unless template contains 'index' %}
       <div class="page-header">
@@ -115,10 +108,8 @@
 
 
 
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}= Scripts =================================================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
-  {{ 'scripts-combined.js' | asset_url | script_tag }}
+{% comment %} == Scripts ======================================= {% endcomment %}
+  {{ 'scripts-combined.min.js' | asset_url | script_tag }}
   {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
   {% if template contains 'cart' %}
     {% if settings.cart-shipping-calculator %}
@@ -136,207 +127,25 @@
     {{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
     {{ "jquery.currencies.js" | asset_url | script_tag }}
   {% endif %}
-  {% if template contains 'product' %}{% comment %} If we are on a product page{% endcomment %}
+  {% if template contains 'product' %}
+  	{% comment %}option_selection.js replaced by modified version below{% endcomment %}
     {% comment %}{{ 'option_selection.js' | shopify_asset_url | script_tag }}{% endcomment %}
-  	{{ 'option_selection.js' | asset_url | script_tag }}
   	<script>
-      function tagExists(theProduct, theTag)/*check if a product has a tag*/
-      {
-        /*console.log("Searching for "+theTag+"...");*/
-        for(i = 0 ; i < theProduct.tags.length ; i++)
-        {
-          if(theTag == theProduct.tags[i])
-          {
-            /*console.log("Found.");*/
-            return true;
-          }
-        }
-        /*console.log("Not Found.");*/
-        return false;
-      }
-      
-      function updateInv(product)/*inventory display updater*/
-      {
-          console.log('updating stock...');
-          			
-          var varID = $.urlParam('variant');/*grab variant value from url*//*console.log('Var ID: ' +varID);*/
-          var varNum = 0;/*variable for location of selected variant in array*/
+    	{% comment %} The modified and minified version of option_selection.js to include stock updates on product pages. The modified non-minified version can all so be found at option_selection.js for further customization. {% endcomment %}
+  		function floatToString(t,e){var o=t.toFixed(e).toString();return o.match(/^\.\d+/)?"0"+o:o}"undefined"==typeof window.Shopify&&(window.Shopify={}),Shopify.each=function(t,e){for(var o=0;o<t.length;o++)e(t[o],o)},Shopify.map=function(t,e){for(var o=[],i=0;i<t.length;i++)o.push(e(t[i],i));return o},Shopify.arrayIncludes=function(t,e){for(var o=0;o<t.length;o++)if(t[o]==e)return!0;return!1},Shopify.uniq=function(t){for(var e=[],o=0;o<t.length;o++)Shopify.arrayIncludes(e,t[o])||e.push(t[o]);return e},Shopify.isDefined=function(t){return"undefined"==typeof t?!1:!0},Shopify.getClass=function(t){return Object.prototype.toString.call(t).slice(8,-1)},Shopify.extend=function(t,e){function o(){}o.prototype=e.prototype,t.prototype=new o,t.prototype.constructor=t,t.baseConstructor=e,t.superClass=e.prototype},Shopify.locationSearch=function(){return window.location.search},Shopify.locationHash=function(){return window.location.hash},Shopify.replaceState=function(t){window.history.replaceState({},document.title,t)},Shopify.urlParam=function(t){var e=RegExp("[?&]"+t+"=([^&#]*)").exec(Shopify.locationSearch());return e&&decodeURIComponent(e[1].replace(/\+/g," "))},Shopify.newState=function(t,e){var o;return o=Shopify.urlParam(t)?Shopify.locationSearch().replace(RegExp("("+t+"=)[^&#]+"),"$1"+e):""===Shopify.locationSearch()?"?"+t+"="+e:Shopify.locationSearch()+"&"+t+"="+e,o+Shopify.locationHash()},Shopify.setParam=function(t,e){Shopify.replaceState(Shopify.newState(t,e))},Shopify.Product=function(t){Shopify.isDefined(t)&&this.update(t)},Shopify.Product.prototype.update=function(t){for(property in t)this[property]=t[property]},Shopify.Product.prototype.optionNames=function(){return"Array"==Shopify.getClass(this.options)?this.options:[]},Shopify.Product.prototype.optionValues=function(t){if(!Shopify.isDefined(this.variants))return null;var e=Shopify.map(this.variants,function(e){var o="option"+(t+1);return void 0==e[o]?null:e[o]});return null==e[0]?null:Shopify.uniq(e)},Shopify.Product.prototype.getVariant=function(t){var e=null;return t.length!=this.options.length?e:(Shopify.each(this.variants,function(o){for(var i=!0,r=0;r<t.length;r++){var n="option"+(r+1);o[n]!=t[r]&&(i=!1)}return 1==i?void(e=o):void 0}),e)},Shopify.Product.prototype.getVariantById=function(t){for(var e=0;e<this.variants.length;e++){var o=this.variants[e];if(t==o.id)return o}return null},Shopify.money_format="${{amount}}",Shopify.formatMoney=function(t,e){function o(t,e){return"undefined"==typeof t?e:t}function i(t,e,i,r){if(e=o(e,2),i=o(i,","),r=o(r,"."),isNaN(t)||null==t)return 0;t=(t/100).toFixed(e);var n=t.split("."),a=n[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1"+i),s=n[1]?r+n[1]:"";return a+s}"string"==typeof t&&(t=t.replace(".",""));var r="",n=/\{\{\s*(\w+)\s*\}\}/,a=e||this.money_format;switch(a.match(n)[1]){case"amount":r=i(t,2);break;case"amount_no_decimals":r=i(t,0);break;case"amount_with_comma_separator":r=i(t,2,".",",");break;case"amount_no_decimals_with_comma_separator":r=i(t,0,".",",");break;case"amount_no_decimals_with_space_separator":r=i(t,0," ")}return a.replace(n,r)},Shopify.OptionSelectors=function(t,e){return this.selectorDivClass="selector-wrapper",this.selectorClass="single-option-selector",this.variantIdFieldIdSuffix="-variant-id",this.variantIdField=null,this.historyState=null,this.selectors=[],this.domIdPrefix=t,this.product=new Shopify.Product(e.product),this.onVariantSelected=Shopify.isDefined(e.onVariantSelected)?e.onVariantSelected:function(){},this.replaceSelector(t),this.initDropdown(),e.enableHistoryState&&(this.historyState=new Shopify.OptionSelectors.HistoryState(this)),!0},Shopify.OptionSelectors.prototype.initDropdown=function(){var t={initialLoad:!0},e=this.selectVariantFromDropdown(t);if(!e){var o=this;setTimeout(function(){o.selectVariantFromParams(t)||o.fireOnChangeForFirstDropdown.call(o,t)})}},Shopify.OptionSelectors.prototype.fireOnChangeForFirstDropdown=function(t){this.selectors[0].element.onchange(t)},Shopify.OptionSelectors.prototype.selectVariantFromParamsOrDropdown=function(t){var e=this.selectVariantFromParams(t);e||this.selectVariantFromDropdown(t)},Shopify.OptionSelectors.prototype.replaceSelector=function(t){var e=document.getElementById(t),o=e.parentNode;Shopify.each(this.buildSelectors(),function(t){o.insertBefore(t,e)}),e.style.display="none",this.variantIdField=e},Shopify.OptionSelectors.prototype.selectVariantFromDropdown=function(t){var e=document.getElementById(this.domIdPrefix).querySelector("[selected]");if(e||(e=document.getElementById(this.domIdPrefix).querySelector('[selected="selected"]')),!e)return!1;var o=e.value;return this.selectVariant(o,t)},Shopify.OptionSelectors.prototype.selectVariantFromParams=function(t){var e=Shopify.urlParam("variant");return this.selectVariant(e,t)},Shopify.OptionSelectors.prototype.selectVariant=function(t,e){var o=this.product.getVariantById(t);if(null==o)return!1;for(var i=0;i<this.selectors.length;i++){var r=this.selectors[i].element,n=r.getAttribute("data-option"),a=o[n];null!=a&&this.optionExistInSelect(r,a)&&(r.value=a)}return"undefined"!=typeof jQuery?jQuery(this.selectors[0].element).trigger("change",e):this.selectors[0].element.onchange(e),!0},Shopify.OptionSelectors.prototype.optionExistInSelect=function(t,e){for(var o=0;o<t.options.length;o++)if(t.options[o].value==e)return!0},Shopify.OptionSelectors.prototype.insertSelectors=function(t,e){Shopify.isDefined(e)&&this.setMessageElement(e),this.domIdPrefix="product-"+this.product.id+"-variant-selector";var o=document.getElementById(t);Shopify.each(this.buildSelectors(),function(t){o.appendChild(t)})},Shopify.OptionSelectors.prototype.buildSelectors=function(){for(var t=0;t<this.product.optionNames().length;t++){var e=new Shopify.SingleOptionSelector(this,t,this.product.optionNames()[t],this.product.optionValues(t));e.element.disabled=!1,this.selectors.push(e)}var o=this.selectorDivClass,i=this.product.optionNames(),r=Shopify.map(this.selectors,function(t){var e=document.createElement("div");if(e.setAttribute("class",o),i.length>1){var r=document.createElement("label");r.htmlFor=t.element.id,r.innerHTML=t.name,e.appendChild(r)}return e.appendChild(t.element),e});return r},Shopify.OptionSelectors.prototype.selectedValues=function(){for(var t=[],e=0;e<this.selectors.length;e++){var o=this.selectors[e].element.value;t.push(o)}return t},Shopify.OptionSelectors.prototype.updateSelectors=function(t,e){var o=this.selectedValues(),i=this.product.getVariant(o);i?(this.variantIdField.disabled=!1,this.variantIdField.value=i.id):this.variantIdField.disabled=!0,this.onVariantSelected(i,this,e),null!=this.historyState&&this.historyState.onVariantChange(i,this,e)},Shopify.OptionSelectorsFromDOM=function(t,e){var o=e.optionNames||[],i=e.priceFieldExists||!0,r=e.delimiter||"/",n=this.createProductFromSelector(t,o,i,r);e.product=n,Shopify.OptionSelectorsFromDOM.baseConstructor.call(this,t,e)},Shopify.extend(Shopify.OptionSelectorsFromDOM,Shopify.OptionSelectors),Shopify.OptionSelectorsFromDOM.prototype.createProductFromSelector=function(t,e,o,i){if(!Shopify.isDefined(o))var o=!0;if(!Shopify.isDefined(i))var i="/";var r=document.getElementById(t),n=r.childNodes,a=(r.parentNode,e.length),s=[];Shopify.each(n,function(t,r){if(1==t.nodeType&&"option"==t.tagName.toLowerCase()){var n=t.innerHTML.split(new RegExp("\\s*\\"+i+"\\s*"));0==e.length&&(a=n.length-(o?1:0));var p=n.slice(0,a),l=o?n[a]:"",c=(t.getAttribute("value"),{available:t.disabled?!1:!0,id:parseFloat(t.value),price:l,option1:p[0],option2:p[1],option3:p[2]});s.push(c)}});var p={variants:s};if(0==e.length){p.options=[];for(var l=0;a>l;l++)p.options[l]="option "+(l+1)}else p.options=e;return p},Shopify.SingleOptionSelector=function(t,e,o,i){this.multiSelector=t,this.values=i,this.index=e,this.name=o,this.element=document.createElement("select");for(var r=0;r<i.length;r++){var n=document.createElement("option");n.value=i[r],n.innerHTML=i[r],this.element.appendChild(n)}return this.element.setAttribute("class",this.multiSelector.selectorClass),this.element.setAttribute("data-option","option"+(e+1)),this.element.id=t.domIdPrefix+"-option-"+e,this.element.onchange=function(o,i){i=i||{},t.updateSelectors(e,i)},!0},Shopify.Image={preload:function(t,e){for(var o=0;o<t.length;o++){var i=t[o];this.loadImage(this.getSizedImageUrl(i,e))}},loadImage:function(t){(new Image).src=t},switchImage:function(t,e,o){if(t&&e){var i=this.imageSize(e.src),r=this.getSizedImageUrl(t.src,i);o?o(r,t,e):e.src=r}},imageSize:function(t){var e=t.match(/_(1024x1024|2048x2048|pico|icon|thumb|small|compact|medium|large|grande)\./);return null!=e?e[1]:null},getSizedImageUrl:function(t,e){if(null==e)return t;if("master"==e)return this.removeProtocol(t);var o=t.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);if(null!=o){var i=t.split(o[0]),r=o[0];return this.removeProtocol(i[0]+"_"+e+r)}return null},removeProtocol:function(t){return t.replace(/http(s)?:/,"")}},Shopify.OptionSelectors.HistoryState=function(t){this.browserSupports()&&this.register(t)},Shopify.OptionSelectors.HistoryState.prototype.register=function(t){window.addEventListener("popstate",function(e){t.selectVariantFromParamsOrDropdown({popStateCall:!0})})},Shopify.OptionSelectors.HistoryState.prototype.onVariantChange=function(t,e,o){jQuery.getJSON("/products/"+prodHand+".js",function(t){updateInv(t)}),this.browserSupports()&&(!t||o.initialLoad||o.popStateCall||Shopify.setParam("variant",t.id))},Shopify.OptionSelectors.HistoryState.prototype.browserSupports=function(){return window.history&&window.history.replaceState};
         
-          if(tagExists(product, "Archive"))/*if archived*/
-          {
-              /*no need to display stock*/
-              /*console.log('Archived. Stock not being displayed.');*/
-	          $('.prodship').remove();/*remove inventory info*/
-              return;
-          }
-        
-          if(varID !== null)/*if variant is chosen*/
-		  {
-              /*console.log('Variant Chosen');*/
-              for(i = 0 ; i < product.variants.length ; i++)/*search for variant in variant array*/
-              {
-              		if(product.variants[i].id == varID)/*if variant is found*/
-                    {
-                      	varNum = i;/*record variant location in variant array*/
-                      	/*console.log("Variant Number: "+varNum);*/
-                      	break;/*exit loop*/
-                    }
-              }
-          }
-          else/*no variant is chosen*/
-          {
-              /*console.log('Variant NOT Chosen');*/
-          }
-        
-          if(product.available)/*if the product is available for purchase*/
-          {
-              /*console.log(product.variants[varNum]);
-              console.log('Inv Quan: '+product.variants[varNum].inventory_quantity);*/
-
-              /*inventory*/
-              if(product.variants[varNum].inventory_quantity < 11 && product.variants[varNum].inventory_quantity > 1)/*if the inventory is between 1 and 11*/
-              {
-                /*console.log('Stock: 1 < x < 11');*/
-                $('.prodinv').removeClass("red").addClass("green");
-                $('.prodinv').html(product.variants[varNum].inventory_quantity + ' in stock.');/*display inventory*/
-              }
-              else if(product.variants[varNum].inventory_quantity == 1)/*if there is one left*/
-              {
-                /*console.log('Stock: 1');*/
-                $('.prodinv').removeClass("red").addClass("green");
-                $('.prodinv').html('Only 1 in stock.');/*display inventory*/
-              }
-              else if(product.variants[varNum].inventory_quantity <= 0 && (tagExists(product, "Pre-Order") || tagExists(product, "Back Order") || tagExists(product, "Custom Order")))/*if there is no stock and it is special order*/
-              {
-                /*console.log('Stock: <= 0 & Special Order');*/
-                $('.prodinv').removeClass("red").addClass("green");
-                $('.prodinv').html('Available to order.');/*display inventory*/
-              }
-              else/*10 or more are available or overselling is allowed*/
-              {
-                /*console.log('Stock: 10+ or Overselling');*/
-                $('.prodinv').removeClass("red").addClass("green");
-                $('.prodinv').html('In stock.');/*display that it is in stock*/
-              }
-            
-              /*lets update that variant sku*/
-              $('#variant-sku').html(product.variants[varNum].sku);
-            
-              var dateInfo = false;/*track whether there is date info or not*/
-              
-              /*time to update that handling time*/
-              if(tagExists(product, "Pre-Order") && product.variants[varNum].inventory_policy == "continue")/*check if the product is pre-order and is allowed to oversell*/
-              {/*if it is it must be in pre-order mode*/
-                for(i = 0 ; i < product.tags.length ; i++)/*search the tags*/
-                {
-                  if(product.tags[i].indexOf("Releases ") != -1)/*if we have found the release info*/
-                  {
-                    var tagtemp = product.tags[i];
-                    tagtemp=tagtemp.replace("Releases ","")/*remove the "Release" keyword from the tag*/
-                    $('.prodhand').html('Releases: ' + tagtemp);/*update the release info on the page*/
-                    dateInfo = true;/*release info was found*/
-                    break;
-                  }
-                }
-                if(dateInfo == false)/*if no release date was found*/
-                {
-                  $('.prodhand').html('Releases: Call For More Info');/*let the customer know they should call for more info about release times*/
-                }
-              }
-              else if(tagExists(product, "Back Order") && product.variants[varNum].inventory_policy == "continue")/*check if the product is a back order item and it is allowed to oversell*/
-              {
-                for(i = 0 ; i < product.tags.length ; i++)/*search the tags*/
-                {
-                  if(product.tags[i].indexOf("Back In Stock ") != -1)/*if we have found the back order info*/
-                  {
-                    var tagtemp = product.tags[i];
-                    tagtemp=tagtemp.replace("Back In Stock ","")/* remove "Back In Stock" keyword from the tag*/
-                    $('.prodhand').html('Back In Stock: ' + tagtemp);/*update the back in stock info on the page*/
-                    dateInfo = true;/*back in stock info was found*/
-                    break;
-                  }
-                }
-                if(dateInfo == false)/*if back in stocck info was not found*/
-                {
-                  $('.prodhand').html('Back In Stock: Call For More Info');/*let the customer know they should call for more info about back in stock date*/
-                }
-              }
-              else if(tagExists(product, "Used Guns") && product.variants[varNum].inventory_quantity >= 1 || product.variants[varNum].inventory_quantity >= 1)/*if the product is in stock and is a used gun or it is just in stock*/
-              {
-                $('.prodhand').html('Estimated handling time: 1-2 business days.');/*show 1-2 day handling*/
-              }
-              else if(tagExists(product, "Call For"))/*if the item is tagged "Call For"*/
-              {
-                $('.prodhand').html('Call for shipping & handling time.');/*let customer know they need to call for shipping & handling time*/
-              }
-              else if(product.variants[varNum].inventory_quantity <= 0 && product.variants[varNum].inventory_policy == "continue")/*if a product is out of stock and overselling is allowed*/
-              {
-                var found = false;/*variable for  keeping track of whether or not a handling time was found*/
-                for(i = 0 ; i < product.tags.length ; i++)/*search tags*/
-                {
-                  if(product.tags[i].indexOf("Hours ") != -1 || product.tags[i].indexOf("Days ") != -1 || product.tags[i].indexOf("Weeks ") != -1 || product.tags[i].indexOf("Months ") != -1 || product.tags[i].indexOf("Years ") != -1)/*if handling time info is found*/
-                  {
-                    $('.prodhand').html('Estimated handling time: ' + product.tags[i]);/*let customer know handling times*/
-                    found = true;/*take note that a handling time was fonud*/
-                    break;
-                  }
-                }
-                if(found == false)/*if a handling time was not found*/
-                {
-                  $('.prodhand').html('Estimated handling time: 3-4 business days.');/*display default handling time*/
-                }
-              }
-              else/*somehow we got here and no handling info applied*/
-              {
-                $('.prodship').remove();/*remove inventory info*/
-              }
-          }
-          else/*product not available*/
-          {
-            $('.prodship').remove();/*remove inventory info*/
-          }
-          /*console.log('===========================================================================');*/
-      }
-	  jQuery.getJSON('/products/'+prodHand+'.js', function(product){updateInv(product)});/*update inventory*/
+	  	{% comment %}Update Inventory: Refer to update-inventory.js for no minified code.{% endcomment %}
+    	function tagExists(a,t){for(i=0;i<a.tags.length;i++)if(t==a.tags[i])return!0;return!1}function updateInv(a){console.log("updating stock...");var t=$.urlParam("variant"),n=0;if(tagExists(a,"Archive"))return void $(".prodship").remove();if(null!==t)for(i=0;i<a.variants.length;i++)if(a.variants[i].id==t){n=i;break}if(a.available){a.variants[n].inventory_quantity<11&&a.variants[n].inventory_quantity>1?($(".prodinv").removeClass("red").addClass("green"),$(".prodinv").html(a.variants[n].inventory_quantity+" in stock.")):1==a.variants[n].inventory_quantity?($(".prodinv").removeClass("red").addClass("green"),$(".prodinv").html("Only 1 in stock.")):a.variants[n].inventory_quantity<=0&&(tagExists(a,"Pre-Order")||tagExists(a,"Back Order")||tagExists(a,"Custom Order"))?($(".prodinv").removeClass("red").addClass("green"),$(".prodinv").html("Available to order.")):($(".prodinv").removeClass("red").addClass("green"),$(".prodinv").html("In stock.")),$("#variant-sku").html(a.variants[n].sku);var e=!1;if(tagExists(a,"Pre-Order")&&"continue"==a.variants[n].inventory_policy){for(i=0;i<a.tags.length;i++)if(-1!=a.tags[i].indexOf("Releases ")){var r=a.tags[i];r=r.replace("Releases ",""),$(".prodhand").html("Releases: "+r),e=!0;break}0==e&&$(".prodhand").html("Releases: Call For More Info")}else if(tagExists(a,"Back Order")&&"continue"==a.variants[n].inventory_policy){for(i=0;i<a.tags.length;i++)if(-1!=a.tags[i].indexOf("Back In Stock ")){var r=a.tags[i];r=r.replace("Back In Stock ",""),$(".prodhand").html("Back In Stock: "+r),e=!0;break}0==e&&$(".prodhand").html("Back In Stock: Call For More Info")}else if(tagExists(a,"Used Guns")&&a.variants[n].inventory_quantity>=1||a.variants[n].inventory_quantity>=1)$(".prodhand").html("Estimated handling time: 1-2 business days.");else if(tagExists(a,"Call For"))$(".prodhand").html("Call for shipping & handling time.");else if(a.variants[n].inventory_quantity<=0&&"continue"==a.variants[n].inventory_policy){var s=!1;for(i=0;i<a.tags.length;i++)if(-1!=a.tags[i].indexOf("Hours ")||-1!=a.tags[i].indexOf("Days ")||-1!=a.tags[i].indexOf("Weeks ")||-1!=a.tags[i].indexOf("Months ")||-1!=a.tags[i].indexOf("Years ")){$(".prodhand").html("Estimated handling time: "+a.tags[i]),s=!0;break}0==s&&$(".prodhand").html("Estimated handling time: 3-4 business days.")}else $(".prodship").remove()}else $(".prodship").remove()}jQuery.getJSON("/products/"+prodHand+".js",function(i){updateInv(i)});
  	</script>
   {% endif %}
-  {{ 'theme.min.js' | asset_url | script_tag }}
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
 
-
-
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}= Style Tweaks =============================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
-<style>
-  {% comment %} Livesearch style tweaks {% endcomment %}
-   .ls-footer > .ls-poweredby {
-     display: none;
-   }
-   .ls-footer.ls-poweredby {
-     width: 0%;
-   }
-   .ls-footer {
-     width: 100%;
-   }
-   .ls-dropdown-menu {
-     margin-top: -2px;
-   }
-</style>
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
-{% comment %}==========================================================================================================================={% endcomment %}
-  
-<!-- Bold: CSP Step 1 (theme) -->
-<script type="text/javascript" charset="utf-8">
-var shappify_customer_tags ={{ customer.tags|json }}
-</script>
-<!-- // end bold code -->
+{% comment %} == Style ======================================= {% endcomment %}
+  <style>
+    {% comment %} Livesearch style tweaks which remove the branding without having to pay to have it removed (cheap hacks). {% endcomment %}
+    .ls-footer>.ls-poweredby{display:none;}.ls-footer.ls-poweredby{width:0%;}.ls-footer{width:100%;}.ls-dropdown-menu{margin-top:-2px;}
+  </style>
 
 {% include 'zopim' %}
 
-<!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END --><script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
 </body>
 </html>

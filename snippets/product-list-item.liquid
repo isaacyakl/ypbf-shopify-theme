@@ -39,7 +39,7 @@
   {% endif %}
   <figure class="product-list-item-thumbnail">
     <a href="{{ item.url | within: collection }}">
-      <span class="imgCenterHelper"></span><img src="{{ item | img_url: 'large' }}" alt="{{ item.featured_image.alt | escape }}" />
+      <span class="imgCenterHelper"></span><img src="{{ item | img_url: 'medium' }}" alt="{{ item.featured_image.alt | escape }}" />
     </a>
     {% if item.available %}
       {% if settings.collection-stock-level-overlay
