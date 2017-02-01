@@ -1,5 +1,9 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.1.5 - 8/13/2015 - Update Zopim
+=========================================
++ Update Zopim
+
 1.1.4 - 8/7/2015 - Add Tracktor,Chnglg
 =========================================
 + Added this changelog

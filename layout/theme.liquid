@@ -71,6 +71,8 @@
    new WOW().init();
   </script>
   
+  {% include 'zopim' %}
+  
 </head>
 
 {% assign sidebar = false %}
@@ -83,8 +85,6 @@
 {% elsif settings.enable-sidebar == 'not-home' and template contains 'collection' %}
   {% assign sidebar = true %}
 {% endif %}
-
-{% include 'zopim' %}
 
 <body class="{% if customer %}customer-logged-in{% endif %} sidebar-{% if sidebar %}enabled{% else %}disabled{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
 
