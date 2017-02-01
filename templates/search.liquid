@@ -2,7 +2,7 @@
 {% unless search.terms == respond_js_secret_key %}
   <form class="search-form" action="/search" method="get">
     <div class="search-input">
-      <input name="q" type="text" placeholder="{{ 'general.search.input_placeholder' | t }}" value="{{ search.terms | escape }}" />
+      <input name="q" type="text" value="{{ search.terms | escape }}" placeholder="What are you looking for?" />
     </div>
     <div class="search-submit">
       <input type="submit" value="{{ 'general.search.submit' | t }}" />

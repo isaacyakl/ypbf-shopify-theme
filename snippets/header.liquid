@@ -161,18 +161,18 @@
       {% comment %}
         if(today >= December1st && today < NewYearsEve)// If it is past the 1st but not after new years eve
         {
-        	document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;" value="Merry Christmas!" onfocus="if (this.value == \'Merry Christmas!\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'Merry Christmas!\';}"/>';
+        	document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" placeholder="Merry Christmas!"/>';
         }
         else if(today >= NewYearsEve && today < WeekAfterNY) // If it is New Years Day but not a week after NY
         {
-			document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;" value="Happy New Year!" onfocus="if (this.value == \'Happy New Year!\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'Happy New Year!\';}"/>';
+			document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" placeholder="Happy New Year!"/>';
         }
         else
         {
-			document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;"/>';
+			document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text"/>';
         }
       {% endcomment %}
-      document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;"  value="What are you looking for?" onfocus="if (this.value == \'What are you looking for?\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'What are you looking for?\';}"/>';
+      document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" placeholder="What are you looking for?"/>';
     </script>
     <div class="mobile-header-tools">
       <span class="mobile-header-search-toggle">&#57346;</span>

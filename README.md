@@ -1,5 +1,15 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.9.0 - 1/19/2016:MoreProdTagsStatuses
+=========================================
++ Format placeholder text for search box. theme.scss.liquid:7005-18
++ Add placeholder text to search box on search page. search.liquid:5
+* Move search suggestions box up 22px/change margin-top: 20px to margin-top: -2px; theme.liquid:144-6
+* Move share buttons on collections to below pagination. collection.liquid:97-9;theme.scss.liquid:7533
++ Add style for shipping time notification area. theme.scss.liquid:4000-4
++ Add shipping time tags, notification area, and clean up existing notification options. product-form.liquid:8-44
+* Change image type of featured row and footer promo to .jpg instead of .png. home-feature-row.liquid:28,footer.liquid:19
+
 1.8.1 - 1/11/2016:Optmiztn
 =========================================
 - Remove brand logos from footer of page. footer.liquid:92

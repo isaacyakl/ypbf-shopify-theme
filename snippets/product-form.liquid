@@ -6,21 +6,41 @@
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
     <div class="prodnotes">
       {% if product.tags contains 'Pre-Order' %}
-      <p>By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.</p>
+	      <p>By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.</p>
       {% elsif product.tags contains 'Custom Order' %}
-      <p>By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>.</p>
-      {% elsif product.tags contains 'Back Order' %}
-      <p>This item is currently on back order and will take longer than usual to fulfill. See description below for estimated fulfillment timeframe.</p>
+	      <p>By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.</p>
       {% endif %}
 
       {% if product.tags contains 'Limited' %}
-          <p>Limited availability item. Please <a href="tel:1-800-692-6459">call us</a> for availability before ordering!</p>
+          <p>Limited availability item. Please call us for availability before ordering!</p>
       {% endif %}
       {% if product.tags contains 'Color Swap' %}
           <p> This is a swap between two items, which means this item will most likely take longer than normal to fulfill.</p>
       {% endif %}
       {% if product.tags contains 'Holiday Shipping' %}
           <p>Shipping time may be longer than normal due to holiday sales.</p>
+      {% endif %}
+      
+      {% if product.variants.first.inventory_quantity <= 0 and product.available and product.tags contains 'Archive' != true %}
+      	{% if product.tags contains '1-2 Days' %}
+      		<p class="usualship">Usually ships in 1-2 business days.</p>
+      	{% elsif product.tags contains '2-3 Days' %}
+      		<p class="usualship">Usually ships in 2-3 business days.</p>
+      	{% elsif product.tags contains '3-4 Days' %}
+      		<p class="usualship">Usually ships in 3-4 business days.</p>
+      	{% elsif product.tags contains 'Call For' %}
+      		<p class="usualship">Call for shipping time.</p>
+      	{% else %}
+      		<p class="usualship">Usually ships in 3-4 business days.</p>
+      	{% endif %}
+      {% elsif product.variants.first.inventory_quantity <= 0 and product.available == false %}
+      	{% if product.tags contains 'Archive' %}
+      		<p class="usualship" style="color: red;">Archived/Discontinued product.</p>
+      	{% else %}
+      		<p class="usualship" style="color: red;">Call for availability.</p>
+      	{% endif %}
+      {% else %}
+      		<p class="usualship">Usually ships in 1-2 business days.</p>
       {% endif %}
       
 	  Free U.S. shipping on all orders. No minimum!<br>

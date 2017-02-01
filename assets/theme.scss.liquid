@@ -3996,6 +3996,12 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQV
     margin-bottom: 20px;
     font-size: initial;
   }
+  
+  p.usualship
+  {
+	font-weight: 600;
+    color: black;
+  }
 }
 
 .home-module {
@@ -6981,17 +6987,15 @@ input.newsletter-submit {
 
 input.header-search-input {
   display: block;
-  /*max-width: 220px;*/
   max-width: 680px;
   width: 680px;
-  /*height: 42px;*/
   height: 42px;
   padding: 5px 10px 5px 34px;
   background: none;
   border: 1px solid transparent;
   border-radius: 3px;
   line-height: normal;
-  color: $header-color;
+  color: grey;
   background: $body-background-color;
   border-color: $border-color;
   font-size: 25px; /* Increase font size by Yak */
@@ -7001,23 +7005,12 @@ input.header-search-input {
   }
 
   &:focus {
-    /*background: $body-background-color;
-    border-color: $border-color;*/
     box-shadow: 0px 0px 10px white;
   }
 
   @include placeholder {
-    color: $header-color;
-    font-family: $meta-font;
-    font-weight: $meta-weight;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    line-height: 21px;
-  }
-
-  &::-moz-placeholder {
-    line-height: 32px;
+    color: grey;
+    font-size: 25px;
   }
 
   @include breakpoint(l) {
@@ -7025,6 +7018,10 @@ input.header-search-input {
     width: 250px;
     height: auto;
     border-color: $border-color;
+    
+    @include placeholder {
+      visibility: hidden;
+    }
   }
 }
 
@@ -7539,7 +7536,6 @@ ul li.pagination-position {
 .share-buttons-container { /*Added by Yak*/
     position: relative;
     text-align: center;
-    float: right;
   	width: initial;
   	margin-bottom: 0px;
     
