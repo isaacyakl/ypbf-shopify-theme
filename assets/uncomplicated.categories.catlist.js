@@ -146,6 +146,21 @@
             }
         },
 
+    // untested, unused
+        hashList = function (list) {
+            var hash = {};
+            for (var i = 0; i < list.length; ++i) {
+                var item = list[i];
+                // create an array bucket for each URL
+                if (hash[item.url] == undefined) {
+                    hash[item.url] = [];
+                }
+                // add the subtree to that bucket
+                hash[item.url][hash[item.url].length] = item.pointer;
+            }
+            return hash;
+        },
+
         searchList = function (needle, list) {
             // simple linear search for now
             var matches = linearSearchList(needle, list);
@@ -225,22 +240,6 @@
             return false;
         },
 
-    // untested, unused
-        hashList = function (list) {
-            var hash = {};
-            for (var i = 0; i < list.length; ++i) {
-                var item = list[i];
-                // create an array bucket for each URL
-                if (hash[item.url] == undefined) {
-                    hash[item.url] = [];
-                }
-                // add the subtree to that bucket
-                hash[item.url][hash[item.url].length] = item.pointer;
-            }
-            return hash;
-        },
-
-    // categories-specific functions
         processCategorySelect = function (element, active_categories) {
             // attach to the onchange event
             bind(element, 'change', function (e) {

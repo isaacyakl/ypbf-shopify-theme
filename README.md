@@ -1,5 +1,12 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.13.0 - 4/26/2016:UpsellInCart
+=========================================
++ Add snippet "ypbf-upsell". ypbf-upsell.liquid
++ Add upsell snippet to cart.liquid. cart.liquid:1
++ Add styling for upsell. theme.scss.liquid:3017-60
+* Optimize facebook sdk include to only include on home page. theme.liquid:89-99
+
 1.12.0 - 4/9/2016:RltdPrdcts&ImprvPrds
 =========================================
 * Fixed extra space in product list displays around handling times. product-list-item.liquid

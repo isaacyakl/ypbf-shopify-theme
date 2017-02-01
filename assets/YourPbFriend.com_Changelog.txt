@@ -1,3 +1,10 @@
+1.13.0 - 4/26/2016:UpsellInCart
+=========================================
++ Add snippet "ypbf-upsell". ypbf-upsell.liquid
++ Add upsell snippet to cart.liquid. cart.liquid:1
++ Add styling for upsell. theme.scss.liquid:3017-60
+* Optimize facebook sdk include to only include on home page. theme.liquid:89-99
+
 1.12.0 - 4/9/2016:RltdPrdcts&ImprvPrds
 =========================================
 * Fixed extra space in product list displays around handling times. product-list-item.liquid
@@ -8,7 +15,6 @@
 * Improve stylization of quantity box on product page. theme.scss.liquid:5574-82
 - Remove reviews and ratings for products with "Used" tag. product-list-item.liquid:161-3,product.liquid:29-31,product-form.liquid:51-3
 * Speed up product selling points animation from .5 to .4. theme.scss.liquid:4083
-
 
 
 1.11.0 - 4/8/2016:PrdctPgRrngImpr

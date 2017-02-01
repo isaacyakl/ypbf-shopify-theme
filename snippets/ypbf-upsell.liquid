@@ -1,0 +1,815 @@
+{% comment %}
+	This snippet handles upsell recommendations in the checkout cart.
+{% endcomment %}
+
+{% for item in cart.items %} {% comment %} Search through all products in the cart for specific types of items {% endcomment %}
+
+		{% if item.product.vendor == "Virtue" and item.product.type == "Loader" or item.product.type == "Hopper" or item.product.type == "Loader/Hopper" %}
+                              {% assign llsize = linklists.upsell-virtue-loaders.links | size %}
+                              {% if llsize < 1 %}{% break %}{% endif %}
+                              {% assign llsize1less = llsize | minus: 1 %}
+                              {% assign numout = 0 %}
+                              <div class="upsell">
+                                <h2>Upgrade your Spire!</h2>
+                                {% assign lastoffernum = -1 %}
+                                {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                {% assign offernum = offernum | plus:0 %}
+                                {% assign numoffers = 0 %}
+                                {% assign upselldups = 0 %}
+                                {% for i in (0..100) %}
+                                  {% if linklists.upsell-virtue-loaders.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                    {% assign numoffers = numoffers | plus: 1 %}
+                                    {% if offernum == lastoffernum %}
+                                        {% assign upselldups = upselldups | plus: 1 %}
+                                    {% else %}
+                                      <div class="product-list-item upselloffer">
+                                        <figure class="product-list-item-thumbnail">
+                                          <a href="{{ linklists.upsell-virtue-loaders.links[offernum].object.url }}">
+                                            <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-virtue-loaders.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-virtue-loaders.links[offernum].object.featured_image.alt | escape }}" />
+                                          </a>
+                                        </figure>
+                                        <div class="product-list-item-details">
+                                          <h3 class="product-list-item-title"><a href="{{ linklists.upsell-virtue-loaders.links[offernum].object.url }}">{{ linklists.upsell-virtue-loaders.links[offernum].object.title }}</a></h3>
+                                          <p class="product-list-item-price">
+                                            <span class="price">
+                                              {{ linklists.upsell-virtue-loaders.links[offernum].object.price | money }}
+                                            </span>
+                                            <span style="display: none;">{% increment upsells %}</span>
+                                          </p>
+                                        </div>
+                                        <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-virtue-loaders.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                      </div>
+                                      {% assign lastoffernum = offernum %}
+                                      {% if offernum == llsize1less %}
+                                        {% assign offernum = 0 %}
+                                      {% else %}
+                                        {% assign offernum = offernum | plus: 1 %}
+                                      {% endif %}
+                                    {% endif %}
+                                  {% else %}
+                                    {% assign numout = numout | plus: 1 %}
+                                    {% assign lastoffernum = offernum %}
+                                    {% if offernum == llsize1less %}
+                                      {% assign offernum = 0 %}
+                                    {% else %}
+                                      {% assign offernum = offernum | plus: 1 %}
+                                    {% endif %}
+                                  {% endif %}
+                                  {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                      {% break %}
+                                  {% endif %}
+                                {% endfor %}
+                                {% if numoffers == 0 %}
+                                  <style>
+                                    .upsell
+                                    {
+                                      display: none;
+                                    }
+                                  </style>
+                                {% endif %}
+                                <div style="clear: both;"></div>
+                              </div>
+                              {% break %}
+
+		{% elsif item.product.vendor == "Virtue" and item.product.type == "Mask" %}
+							  {% assign llsize = linklists.upsell-virtue-masks.links | size %}
+                              {% if llsize < 1 %}{% break %}{% endif %}
+                              {% assign llsize1less = llsize | minus: 1 %}
+                              {% assign numout = 0 %}
+                              <div class="upsell">
+                                <h2>Keep that mask polished!</h2>
+                                {% assign lastoffernum = -1 %}
+                                {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                {% assign offernum = offernum | plus:0 %}
+                                {% assign numoffers = 0 %}
+                                {% assign upselldups = 0 %}
+                                {% for i in (0..100) %}
+                                  {% if linklists.upsell-virtue-masks.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                    {% assign numoffers = numoffers | plus: 1 %}
+                                    {% if offernum == lastoffernum %}
+                                        {% assign upselldups = upselldups | plus: 1 %}
+                                    {% else %}
+                                      <div class="product-list-item upselloffer">
+                                        <figure class="product-list-item-thumbnail">
+                                          <a href="{{ linklists.upsell-virtue-masks.links[offernum].object.url }}">
+                                            <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-virtue-masks.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-virtue-masks.links[offernum].object.featured_image.alt | escape }}" />
+                                          </a>
+                                        </figure>
+                                        <div class="product-list-item-details">
+                                          <h3 class="product-list-item-title"><a href="{{ linklists.upsell-virtue-masks.links[offernum].object.url }}">{{ linklists.upsell-virtue-masks.links[offernum].object.title }}</a></h3>
+                                          <p class="product-list-item-price">
+                                            <span class="price">
+                                              {{ linklists.upsell-virtue-masks.links[offernum].object.price | money }}
+                                            </span>
+                                            <span style="display: none;">{% increment upsells %}</span>
+                                          </p>
+                                        </div>
+                                        <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-virtue-masks.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                      </div>
+                                      {% assign lastoffernum = offernum %}
+                                      {% if offernum == llsize1less %}
+                                        {% assign offernum = 0 %}
+                                      {% else %}
+                                        {% assign offernum = offernum | plus: 1 %}
+                                      {% endif %}
+                                    {% endif %}
+                                  {% else %}
+                                    {% assign numout = numout | plus: 1 %}
+                                    {% assign lastoffernum = offernum %}
+                                    {% if offernum == llsize1less %}
+                                      {% assign offernum = 0 %}
+                                    {% else %}
+                                      {% assign offernum = offernum | plus: 1 %}
+                                    {% endif %}
+                                  {% endif %}
+                                  {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                      {% break %}
+                                  {% endif %}
+                                {% endfor %}
+                                {% if numoffers == 0 %}
+                                  <style>
+                                    .upsell
+                                    {
+                                      display: none;
+                                    }
+                                  </style>
+                                {% endif %}
+                                <div style="clear: both;"></div>
+                              </div>
+                              {% break %}
+
+      	{% elsif item.product.vendor == "Dye" and item.product.title contains "Rotor R2" and item.product.type == "Loader" or item.product.type == "Hopper" or item.product.type == "Loader/Hopper" %}
+                                          {% assign llsize = linklists.upsell-dye-r2.links | size %}
+                                          {% if llsize < 1 %}{% break %}{% endif %}
+                                          {% assign llsize1less = llsize | minus: 1 %}
+                                          {% assign numout = 0 %}
+                                          <div class="upsell">
+                                            <h2>Feed your marker right!</h2>
+                                            {% assign lastoffernum = -1 %}
+                                            {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                            {% assign offernum = offernum | plus:0 %}
+                                            {% assign numoffers = 0 %}
+                                            {% assign upselldups = 0 %}
+                                            {% for i in (0..100) %}
+                                              {% if linklists.upsell-dye-r2.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                                {% assign numoffers = numoffers | plus: 1 %}
+                                                {% if offernum == lastoffernum %}
+                                                    {% assign upselldups = upselldups | plus: 1 %}
+                                                {% else %}
+                                                  <div class="product-list-item upselloffer">
+                                                    <figure class="product-list-item-thumbnail">
+                                                      <a href="{{ linklists.upsell-dye-r2.links[offernum].object.url }}">
+                                                        <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-dye-r2.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-dye-r2.links[offernum].object.featured_image.alt | escape }}" />
+                                                      </a>
+                                                    </figure>
+                                                    <div class="product-list-item-details">
+                                                      <h3 class="product-list-item-title"><a href="{{ linklists.upsell-dye-r2.links[offernum].object.url }}">{{ linklists.upsell-dye-r2.links[offernum].object.title }}</a></h3>
+                                                      <p class="product-list-item-price">
+                                                        <span class="price">
+                                                          {{ linklists.upsell-dye-r2.links[offernum].object.price | money }}
+                                                        </span>
+                                                        <span style="display: none;">{% increment upsells %}</span>
+                                                      </p>
+                                                    </div>
+                                                    <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-dye-r2.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                                  </div>
+                                                  {% assign lastoffernum = offernum %}
+                                                  {% if offernum == llsize1less %}
+                                                    {% assign offernum = 0 %}
+                                                  {% else %}
+                                                    {% assign offernum = offernum | plus: 1 %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% else %}
+                                                {% assign numout = numout | plus: 1 %}
+                                                {% assign lastoffernum = offernum %}
+                                                {% if offernum == llsize1less %}
+                                                  {% assign offernum = 0 %}
+                                                {% else %}
+                                                  {% assign offernum = offernum | plus: 1 %}
+                                                {% endif %}
+                                              {% endif %}
+                                              {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                                  {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if numoffers == 0 %}
+                                              <style>
+                                                .upsell
+                                                {
+                                                  display: none;
+                                                }
+                                              </style>
+                                            {% endif %}
+                                            <div style="clear: both;"></div>
+                                          </div>
+                                          {% break %}
+
+        {% elsif item.product.vendor == "Dye" and item.product.title contains "Rotor" and item.product.type == "Loader" or item.product.type == "Hopper" or item.product.type == "Loader/Hopper" %}
+                                          {% assign llsize = linklists.upsell-dye-rotor.links | size %}
+                                          {% if llsize < 1 %}{% break %}{% endif %}
+                                          {% assign llsize1less = llsize | minus: 1 %}
+                                          {% assign numout = 0 %}
+                                          <div class="upsell">
+                                            <h2>Protect your loader!</h2>
+                                            {% assign lastoffernum = -1 %}
+                                            {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                            {% assign offernum = offernum | plus:0 %}
+                                            {% assign numoffers = 0 %}
+                                            {% assign upselldups = 0 %}
+                                            {% for i in (0..100) %}
+                                              {% if linklists.upsell-dye-rotor.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                                {% assign numoffers = numoffers | plus: 1 %}
+                                                {% if offernum == lastoffernum %}
+                                                    {% assign upselldups = upselldups | plus: 1 %}
+                                                {% else %}
+                                                  <div class="product-list-item upselloffer">
+                                                    <figure class="product-list-item-thumbnail">
+                                                      <a href="{{ linklists.upsell-dye-rotor.links[offernum].object.url }}">
+                                                        <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-dye-rotor.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-dye-rotor.links[offernum].object.featured_image.alt | escape }}" />
+                                                      </a>
+                                                    </figure>
+                                                    <div class="product-list-item-details">
+                                                      <h3 class="product-list-item-title"><a href="{{ linklists.upsell-dye-rotor.links[offernum].object.url }}">{{ linklists.upsell-dye-rotor.links[offernum].object.title }}</a></h3>
+                                                      <p class="product-list-item-price">
+                                                        <span class="price">
+                                                          {{ linklists.upsell-dye-rotor.links[offernum].object.price | money }}
+                                                        </span>
+                                                        <span style="display: none;">{% increment upsells %}</span>
+                                                      </p>
+                                                    </div>
+                                                    <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-dye-rotor.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                                  </div>
+                                                  {% assign lastoffernum = offernum %}
+                                                  {% if offernum == llsize1less %}
+                                                    {% assign offernum = 0 %}
+                                                  {% else %}
+                                                    {% assign offernum = offernum | plus: 1 %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% else %}
+                                                {% assign numout = numout | plus: 1 %}
+                                                {% assign lastoffernum = offernum %}
+                                                {% if offernum == llsize1less %}
+                                                  {% assign offernum = 0 %}
+                                                {% else %}
+                                                  {% assign offernum = offernum | plus: 1 %}
+                                                {% endif %}
+                                              {% endif %}
+                                              {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                                  {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if numoffers == 0 %}
+                                              <style>
+                                                .upsell
+                                                {
+                                                  display: none;
+                                                }
+                                              </style>
+                                            {% endif %}
+                                            <div style="clear: both;"></div>
+                                          </div>
+                                          {% break %}
+
+        {% elsif item.product.vendor == "Dye" and item.product.title contains "Dye i4" and item.product.type == "Mask" %}
+                                          {% assign llsize = linklists.upsell-dye-i4-masks.links | size %}
+                                          {% if llsize < 1 %}{% break %}{% endif %}
+                                          {% assign llsize1less = llsize | minus: 1 %}
+                                          {% assign numout = 0 %}
+                                          <div class="upsell">
+                                            <h2>Keep that mask polished!</h2>
+                                            {% assign lastoffernum = -1 %}
+                                            {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                            {% assign offernum = offernum | plus:0 %}
+                                            {% assign numoffers = 0 %}
+                                            {% assign upselldups = 0 %}
+                                            {% for i in (0..100) %}
+                                              {% if linklists.upsell-dye-i4-masks.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                                {% assign numoffers = numoffers | plus: 1 %}
+                                                {% if offernum == lastoffernum %}
+                                                    {% assign upselldups = upselldups | plus: 1 %}
+                                                {% else %}
+                                                  <div class="product-list-item upselloffer">
+                                                    <figure class="product-list-item-thumbnail">
+                                                      <a href="{{ linklists.upsell-dye-i4-masks.links[offernum].object.url }}">
+                                                        <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-dye-i4-masks.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-dye-i4-masks.links[offernum].object.featured_image.alt | escape }}" />
+                                                      </a>
+                                                    </figure>
+                                                    <div class="product-list-item-details">
+                                                      <h3 class="product-list-item-title"><a href="{{ linklists.upsell-dye-i4-masks.links[offernum].object.url }}">{{ linklists.upsell-dye-i4-masks.links[offernum].object.title }}</a></h3>
+                                                      <p class="product-list-item-price">
+                                                        <span class="price">
+                                                          {{ linklists.upsell-dye-i4-masks.links[offernum].object.price | money }}
+                                                        </span>
+                                                        <span style="display: none;">{% increment upsells %}</span>
+                                                      </p>
+                                                    </div>
+                                                    <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-dye-i4-masks.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                                  </div>
+                                                  {% assign lastoffernum = offernum %}
+                                                  {% if offernum == llsize1less %}
+                                                    {% assign offernum = 0 %}
+                                                  {% else %}
+                                                    {% assign offernum = offernum | plus: 1 %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% else %}
+                                                {% assign numout = numout | plus: 1 %}
+                                                {% assign lastoffernum = offernum %}
+                                                {% if offernum == llsize1less %}
+                                                  {% assign offernum = 0 %}
+                                                {% else %}
+                                                  {% assign offernum = offernum | plus: 1 %}
+                                                {% endif %}
+                                              {% endif %}
+                                              {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                                  {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if numoffers == 0 %}
+                                              <style>
+                                                .upsell
+                                                {
+                                                  display: none;
+                                                }
+                                              </style>
+                                            {% endif %}
+                                            <div style="clear: both;"></div>
+                                          </div>
+                                          {% break %}
+
+		{% elsif item.product.vendor == "Empire" and item.product.type == "Mask" %}
+
+							  {% assign llsize = linklists.upsell-empire-masks.links | size %}
+                              {% if llsize < 1 %}{% break %}{% endif %}
+                              {% assign llsize1less = llsize | minus: 1 %}
+                              {% assign numout = 0 %}
+                              <div class="upsell">
+                                <h2>Keep your mask protected.</h2>
+                                {% assign lastoffernum = -1 %}
+                                {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                {% assign offernum = offernum | plus:0 %}
+                                {% assign numoffers = 0 %}
+                                {% assign upselldups = 0 %}
+                                {% for i in (0..100) %}
+                                  {% if linklists.upsell-empire-masks.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                    {% assign numoffers = numoffers | plus: 1 %}
+                                    {% if offernum == lastoffernum %}
+                                        {% assign upselldups = upselldups | plus: 1 %}
+                                    {% else %}
+                                      <div class="product-list-item upselloffer">
+                                        <figure class="product-list-item-thumbnail">
+                                          <a href="{{ linklists.upsell-empire-masks.links[offernum].object.url }}">
+                                            <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-empire-masks.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-empire-masks.links[offernum].object.featured_image.alt | escape }}" />
+                                          </a>
+                                        </figure>
+                                        <div class="product-list-item-details">
+                                          <h3 class="product-list-item-title"><a href="{{ linklists.upsell-empire-masks.links[offernum].object.url }}">{{ linklists.upsell-empire-masks.links[offernum].object.title }}</a></h3>
+                                          <p class="product-list-item-price">
+                                            <span class="price">
+                                              {{ linklists.upsell-empire-masks.links[offernum].object.price | money }}
+                                            </span>
+                                            <span style="display: none;">{% increment upsells %}</span>
+                                          </p>
+                                        </div>
+                                        <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-empire-masks.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                      </div>
+                                      {% assign lastoffernum = offernum %}
+                                      {% if offernum == llsize1less %}
+                                        {% assign offernum = 0 %}
+                                      {% else %}
+                                        {% assign offernum = offernum | plus: 1 %}
+                                      {% endif %}
+                                    {% endif %}
+                                  {% else %}
+                                    {% assign numout = numout | plus: 1 %}
+                                    {% assign lastoffernum = offernum %}
+                                    {% if offernum == llsize1less %}
+                                      {% assign offernum = 0 %}
+                                    {% else %}
+                                      {% assign offernum = offernum | plus: 1 %}
+                                    {% endif %}
+                                  {% endif %}
+                                  {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                      {% break %}
+                                  {% endif %}
+                                {% endfor %}
+                                {% if numoffers == 0 %}
+                                  <style>
+                                    .upsell
+                                    {
+                                      display: none;
+                                    }
+                                  </style>
+                                {% endif %}
+                                <div style="clear: both;"></div>
+                              </div>
+                              {% break %}
+
+        {% elsif item.product.vendor == "HK Army" and item.product.title contains "TFX" and item.product.type == "Loader" or item.product.type == "Hopper" or item.product.type == "Loader/Hopper" %}
+                                          {% assign llsize = linklists.upsell-hk-army-tfx.links | size %}
+                                          {% if llsize < 1 %}{% break %}{% endif %}
+                                          {% assign llsize1less = llsize | minus: 1 %}
+                                          {% assign numout = 0 %}
+                                          <div class="upsell">
+                                            <h2>Take care of your hopper! Purchase one of these.</h2>
+                                            {% assign lastoffernum = -1 %}
+                                            {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                                            {% assign offernum = offernum | plus:0 %}
+                                            {% assign numoffers = 0 %}
+                                            {% assign upselldups = 0 %}
+                                            {% for i in (0..100) %}
+                                              {% if linklists.upsell-hk-army-tfx.links[offernum].object.selected_or_first_available_variant.available == true %}
+                                                {% assign numoffers = numoffers | plus: 1 %}
+                                                {% if offernum == lastoffernum %}
+                                                    {% assign upselldups = upselldups | plus: 1 %}
+                                                {% else %}
+                                                  <div class="product-list-item upselloffer">
+                                                    <figure class="product-list-item-thumbnail">
+                                                      <a href="{{ linklists.upsell-hk-army-tfx.links[offernum].object.url }}">
+                                                        <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-hk-army-tfx.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-hk-army-tfx.links[offernum].object.featured_image.alt | escape }}" />
+                                                      </a>
+                                                    </figure>
+                                                    <div class="product-list-item-details">
+                                                      <h3 class="product-list-item-title"><a href="{{ linklists.upsell-hk-army-tfx.links[offernum].object.url }}">{{ linklists.upsell-hk-army-tfx.links[offernum].object.title }}</a></h3>
+                                                      <p class="product-list-item-price">
+                                                        <span class="price">
+                                                          {{ linklists.upsell-hk-army-tfx.links[offernum].object.price | money }}
+                                                        </span>
+                                                        <span style="display: none;">{% increment upsells %}</span>
+                                                      </p>
+                                                    </div>
+                                                    <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-hk-army-tfx.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                                                  </div>
+                                                  {% assign lastoffernum = offernum %}
+                                                  {% if offernum == llsize1less %}
+                                                    {% assign offernum = 0 %}
+                                                  {% else %}
+                                                    {% assign offernum = offernum | plus: 1 %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% else %}
+                                                {% assign numout = numout | plus: 1 %}
+                                                {% assign lastoffernum = offernum %}
+                                                {% if offernum == llsize1less %}
+                                                  {% assign offernum = 0 %}
+                                                {% else %}
+                                                  {% assign offernum = offernum | plus: 1 %}
+                                                {% endif %}
+                                              {% endif %}
+                                              {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                                                  {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if numoffers == 0 %}
+                                              <style>
+                                                .upsell
+                                                {
+                                                  display: none;
+                                                }
+                                              </style>
+                                            {% endif %}
+                                            <div style="clear: both;"></div>
+                                          </div>
+                                          {% break %}
+
+        {% elsif item.product.type == "Gun" or item.product.type == "Marker" %}
+                  
+				  {% assign llsize = linklists.upsell-guns-or-markers.links | size %}
+                  {% if llsize < 1 %}{% break %}{% endif %}
+                  {% assign llsize1less = llsize | minus: 1 %}
+                  {% assign numout = 0 %}
+                  <div class="upsell">
+                    <h2>Take care of your gun! Purchase one of these.</h2>
+                    {% assign lastoffernum = -1 %}
+                    {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                    {% assign offernum = offernum | plus:0 %}
+                    {% assign numoffers = 0 %}
+                    {% assign upselldups = 0 %}
+                    {% for i in (0..100) %}
+                      {% if linklists.upsell-guns-or-markers.links[offernum].object.selected_or_first_available_variant.available == true %}
+                        {% assign numoffers = numoffers | plus: 1 %}
+                        {% if offernum == lastoffernum %}
+                            {% assign upselldups = upselldups | plus: 1 %}
+                        {% else %}
+                          <div class="product-list-item upselloffer">
+                            <figure class="product-list-item-thumbnail">
+                              <a href="{{ linklists.upsell-guns-or-markers.links[offernum].object.url }}">
+                                <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-guns-or-markers.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-guns-or-markers.links[offernum].object.featured_image.alt | escape }}" />
+                              </a>
+                            </figure>
+                            <div class="product-list-item-details">
+                              <h3 class="product-list-item-title"><a href="{{ linklists.upsell-guns-or-markers.links[offernum].object.url }}">{{ linklists.upsell-guns-or-markers.links[offernum].object.title }}</a></h3>
+                              <p class="product-list-item-price">
+                                <span class="price">
+                                  {{ linklists.upsell-guns-or-markers.links[offernum].object.price | money }}
+                                </span>
+                                <span style="display: none;">{% increment upsells %}</span>
+                              </p>
+                            </div>
+                            <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-guns-or-markers.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                          </div>
+                          {% assign lastoffernum = offernum %}
+                          {% if offernum == llsize1less %}
+                            {% assign offernum = 0 %}
+                          {% else %}
+                            {% assign offernum = offernum | plus: 1 %}
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        {% assign numout = numout | plus: 1 %}
+                        {% assign lastoffernum = offernum %}
+                        {% if offernum == llsize1less %}
+                          {% assign offernum = 0 %}
+                        {% else %}
+                          {% assign offernum = offernum | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                      {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                          {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if numoffers == 0 %}
+                      <style>
+                        .upsell
+                        {
+                          display: none;
+                        }
+                      </style>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                  </div>
+                  {% break %}
+  
+  
+        {% elsif item.product.type == "Loader" or item.product.type == "Hopper" or item.product.type == "Loader/Hopper" %}
+                  {% assign llsize = linklists.upsell-loaders-or-hoppers.links | size %}
+                  {% if llsize < 1 %}{% break %}{% endif %}
+                  {% assign llsize1less = llsize | minus: 1 %}
+                  {% assign numout = 0 %}
+                  <div class="upsell">
+                    <h2>Upgrade your loader game!</h2>
+                    {% assign lastoffernum = -1 %}
+                    {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                    {% assign offernum = offernum | plus:0 %}
+                    {% assign numoffers = 0 %}
+                    {% assign upselldups = 0 %}
+                    {% for i in (0..100) %}
+                      {% if linklists.upsell-loaders-or-hoppers.links[offernum].object.selected_or_first_available_variant.available == true %}
+                        {% assign numoffers = numoffers | plus: 1 %}
+                        {% if offernum == lastoffernum %}
+                            {% assign upselldups = upselldups | plus: 1 %}
+                        {% else %}
+                          <div class="product-list-item upselloffer">
+                            <figure class="product-list-item-thumbnail">
+                              <a href="{{ linklists.upsell-loaders-or-hoppers.links[offernum].object.url }}">
+                                <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-loaders-or-hoppers.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-loaders-or-hoppers.links[offernum].object.featured_image.alt | escape }}" />
+                              </a>
+                            </figure>
+                            <div class="product-list-item-details">
+                              <h3 class="product-list-item-title"><a href="{{ linklists.upsell-loaders-or-hoppers.links[offernum].object.url }}">{{ linklists.upsell-loaders-or-hoppers.links[offernum].object.title }}</a></h3>
+                              <p class="product-list-item-price">
+                                <span class="price">
+                                  {{ linklists.upsell-loaders-or-hoppers.links[offernum].object.price | money }}
+                                </span>
+                                <span style="display: none;">{% increment upsells %}</span>
+                              </p>
+                            </div>
+                            <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-loaders-or-hoppers.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                          </div>
+                          {% assign lastoffernum = offernum %}
+                          {% if offernum == llsize1less %}
+                            {% assign offernum = 0 %}
+                          {% else %}
+                            {% assign offernum = offernum | plus: 1 %}
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        {% assign numout = numout | plus: 1 %}
+                        {% assign lastoffernum = offernum %}
+                        {% if offernum == llsize1less %}
+                          {% assign offernum = 0 %}
+                        {% else %}
+                          {% assign offernum = offernum | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                      {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                          {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if numoffers == 0 %}
+                      <style>
+                        .upsell
+                        {
+                          display: none;
+                        }
+                      </style>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                  </div>
+                  {% break %}
+
+        {% elsif item.product.type == "Tank" %}
+                  {% assign llsize = linklists.upsell-tanks.links | size %}
+                  {% if llsize < 1 %}{% break %}{% endif %}
+                  {% assign llsize1less = llsize | minus: 1 %}
+                  {% assign numout = 0 %}
+                  <div class="upsell">
+                    <h2>Get a grip on that tank!</h2>
+                    {% assign lastoffernum = -1 %}
+                    {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                    {% assign offernum = offernum | plus:0 %}
+                    {% assign numoffers = 0 %}
+                    {% assign upselldups = 0 %}
+                    {% for i in (0..100) %}
+                      {% if linklists.upsell-tanks.links[offernum].object.selected_or_first_available_variant.available == true %}
+                        {% assign numoffers = numoffers | plus: 1 %}
+                        {% if offernum == lastoffernum %}
+                            {% assign upselldups = upselldups | plus: 1 %}
+                        {% else %}
+                          <div class="product-list-item upselloffer">
+                            <figure class="product-list-item-thumbnail">
+                              <a href="{{ linklists.upsell-tanks.links[offernum].object.url }}">
+                                <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-tanks.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-tanks.links[offernum].object.featured_image.alt | escape }}" />
+                              </a>
+                            </figure>
+                            <div class="product-list-item-details">
+                              <h3 class="product-list-item-title"><a href="{{ linklists.upsell-tanks.links[offernum].object.url }}">{{ linklists.upsell-tanks.links[offernum].object.title }}</a></h3>
+                              <p class="product-list-item-price">
+                                <span class="price">
+                                  {{ linklists.upsell-tanks.links[offernum].object.price | money }}
+                                </span>
+                                <span style="display: none;">{% increment upsells %}</span>
+                              </p>
+                            </div>
+                            <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-tanks.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                          </div>
+                          {% assign lastoffernum = offernum %}
+                          {% if offernum == llsize1less %}
+                            {% assign offernum = 0 %}
+                          {% else %}
+                            {% assign offernum = offernum | plus: 1 %}
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        {% assign numout = numout | plus: 1 %}
+                        {% assign lastoffernum = offernum %}
+                        {% if offernum == llsize1less %}
+                          {% assign offernum = 0 %}
+                        {% else %}
+                          {% assign offernum = offernum | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                      {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                          {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if numoffers == 0 %}
+                      <style>
+                        .upsell
+                        {
+                          display: none;
+                        }
+                      </style>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                  </div>
+                  {% break %}
+
+        {% elsif item.product.type == "Pack" %}
+                  {% assign llsize = linklists.upsell-packs.links | size %}
+                  {% if llsize < 1 %}{% break %}{% endif %}
+                  {% assign llsize1less = llsize | minus: 1 %}
+                  {% assign numout = 0 %}
+                  <div class="upsell">
+                    <h2>Be ready at every moment. Add one of these!</h2>
+                    {% assign lastoffernum = -1 %}
+                    {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                    {% assign offernum = offernum | plus:0 %}
+                    {% assign numoffers = 0 %}
+                    {% assign upselldups = 0 %}
+                    {% for i in (0..100) %}
+                      {% if linklists.upsell-packs.links[offernum].object.selected_or_first_available_variant.available == true %}
+                        {% assign numoffers = numoffers | plus: 1 %}
+                        {% if offernum == lastoffernum %}
+                            {% assign upselldups = upselldups | plus: 1 %}
+                        {% else %}
+                          <div class="product-list-item upselloffer">
+                            <figure class="product-list-item-thumbnail">
+                              <a href="{{ linklists.upsell-packs.links[offernum].object.url }}">
+                                <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-packs.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-packs.links[offernum].object.featured_image.alt | escape }}" />
+                              </a>
+                            </figure>
+                            <div class="product-list-item-details">
+                              <h3 class="product-list-item-title"><a href="{{ linklists.upsell-packs.links[offernum].object.url }}">{{ linklists.upsell-packs.links[offernum].object.title }}</a></h3>
+                              <p class="product-list-item-price">
+                                <span class="price">
+                                  {{ linklists.upsell-packs.links[offernum].object.price | money }}
+                                </span>
+                                <span style="display: none;">{% increment upsells %}</span>
+                              </p>
+                            </div>
+                            <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-packs.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                          </div>
+                          {% assign lastoffernum = offernum %}
+                          {% if offernum == llsize1less %}
+                            {% assign offernum = 0 %}
+                          {% else %}
+                            {% assign offernum = offernum | plus: 1 %}
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        {% assign numout = numout | plus: 1 %}
+                        {% assign lastoffernum = offernum %}
+                        {% if offernum == llsize1less %}
+                          {% assign offernum = 0 %}
+                        {% else %}
+                          {% assign offernum = offernum | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                      {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                          {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if numoffers == 0 %}
+                      <style>
+                        .upsell
+                        {
+                          display: none;
+                        }
+                      </style>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                  </div>
+                  {% break %}
+
+        {% elsif item.product.type == "Mask" %}
+                  {% assign llsize = linklists.upsell-masks.links | size %}
+                  {% if llsize < 1 %}{% break %}{% endif %}
+                  {% assign llsize1less = llsize | minus: 1 %}
+                  {% assign numout = 0 %}
+                  <div class="upsell">
+                    <h2>Protect your mask!</h2>
+                    {% assign lastoffernum = -1 %}
+                    {% capture offernum %}{{ 'now' | date: "%S" | modulo:llsize }}{% endcapture %}
+                    {% assign offernum = offernum | plus:0 %}
+                    {% assign numoffers = 0 %}
+                    {% assign upselldups = 0 %}
+                    {% for i in (0..100) %}
+                      {% if linklists.upsell-masks.links[offernum].object.selected_or_first_available_variant.available == true %}
+                        {% assign numoffers = numoffers | plus: 1 %}
+                        {% if offernum == lastoffernum %}
+                            {% assign upselldups = upselldups | plus: 1 %}
+                        {% else %}
+                          <div class="product-list-item upselloffer">
+                            <figure class="product-list-item-thumbnail">
+                              <a href="{{ linklists.upsell-masks.links[offernum].object.url }}">
+                                <span class="imgCenterHelper"></span><img src="{{ linklists.upsell-masks.links[offernum].object | img_url: 'large' }}" alt="{{ linklists.upsell-masks.links[offernum].object.featured_image.alt | escape }}" />
+                              </a>
+                            </figure>
+                            <div class="product-list-item-details">
+                              <h3 class="product-list-item-title"><a href="{{ linklists.upsell-masks.links[offernum].object.url }}">{{ linklists.upsell-masks.links[offernum].object.title }}</a></h3>
+                              <p class="product-list-item-price">
+                                <span class="price">
+                                  {{ linklists.upsell-masks.links[offernum].object.price | money }}
+                                </span>
+                                <span style="display: none;">{% increment upsells %}</span>
+                              </p>
+                            </div>
+                            <input type="button" value="ADD TO CART" style="margin-top: 15px;" onclick="jQuery.post('/cart/update.js', {updates: { {{ linklists.upsell-masks.links[offernum].object.selected_or_first_available_variant.id }} : 1}});setTimeout(location.href = './cart',1500);"/>
+                          </div>
+                          {% assign lastoffernum = offernum %}
+                          {% if offernum == llsize1less %}
+                            {% assign offernum = 0 %}
+                          {% else %}
+                            {% assign offernum = offernum | plus: 1 %}
+                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        {% assign numout = numout | plus: 1 %}
+                        {% assign lastoffernum = offernum %}
+                        {% if offernum == llsize1less %}
+                          {% assign offernum = 0 %}
+                        {% else %}
+                          {% assign offernum = offernum | plus: 1 %}
+                        {% endif %}
+                      {% endif %}
+                      {% if upsells > 2 or upselldups > 0 or numout > llsize %}
+                          {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if numoffers == 0 %}
+                      <style>
+                        .upsell
+                        {
+                          display: none;
+                        }
+                      </style>
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                  </div>
+                  {% break %}
+
+  		{% endif %}
+{% endfor %}
