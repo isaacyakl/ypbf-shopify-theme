@@ -40,12 +40,6 @@
   <header class="main-header clearfix" role="banner">
 
     <div class="tools">
-            <!--<style>
-            	#customer_login_link,#customer_login_link:hover,#customer_login_link:active,#customer_login_link:visited {
-                	color: #a741d7;
-                }
-            </style>//-->
-            
             
 				{% if shop.customer_accounts_enabled %}
                   {% if customer %}
@@ -109,7 +103,7 @@
       <a class="mobile-cart-count {% if cart.item_count < 100 %}contain-count{% endif %}" href="/cart">&#57348; <span class="bag-count">{{ cart.item_count }}</span></a>
       <span class="mobile-navigation-toggle"><span></span></span>
     </div>
-
+    
     <nav class="navigation">
       <ul class="navigation-first-tier">
         {% for link in linklists.main-menu.links %}

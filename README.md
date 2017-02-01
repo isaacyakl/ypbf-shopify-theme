@@ -1,5 +1,9 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.6.0 - 9/29/2015:Search Suggstns
+=========================================
++ Removed livesearch branding theme.liquid:153-170
+
 1.5.0 - 9/25/2015:Pre-/Cstm Ord Ntcs & Btns
 =========================================
 + Added "Pre-Order", "Custom Order", and "Trade Towards" strings to the english locale file for specific order types. en.default.json:250-252

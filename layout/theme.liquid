@@ -147,6 +147,27 @@
 
   {{ 'plugins.js' | asset_url | script_tag }}
   {{ 'theme.js' | asset_url | script_tag }}
-
+  
+<script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
 </body>
+
+	<script>
+    $( document ).ready(function() {
+      	//setTimeout("alert('done.')",15000); // Remove livesearch branding
+      	$('.ls-footer.ls-poweredby').empty();
+	});
+	</script>
+  	<style>
+	    .ls-footer > .ls-poweredby {
+	      display: none;
+	    }
+      	.ls-footer.ls-poweredby {
+          width: 0%; 
+        }
+      	.ls-footer {
+          width: 100%;
+        }
+      	
+  	</style>
+
 </html>

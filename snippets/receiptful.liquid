@@ -1,0 +1,16 @@
+{% if receiptful %}
+  {% assign widgetName = receiptful %}  
+{% else -%}
+  {% assign widgetName = 'default' %}
+{% endif -%}
+<div class="rf-recommendations {{ widgetName | prepend: 'rf-' }}" data-name="{{ widgetName }}"></div>
+<script>
+if (typeof window.ReceiptfulData === 'undefined') {
+  window.ReceiptfulData = {
+    product: '{{ product.id }}',
+    customer: '{{ customer.id }}',
+    cart: '{{ cart.items | map: 'product' | map: 'id' | join: ',' }}',
+    recommend: true
+  };
+}
+</script>
