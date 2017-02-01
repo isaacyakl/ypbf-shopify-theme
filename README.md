@@ -1,5 +1,16 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.7.0 - 10/9/2015:Bck Ord & Lmtd Ntc
+=========================================
++ Added "Order" string to the english locale file for specific order types. en.default.json:252
++ Added back order notification to product pages. product-form.liquid:11-12
++ Added "Order" button for back orders. product-form.liquid:60-62
+* Changed social media icons animation to flip. footer.liquid:57-81
+- Removed animation for company logos wrapper in footer. footer.liquid:93
+* Changed header promotional text to have 14pt and #8fca5b color font. header.liquid:4
+* Update animation for header promotional text. header.liquid:3-4
++ Added limited availability notice to product pages. product-form.liquid:14-16
+
 1.6.1 - 10/1/2015:Optmz Ld Tm
 =========================================
 * Moved facebook sdk script from header to widget section in footer.liquid.

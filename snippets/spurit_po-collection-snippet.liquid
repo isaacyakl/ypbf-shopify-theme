@@ -1,0 +1,162 @@
+{% if shop.metafields.spurit_po['preorder_collection_enabled'] == '1' %}
+<script>
+	var SPOParams = {
+		"id" : "d531d71e5faca97f7a81fc256324ebc8",
+		"apiScript" : "{{ 'api.jquery.js' | shopify_asset_url }}"
+	};
+</script>
+<script src="//s3.amazonaws.com/shopify-apps/pre-order/js/common.js"></script>
+<script>
+	$(function(){
+		$('body').on('click', 'a.sca-qv-button', function() {//quick view app
+			var handle = $(this).attr('handle');
+			if(handle){
+				$.getJSON( "/products/"+ handle +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+        $('body').on('click', 'span.quick_shop', function() {//quick shop retina & parallax & kumi
+            var url = '';
+            var selectorPrefix = '';
+            var handle = $(this).attr('data-handle');
+            if(handle){
+                url = '/products/'+ handle;
+                selectorPrefix = '#quick-shop-modal ';
+            }else{
+                var modalId = $(this).attr('data-fancybox-href');
+                if(modalId){
+                    var productModal = $(modalId);
+                    if(productModal.length){
+                        url = productModal.attr('data-product-url');
+                        if(!url){
+                            url = productModal.find('.view_product_info').attr('href');
+                        }
+                        selectorPrefix = '.fancybox-inner ';
+                    }
+                }
+            }
+            if(url){
+                $.getJSON( url +".json", function( data ) {
+                    if(data.product !== undefined ){
+                        spoProduct.setConfigValue('selector_prefix', selectorPrefix);
+                        spoProduct.quickView(data.product);
+                    }
+                });
+            }
+        });
+		$('body').on('click', 'button.quick_shop', function() {//custom parallax
+			var jsonEl = $(this).find('span.product-json').first();
+			if(jsonEl.length){
+				var productData = JSON.parse(jsonEl.html());
+				if(productData){
+					setTimeout(function(){
+						spoProduct.setConfigValue('selector_prefix', '#quick-shop-modal ');
+						spoProduct.quickView(productData);
+					},1000);
+				}
+			}
+		});
+		$('body').on('click', 'a.quick_shop', function() {//quick shop mobilla
+			var modalId = $(this).attr('href');
+			if(modalId){
+				var productModal = $(modalId + ' .view_product_info');
+				if(productModal.length){
+					var url = productModal.attr('href');
+					$.getJSON( url +".json", function( data ) {
+						if(data.product !== undefined ){
+							spoProduct.setConfigValue('selector_prefix', '.fancybox-inner ');
+							spoProduct.quickView(data.product);
+						}
+					});
+				}
+			}
+		});
+		$('body').on('click', '.overlay', function() {//quick shop atlantic (add data-handle to the overlay, button id into quick form)
+			var productId = $(this).attr('data-id');
+			var quickEl = $('#quick-shop-'+productId + ' .go-to-product');
+			if(quickEl.length){
+				var url = quickEl.attr('href');
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', '.quick-shop ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', 'span.quick-view', function() {//quick shop fluid
+			var modalId = $(this).attr('data-prdid');
+			var quickEl = $(modalId + ' .product-details > a');
+			if(quickEl.length){
+				var url = quickEl.attr('href');
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', modalId + ' ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', 'a[rel="quick-view"]', function() {//quick shop qrack
+			var url = $(this).attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', '.white-popup.quick-view ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', 'a.quick-buy', function() {//quick shop canopy
+			var url = $(this).parent().prev().attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('mousedown', 'div.quickview-button > a', function() {//quick shop ella
+			try{
+				var handle = $(this).attr('id');
+				if(handle){
+					$.getJSON( '/products/'+ handle +".json", function( data ) {
+						if(data.product !== undefined ){
+							spoProduct.setConfigValue('selector_prefix', '.quick-view ');
+							setTimeout(function(){spoProduct.quickView(data.product);},500);
+						}
+					});
+				}
+			}catch(e){ console.log(e.toString()); }
+		});
+		$('body').on('click', 'a.product-modal', function() {//quick shop custom pretty-little-gifts
+			var link = $($(this).attr('href')+' .full-click');
+			var url = link.attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', '.fancybox-outer ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+		$('body').on('click', '.block-inner a.more-info', function() {//quick shop symmetry
+			var url = $(this).attr('href');
+			if(url){
+				$.getJSON( url +".json", function( data ) {
+					if(data.product !== undefined ){
+						spoProduct.setConfigValue('selector_prefix', 'div[data-product-id="'+data.product.id+'"] ');
+						spoProduct.quickView(data.product);
+					}
+				});
+			}
+		});
+	});
+</script>
+{% endif %}

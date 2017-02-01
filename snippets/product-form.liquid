@@ -5,9 +5,14 @@
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
     {% if product.tags contains 'Pre-Order' %}
-    	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a pre-order item. By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.<br/>Orders will be filled in the order they are received. ***</p>
+    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a <u>pre-order item</u>. By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.<br/>Orders will be filled in the order they are received. ***</p>
     {% elsif product.tags contains 'Custom Order' %}
-    	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a custom order item. By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>. ***</p>
+    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a <u>custom order item</u>. By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>. ***</p>
+    {% elsif product.tags contains 'Back Order' %}
+    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This item is currently on <u>back order</u> and will take longer than usual to fulfill. See description below for estimated fulfillment timeframe. ***</p>
+    {% endif %}
+    {% if product.tags contains 'Limited' %}
+	    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** <u>Limited availability item</u>. Please <a href="tel:1-800-692-6459">call us</a> for availability before ordering! ***</p>
     {% endif %}
     {% if product.tags contains 'Color Swap' %}
     	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a swap between two items, which means this item will most likely take longer than normal to fulfill. ***</p>
@@ -55,6 +60,9 @@
       	{% elsif product.tags contains 'Custom Order' %}
       		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" />
         	<link itemprop="availability" href="http://schema.org/InStock">
+        {% elsif product.tags contains 'Back Order' %}
+      		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.order' | t }}" />
+        	<link itemprop="availability" href="http://schema.org/OutOfStock">
 		{% else %}
       		<input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
         	<link itemprop="availability" href="http://schema.org/InStock">
