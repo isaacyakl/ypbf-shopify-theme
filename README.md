@@ -1,5 +1,83 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.6.1 - 10/1/2015:Optmz Ld Tm
+=========================================
+* Moved facebook sdk script from header to widget section in footer.liquid.
+* Combined animate.min.css into bottom of theme.scss.liquid.
+* modernizr-2.8.2.min.js moved into scripts-combined.js.
+- Removed empty lines in theme.liquid.
+* wow.min.js moved into scripts-combined.js.
+- Removed empty lines in header.liquid.
+- Removed empty lines in index.liquid.
+- Removed empty lines in page-header.liquid.
+* Combined jquery-1.11.1.min.js into scripts-combined.js.
+* Combined plugins.js into scripts-combined.js.
+* Moved scripts-combined.js include to bottom of page.
+* Moved wow.init() to bottom of page just after scripts-combined.js include.
+* Changed animation from fadeInUpBig to fadeIn for YouTube channel call to action. home-video.liquid:75
+- Removed fadeIn animation from Facebook widget. footer-facebook.liquid:14
++ Added animation to call to action button in YouTube channel call to action. home-video.liquid:77
+- Removed trade now text animation. header.liquid:25
+* Changed animation parameters for trade now button. header.liquid:26
+- Removed commented out code in home-video.liquid
+- Removed empty lines in home-video.liquid
+- Removed empty lines in footer-facebook.liquid
+- Removed empty lines in social-meta.liquid
+- Removed empty lines in 404.liquid
+- Removed empty lines in article.liquid
+- Removed empty lines in blog.liquid
+- Removed empty lines in cart.liquid
+- Removed empty lines in collection.liquid
+- Removed empty lines in customers/account.liquid
+- Removed empty lines in customers/activate_account.liquid
+- Removed empty lines in customers/addresses.liquid
+- Removed empty lines in customers/login.liquid
+- Removed empty lines in customers/order.liquid
+- Removed empty lines in customers/register.liquid
+- Removed empty lines in gift_card.liquid
+- Removed empty lines in list-collections.liquid
+- Removed empty lines in page.contact.liquid
+- Removed empty lines in product.liquid
+- Removed empty lines in search.liquid
+- Removed empty lines in article-list.liquid
+- Removed empty lines in breadcrumbs.liquid
+- Removed empty lines in collection-list-item.liquid
+- Removed empty lines in footer.liquid
+- Removed empty lines in footer-connect.liquid
+- Removed empty lines in footer-facebook.liquid
+- Removed empty lines in footer-instagram.liquid
+- Removed empty lines in footer-link-lists.liquid
+- Removed empty lines in footer-text-box.liquid
+- Removed empty lines in footer-tweet.liquid
+- Removed empty lines in for-looper.liquid
+- Removed empty lines in has-dropdown.liquid
+- Removed empty lines in home-blog-osts.liquid
+- Removed empty lines in home-feature-row.liquid
+- Removed empty lines in home-featured-collections.liquid
+- Removed empty lines in home-featured-products.liquid
+- Removed empty lines in home-imported-content.liquid
+- Removed empty lines in home-slideshow.liquid
+- Removed empty lines in home-video.liquid
+* Changed "Sku" on product pages to uppercase. product-description.liquid:5
+- Removed empty lines in meg-navigation.liquid
+- Removed empty lines in pagination.liquid
+- Removed empty lines in product-description.liquid
+- Removed empty lines in product-form.liquid
+- Removed empty lines in product-images.liquid
+- Removed empty lines in product-list-item.liquid
+- Removed empty lines in share-buttons.liquid
+- Removed empty lines in shipping-calculator.liquid
+- Removed empty lines in sidebar.liquid
+- Removed empty lines in theme-options.liquid
+- Removed comments from zopim.liquid
+- Removed comments for toggle version of share icons. collection.liquid
+- Removed include for SpurIt Pre-Order app. collection.liquid:1
+- Removed files for SpurIt Pre-Order app: spurit_po-cart-snippet.liquid, spurit_po-collection-snippet.liquid, spurit_po-product-snippet.liquid, product-without-spurit_po.liquid, cart-without-spurit-po.liquid, collection-without-spurit_po.liquid
+- Removed include for SpurIt Pre-Order app. product.liquid:1
+- Removed include for SpurIt Pre-Order app. cart.liquid:1
+* Minified theme.js.liquid into theme.min.js.liquid
+* Changed theme.js.liquid script include to theme.min.js.liquid. theme.liquid
+
 1.6.0 - 9/29/2015:Search Suggstns
 =========================================
 + Removed livesearch branding theme.liquid:153-170

@@ -1,42 +1,34 @@
 <div class="product-form" style="padding-top: 0px;">
-
   <meta itemprop="name" content="{{ product.title }}">
   <meta itemprop="brand" content="{{ product.vendor }}">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
-
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
-    
     {% if product.tags contains 'Pre-Order' %}
     	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a pre-order item. By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.<br/>Orders will be filled in the order they are received. ***</p>
     {% elsif product.tags contains 'Custom Order' %}
     	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a custom order item. By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>. ***</p>
     {% endif %}
-    
     {% if product.tags contains 'Color Swap' %}
     	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a swap between two items, which means this item will most likely take longer than normal to fulfill. ***</p>
     {% endif %}
-
     <div class="product-options">
       <select name="id" id="product-variants">
         {% for variant in product.variants %}
           <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
         {% endfor %}
       </select>
-
       {% comment %}
       <div class="input-wrapper">
         <label>Text Example</label>
         <input type="text" name="properties[Name]">
       </div>
-
       <div class="input-wrapper">
         <label>File Example</label>
         <input type="file" name="properties[File]">
       </div>
       {% endcomment %}
     </div>
-    
     {% if settings.enable-product-quantity %}
       <div class="product-quantity">
         <div class="input-wrapper">
@@ -45,21 +37,17 @@
         </div>
       </div>
     {% endif %}
-
     <div class="product-submit" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-
       <span class="product-price">
         <span class="product-price-minimum money" itemprop="price">
           {{ variant.price | money }}
         </span>
-
         <span class="product-price-compare money">
           {% if variant.compare_at_price_min > variant.price_min %}
             {{ variant.compare_at_price_min | money }}
           {% endif %}
         </span>
       </span>
-
       {% if variant.available %}
       	{% if product.tags contains 'Pre-Order' %}
       		<input class="red" id="addToCart" type="submit" value="{{ 'products.product.pre_order' | t }}" />
@@ -79,19 +67,16 @@
       {% if product.type == 'Marker' or product.type == 'Gun' %}
       	<a href="http://yourpbfriend.com/pages/trade-in" title="Let's trade!"><input type="button" value="{{ 'products.product.trade_towards' | t }}" /></a>
       {% endif %}
-
     </div>
   </form>
-  
-  <!-- Shipping Message //-->
+  {% comment %} Shipping Message {% endcomment %}
   <div style="width: 80%; padding: 10px; margin: auto; margin-bottom: 20px; margin-top: 20px; text-align: center; border: 1px solid #8fca5b;border-radius:5px;background: #f7f7f7;">
     Free U.S. shipping on all orders. No minimum!<br>
     Free shipping outside of the U.S. on orders above $1000.<br>
     <a href="/pages/shipping#exclusions"><small><span style="font-style: italic;">Exclusions Apply</span></small></a>
   </div>
-  
+  {% comment %} Facebook Like Button {% endcomment %}
   <div style="width: 100%; text-align: center; padding-bottom: 20px;">
   	{% include 'product_fb_like' %}
-  </div>
-  
+  </div>  
 </div>

@@ -8,63 +8,45 @@
       <input type="submit" value="{{ 'general.search.submit' | t }}" />
     </div>
   </form>
-
   {% paginate search.results by 12 %}
   <div class="search-results-wrapper">
-
     {% if search.performed %}
-
       <div class="search-results-count">
         {% capture results %}<em>{{ search.terms }}</em>{% endcapture %}
         <h3>{{ 'general.search.results_html' | t: search_terms: results }}</h3>
-
         {% if search.results_count == 0 %}
           <p>{{ 'general.search.no_results_html' | t: search_terms: results }}</p>
         {% endif %}
       </div>
-
       {% if search.results.size > 0 %}
         <div class="search-results rows-of-3">
           {% for item in search.results %}
-
             {% if item.price %}
               {% include "product-list-item" with item %}
             {% else %}
               <div class="search-results-item clearfix">
-
                 <div class="search-results-data">
                   <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
-
                   <p class="meta">{{ item.published_at | date: "%b %d, %Y" }}</p>
-
                   <p>{{ item.content | strip_html | truncatewords: 30 | highlight: search.terms }}</p>
-
                   {% assign readMoreText = 'Read more' %}
                   {% if settings.blog-read-more-text != blank %}
                     {% assign readMoreText = settings.blog-read-more-text %}
                   {% endif %}
-
                   <p><a class="post-read-more meta" href="{{ item.url }}">{{ readMoreText }}</a></p>
                 </div>
-
               </div>
             {% endif %}
-
           {% endfor %}
         </div>
       {% endif %}
-
       {% if paginate.previous or paginate.next %}
         {% include 'pagination' %}
       {% endif %}
-
     {% endif %}
   </div>
   {% endpaginate %}
-
 {% else %}
-
   {% include 'respond' %}
   {% layout none %}
-
 {% endunless %}

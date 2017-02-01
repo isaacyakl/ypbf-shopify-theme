@@ -6,26 +6,20 @@
     {% assign itemCount = itemCount | plus: 1 %}
   {% endif %}
 {% endfor %}
-
 {% if settings.mega-nav-item-text != blank %}
   {% assign megaNavTitle = settings.mega-nav-item-text %}
 {% else %}
   {% assign megaNavTitle = link.title %}
 {% endif %}
-
 <li class="mega-nav has-{{itemCount}}-items">
   <a href="{{ link.url }}">{{ megaNavTitle }} <span class="mobile-tier-toggle"></span></a>
-
   <ul class="mega-nav-dropdown">
-
     {% for item in items %}
-
       {% capture enabled %}{{item}}{% endcapture %}
       {% capture linkList %}{{item}}-list{% endcapture %}
       {% assign linkList = settings[linkList] %}
       {% capture useImage %}{{item}}-use-image{% endcapture %}
       {% capture url %}{{item}}-url{% endcapture %}
-
       {% if settings[enabled] %}
         <li class="mega-nav-item">
           {% if settings[useImage] %}
@@ -33,7 +27,6 @@
             <img class="mega-nav-item-image" alt="" src="{{ item | append:'.jpg' | asset_url }}">
             {% if settings[url] != blank %}</a>{% endif %}
           {% endif %}
-
           {% assign linkTag = 'a' %}
           {% if settings[url] == blank %}
             {% assign linkTag = 'span' %}
@@ -41,7 +34,6 @@
           <{{ linkTag }} class="meta tier-toggle-wrap" href="{{ settings[url] }}">
             {{ linklists[linkList].title }} <span class="mobile-tier-toggle"></span>
           </{{ linkTag }}>
-
           {% assign firstTierTitle = linklists[linkList].title %}
           <ul class="mega-nav-first-tier">
             {% for link in linklists[linkList].links %}

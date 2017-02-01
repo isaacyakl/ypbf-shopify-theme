@@ -1,9 +1,7 @@
 <div class="blog-post">
-
   <div class="rte post-content">
     {{ article.content }}
   </div>
-
   <div class="post-meta meta">
     <span class="post-date">{{ article.published_at | date: format: 'short_month' }}</span>
     {% if settings.blog-show-author %}
@@ -17,11 +15,8 @@
       </span>
     {% endif %}
   </div>
-
 </div>
-
 {% include 'share-buttons' %}
-
 {% if blog.next_article or blog.previous_article %}
 <div class="single-post-pagination clearfix">
   <div class="previous-post">
@@ -36,40 +31,28 @@
   </div>
 </div>
 {% endif %}
-
 {% if article.comments_enabled? %}
-
 <div class="post-comments" id="comments">
-
   {% if article.comments_count > 0 %}
     <div class="post-comments-list">
-
       <h3 class="section-title">{{ 'blogs.comments.title' | t }}</h3>
-
       {% paginate article.comments by 10 %}
         {% for comment in article.comments %}
           <div class="post-comment rte" id="comment-{{ comment.id }}">
             <p class="post-comment-author">{{ comment.author }}:</p>
-
             {{ comment.content }}
-
             <p class="post-comment-date meta">{{ comment.created_at | date: format: "short_month" }}</p>
           </div>
         {% endfor %}
-
         {% if paginate.previous or paginate.next %}
           {% include 'pagination' %}
         {% endif %}
-
       {% endpaginate %}
     </div>
   {% endif %}
-
   <div class="post-comments-submit">
     <h3>{{ 'blogs.comments.form_header' | t }}</h3>
-
     {% form article %}
-
       {% if form.posted_successfully? %}
         <p>
         {% if blog.moderated? %}
@@ -79,34 +62,27 @@
         {% endif %}
         </p>
       {% endif %}
-
       {% if form.errors %}
         {{ form.errors | default_errors }}
       {% endif %}
-
       {% unless form.posted_successfully? %}
         <div class="input-wrapper {% if form.errors contains "author" %}error{% endif %}">
           <label>{{ 'general.name' | t }}</label>
           <input type="text" placeholder="{{ 'general.name_placeholder' | t }}" value="{{ form.author }}" name="comment[author]">
         </div>
-
         <div class="input-wrapper {% if form.errors contains "email" %}error{% endif %}">
           <label>{{ 'general.email' | t }}</label>
           <input type="email" placeholder="{{ 'general.email_placeholder' | t }}" value="{{ form.email }}" name="comment[email]">
         </div>
-
         <div class="input-wrapper {% if form.errors contains "body" %}error{% endif %}">
           <label>{{ 'general.message' | t }}</label>
           <textarea name="comment[body]" rows="11">{{ form.body }}</textarea>
         </div>
-
         <div class="input-wrapper">
           <input type="submit" value="{{ 'blogs.comments.submit' | t }}">
         </div>
       {% endunless %}
-
     {% endform %}
   </div>
-
 </div>
 {% endif %}

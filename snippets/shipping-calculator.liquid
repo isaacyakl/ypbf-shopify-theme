@@ -1,7 +1,5 @@
 <div class="cart-shipping-calculator">
-
   <h4>{{ 'cart.shipping_calculator.header' | t }}</h4>
-
   <div class="cart-shipping-calculator-wrap rte">
     <div class="input-wrapper">
       <label for="address_country">{{ 'cart.shipping_calculator.country' | t }}</label>
@@ -10,7 +8,6 @@
         <select class="address-country" id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif settings.shipping-calculator-default-country != blank %}{{ settings.shipping-calculator-default-country }}{% endif %}">{{ country_option_tags }}</select>
       </div>
     </div>
-
     <div class="input-wrapper" id="address_province_container">
       <label for="address_province" id="address_province_label">{{ 'cart.shipping_calculator.province' | t }}</label>
       <div class="province-select select-wrapper">
@@ -18,19 +15,15 @@
         <select class="address-province" id="address_province" class="address_form" name="address[province]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"></select>
       </div>
     </div>
-
     <div class="zip-code input-wrapper">
       <label for="address_zip">{{ 'cart.shipping_calculator.zip' | t }}</label>
       <input type="text" class="address-zip" id="address_zip" class="field" name="address[zip]" {% if shop.customer_accounts_enabled and customer %}value="{{ customer.default_address.zip }}"{% endif %} />
     </div>
-
     <div class="input-wrapper">
       <input type="button" class="get-rates secondary" value="{{ 'cart.shipping_calculator.submit' | t }}" />
     </div>
   </div>
-
   <div class="cart-shipping-calculator-response rte">
     <p>{{ 'cart.shipping_calculator.prompt' | t }}</p>
   </div>
-
 </div>

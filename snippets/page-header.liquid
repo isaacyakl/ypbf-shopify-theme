@@ -1,5 +1,4 @@
 {% include 'breadcrumbs' %}
-
 {% if template contains 'product' %}
   <div class="product-details">
     <h1 class="page-title" itemprop="name">{{ product.title }}</h1>
@@ -17,15 +16,12 @@
   {% if collection.image and settings.collection-featured-image %}
     <div class="collection-header">
       <img alt="{{ collection.image.alt | escape }}" src="{{ collection | img_url: '1024x1024' }}">
-
       <div class="collection-details">
         <h1>{{ collection.title }}</h1>
-
         {% if collection.description != blank and settings.collection-description %}
           <div class="collection-description rte">
             {{ collection.description | strip_html | truncatewords: 20 }}
           </div>
-
           {% capture shortDescription %}{{ collection.description | strip_html | truncatewords: 20 }}{% endcapture %}
           {% if collection.description.size > shortDescription.size %}
             <span class="collection-description-more">{{ 'collections.collection.read_more' | t }}</span>
@@ -38,7 +34,6 @@
     </div>
   {% else %}
     <h1 class="page-title">{{ collection.title }}</h1>
-
     {% if collection.description != blank and settings.collection-description %}
       <div class="collection-description rte">
         {{ collection.description }}
@@ -51,13 +46,11 @@
     {{ blog.title }}
     {% if current_tags %}</a>{% endif %}
   </h1>
-
   {% if settings.blog-show-rss-icon %}
     <p class="blog-subscribe"><a href="{{ blog.url }}.atom">{{ 'blogs.blog.subscribe' | t }}</a></p>
   {% endif %}
 {% elsif template contains 'article' %}
   <h1 class="page-title">{{ article.title }}</h1>
-
   {% if settings.blog-show-rss-icon %}
     <p class="blog-subscribe"><a href="{{ blog.url }}.atom">{{ 'blogs.blog.subscribe' | t }}</a></p>
   {% endif %}

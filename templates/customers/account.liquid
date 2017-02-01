@@ -2,12 +2,9 @@
   {{ 'customers.general.logged_in_as' | t: customer_name: customer.name }} (<em>{{ 'customers.general.logout' | t | customer_logout_link }}</em>)
   &bull; <a href="/account/addresses">{{ 'customers.addresses.title' | t }} ({{ customer.addresses_count }})</a>
 </p>
-
 {% if customer.addresses.size > 0 %}
   <div class="default-address">
-
     <h3>{{ 'customers.account.default_address' | t }}</h3>
-
     <p>
       <span>{{ customer.default_address.first_name }} {{ customer.default_address.last_name }}</span><br>
       {% if customer.default_address.company != blank %}
@@ -26,16 +23,11 @@
         <span>{{ customer.default_address.phone }}</span><br>
       {% endif %}
     </p>
-
     <p class="meta"><a href="/account/addresses">{{ 'customers.addresses.edit' | t }}</a></p>
-
   </div>
 {% endif %}
-
 <div class="order-history">
-
   <h3>{{ 'customers.account.order_history' | t }}</h3>
-
   <table class="order-history-orders">
     <thead>
       <tr>
@@ -45,7 +37,6 @@
         <th class="last">{{ 'general.total' | t }}</th>
       </tr>
     </thead>
-
     <tbody>
       {% if customer.orders.size > 0 %}
         {% for order in customer.orders %}
@@ -63,5 +54,4 @@
       {% endif %}
     </tbody>
   </table>
-
 </div>

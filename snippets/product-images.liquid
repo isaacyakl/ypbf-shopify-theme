@@ -2,14 +2,11 @@
   <div class="product-images clearfix">
     <div class="product-main-image">
       {% assign mainImage = variant.featured_image | default: product.featured_image %}
-
       <img alt="{{ mainImage.alt | escape }}" src="{{ mainImage | img_url: '1024x1024' }}">
-
       {% if settings.product-enable-zoom %}
         <div class="product-zoom"></div>
       {% endif %}
     </div>
-
     {% if product.images.size > 1 %}
     <div class="product-thumbnails">
       {% for image in product.images %}

@@ -1,11 +1,7 @@
 <p class="account-logged-in-as">{{ 'customers.general.logged_in_as' | t: customer_name: customer.name }} (<em>{{ 'customers.general.logout' | t | customer_logout_link }}</em>)</p>
-
 {% if customer.addresses.size > 0 %}
-
   <div class="customer-addresses">
-
     {% paginate customer.addresses by 10 %}
-
       {% for address in customer.addresses %}
         <div class="customer-address" data-address-id="{{ address.id }}">
           <p>
@@ -26,16 +22,12 @@
               <span>{{ address.phone }}</span><br>
             {% endif %}
           </p>
-
           {% if address == customer.default_address %}<p class="customer-address-is-default">{{ 'customers.addresses.default_address_message' | t }}</p>{% endif %}
-
           <p class="customer-address-modify"><span class="edit-address">{{ 'customers.addresses.edit' | t }}</span> / <span class="delete-address">{{ 'customers.addresses.delete' | t }}</span></p>
         </div>
-
         <div class="modal-wrapper" data-address-id="{{ address.id }}">
           <div class="modal-content customer-address-edit-form" data-address-id="{{ address.id }}">
             <h2 class="modal-title">{{ 'customers.addresses.edit' | t }}</h2>
-
             <div class="modal-message">
               {% form 'customer_address', address %}
                 <div class="input-wrapper">
@@ -86,27 +78,21 @@
                 </div>
               {% endform %}
             </div>
-
             <span class="modal-close modal-close-secondary">{{ 'general.close' | t }}</span>
           </div>
         </div>
       {% endfor %}
-
       {% if paginate.previous or paginate.next %}
         {% include 'pagination' %}
       {% endif %}
-
     {% endpaginate %}
   </div>
-
   <div class="add-new-address">
     <span class="button toggle-new-address">{{ 'customers.addresses.add_new_address' | t }}</span>
   </div>
 {% endif %}
-
 <div class="customer-new-address {% if customer.addresses.size == 0 %}show{% endif %}">
   {% if customer.addresses.size == 0 %}<h3>{{ 'customers.addresses.add_new_address' | t }}</h3>{% endif %}
-
   {% form 'customer_address', customer.new_address %}
     <div class="input-wrapper new-first-name">
       <label>{{ 'customers.general.first_name' | t }}</label>

@@ -1,11 +1,5 @@
-
-<!-- spurit_po-added -->
-{% include 'spurit_po-cart-snippet' %}
-<!-- /spurit_po-added -->
 {% if cart.item_count > 0 %}
-
   <form action="/cart" method="post">
-
     <table class="cart-items clean {% if settings.disable-ajax or settings.enable-currency-switcher %}no-ajax{% endif %}">
       <thead>
         <tr>
@@ -15,7 +9,6 @@
           <th class="last">{{ 'general.total' | t }}</th>
         </tr>
       </thead>
-
       <tbody>
         {% for item in cart.items %}
           <tr class="cart-item variant-{{ item.variant.id }}" data-variant="{{ item.variant.id }}" data-title="{{ item.product.title }}" data-url="{{ item.product.url }}">
@@ -23,23 +16,19 @@
               <a class="cart-item-image" href="{{ item.product.url }}">
                 <img alt="{{ item.image.alt | escape }}" src="{{ item | img_url: 'medium' }}">
               </a>
-
               <span class="cart-item-vendor vendor">{{ item.vendor | link_to_vendor }}</span>
               <span class="cart-item-title">{{ item.product.title | link_to: item.product.url }}</span>
-
               {% for option in item.variant.options %}
                 {% unless option == 'Default Title' %}
                   <span class="cart-item-option">{{ option }}</span>
                 {% endunless %}
               {% endfor %}
-
               {% if item.properties.size > 0 %}
                 <div class="cart-line-item-properties">
                   {% for property in item.properties %}
                     {% if property.last != blank %}
                       <span class="cart-item-property">
                         <strong>{{ property.first }}</strong>:
-
                         {% if property.last contains "/uploads/" %}
                           <span class="cart-item-property-value cart-item-upload" data-file="{{ property.last }}">{{ property.last | split: '/' | last }}</span>
                         {% else %}
@@ -50,7 +39,6 @@
                   {% endfor %}
                 </div>
               {% endif %}
-
               {% if settings.disable-ajax or settings.enable-currency-switcher %}
                 <a class="cart-item-remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">&#57360;</a>
               {% endif %}
@@ -64,26 +52,20 @@
           </tr>
         {% endfor %}
       </tbody>
-
     </table>
-
     {% if settings.cart-special-instructions or settings.shipping-calculator %}
       <div class="cart-tools">
-
         {% if settings.cart-special-instructions %}
           <div class="cart-instructions">
             <p>{{ 'cart.special_instructions' | t }}</p>
             <textarea name="note" rows="4">{{ cart.note }}</textarea>
           </div>
         {% endif %}
-
         {% if settings.cart-shipping-calculator and cart.requires_shipping %}
           {% include 'shipping-calculator' %}
         {% endif %}
-
       </div>
     {% endif %}
-
     <div class="cart-checkout">
       <p class="cart-message">
         {% include 'salesrep' %}
@@ -96,18 +78,13 @@
       {% else %}
         <a class="cart-checkout-button button" href="/checkout">{{ 'cart.submit' | t }}</a>
       {% endif %}
-
       {% if additional_checkout_buttons %}
         <div class="cart-additional-buttons">
           {{ content_for_additional_checkout_buttons }}
         </div>
       {% endif %}
     </div>
-   
   </form>
-
 {% else %}
-
   <p class="cart-empty-message">{{ 'cart.empty' | t }}</p>
-
 {% endif %}

@@ -1,9 +1,4 @@
-
-<!-- spurit_po-added -->
-{% include 'spurit_po-collection-snippet' %}
-<!-- /spurit_po-added -->
 {% paginate collection.products by settings.collection-products-per-page %}
-
   {% assign platforms = 0 %}
   {% if settings.share-widget-facebook %}{% assign platforms = platforms | plus: 1 %}{% endif %}
   {% if settings.share-widget-twitter %}{% assign platforms = platforms | plus: 1 %}{% endif %}
@@ -11,32 +6,19 @@
   {% if settings.share-widget-fancy %}{% assign platforms = platforms | plus: 1 %}{% endif %}
   {% if settings.share-widget-google-plus %}{% assign platforms = platforms | plus: 1 %}{% endif %}
   {% if settings.share-widget-email %}{% assign platforms = platforms | plus: 1 %}{% endif %}
-
   {% if platforms > 0 %}
-	<!-- Toggle version of share section //--->
-	<!--<div class="collection-sharing meta">
-      <span class="collection-sharing-toggle">{{ 'general.share_buttons.share' | t }}</span>
-
-      {% include 'share-buttons' %}
-    </div>//-->
-
-	<!-- Non-Toggle version of share section //-->
 	<div class="share-buttons-container">
          {% include 'share-buttons' %}
 	</div>
   {% endif %}
-
   {% if settings.collection-sorting or settings.collection-filtering %}
     <div class="collection-viewing-parameters">
-
       {% if settings.collection-sorting %}
         <div class="collection-sorting {% if collection.current_vendor %}vendor-collection{% endif %}">
           <div class="select-wrapper">
-
             {% assign sortHandles = "manual|price-ascending|price-descending|title-ascending|title-descending|created-ascending|created-descending|best-selling" | split: "|" %}
             {% capture sortTitles %}{{ 'collections.collection_sorting.manual' | t }}|{{ 'collections.collection_sorting.price-ascending' | t }}|{{ 'collections.collection_sorting.price-descending' | t }}|{{ 'collections.collection_sorting.title-ascending' | t }}|{{ 'collections.collection_sorting.title-descending' | t }}|{{ 'collections.collection_sorting.created-ascending' | t }}|{{ 'collections.collection_sorting.created-descending' | t }}|{{ 'collections.collection_sorting.best-selling' | t }}{% endcapture %}
             {% assign sortTitles = sortTitles | split: "|" %}
-
             {% for handle in sortHandles %}
               {% if collection.sort_by == blank and collection.default_sort_by == handle %}
                 {% assign currentTitle = sortTitles[forloop.index0] %}
@@ -44,7 +26,6 @@
                 {% assign currentTitle = sortTitles[forloop.index0] %}
               {% endif %}
             {% endfor %}
-
             <label class="selected-text">{{ 'collections.collection_sorting.title' | t }} <strong>{{ currentTitle }}</strong></label>
             <select>
               {% for handle in sortHandles %}
@@ -60,22 +41,14 @@
           </div>
         </div>
       {% endif %}
-
       {% if collection.handle != blank and settings.collection-filtering %}
-
         <div class="collection-filtering" data-fallback-url="/collections/{{collection.handle}}">
-
           {% assign tagLinkLists = "collection-filter-link-list-1|collection-filter-link-list-2|collection-filter-link-list-3" | split: "|" %}
           {% assign availableLinks = false %}
-
           {% for list in tagLinkLists %}
-
             {% assign name = settings[list] %}
-
             {% if linklists[name].links.size > 0 %}
-
               {% assign availableLinks = true %}
-
               <div class="collection-filter">
                 <div class="select-wrapper">
                   <label class="selected-text">{{ linklists[name].title }}: <strong>{{ 'collections.collection.any_tag' | t }}</strong></label>
@@ -96,12 +69,10 @@
               </div>
             {% endif %}
           {% endfor %}
-
           {% if availableLinks == false and collection.all_tags.size > 0 %}
             {% comment %}
               There were no links found in any of the link lists
             {% endcomment %}
-
             <div class="collection-filter">
               <div class="select-wrapper">
                 <label class="selected-text">{{ 'collections.collection.tags_label' | t }}: <strong>{{ 'collections.collection.any_tag' | t }}</strong></label>
@@ -118,19 +89,14 @@
               </div>
             </div>
           {% endif %}
-
         </div>
-
         {% if current_tags.size > 0 %}
           <span class="meta collection-remove-filter">{{ 'collections.collection.reset_tags' | t }}</span>
         {% endif %}
       {% endif %}
-
     </div>
   {% endif %}
-
   {% include 'pagination' %}
-
   <div class="collection-products {{settings.collection-layout-style}}-layout {{settings.collection-product-text-style}}-style rows-of-{{settings.collection-products-per-row}} mobile-rows-of-{{settings.collection-products-per-row-mobile}} {% if collection.products.size == 0 %}collection-empty{% endif %}">
     {% for product in collection.products %}
       {% include 'product-list-item' %}
@@ -138,7 +104,5 @@
       <p class="empty">{{ 'collections.collection.empty' | t }} {% if current_tags.size > 0 %}{{ 'collections.collection.empty_tag_filter' | t }}{% endif %}</p>
     {% endfor %}
   </div>
-
   {% include 'pagination' %}
-
 {% endpaginate %}

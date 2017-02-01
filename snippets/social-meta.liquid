@@ -9,7 +9,6 @@
     - https://developers.pinterest.com/rich_pins/validator/
 
 {% endcomment %}
-
 <meta property="og:site_name" content="{{ shop.name }}" />
 <meta property="og:url" content="{{ canonical_url }}" />
 <meta property="og:title" content="{{ page_title }}" />
@@ -42,7 +41,6 @@
     <meta property="og:image:secure_url" content="https:{{ 'logo.png' | asset_url }}" />
   {% endif %}
 {% endif %}
-
 {% comment %}
 
   Twitter Card
@@ -51,17 +49,13 @@
     - https://dev.twitter.com/docs/cards/validation/validator
 
 {% endcomment %}
-
 {% if settings.twitter-handle != blank %}
   <meta name="twitter:site" content="{{ settings.twitter-handle }}">
 {% endif %}
-
 {% if page_description %}
   <meta property="twitter:description" content="{{ page_description }}" />
 {% endif %}
-
 <meta name="twitter:url" content="{{ canonical_url }}">
-
 {% if template contains 'product' %}
   <meta name="twitter:card" content="product">
   <meta name="twitter:title" content="{{ product.title }}">

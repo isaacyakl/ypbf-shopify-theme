@@ -1,6 +1,4 @@
-
 <article class="blog-post">
-
   <div class="post-meta meta">
     <span class="post-date">{{ article.published_at | date: format: "short_month" }}</span>
     {% if settings.blog-show-author %}
@@ -17,9 +15,7 @@
       </span>
     {% endif %}
   </div>
-
   <h3 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
-
   <div class="rte post-content">
     {% if article.excerpt != blank %}
       {{ article.excerpt }}
@@ -30,5 +26,4 @@
       <a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
     </p>
   </div>
-
 </article>

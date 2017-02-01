@@ -1,10 +1,8 @@
 {% assign slides = "slide-1|slide-2|slide-3|slide-4|slide-5" | split: "|" %}
 {% assign slideCount = 0 %}
 {% assign firstSlide = false %}
-
 {% for slide in slides %}
   {% capture enabled %}show-{{slide}}{% endcapture %}
-
   {% if settings[enabled] %}
     {% unless firstSlide %}
       {% assign firstSlide = forloop.index %}
@@ -12,12 +10,9 @@
     {% assign slideCount = slideCount | plus: 1 %}
   {% endif %}
 {% endfor %}
-
 {% if slideCount > 0 %}
   <div class="home-slideshow {{ settings.slideshow-layout }} {{ settings.slideshow-transition }} showing-slide-{{ firstSlide }}">
-
     <div class="slideshow-slides">
-
       {% for slide in slides %}
         {% capture enabled %}show-{{slide}}{% endcapture %}
         {% capture alignment %}{{slide}}-content-alignment{% endcapture %}
@@ -26,43 +21,33 @@
         {% capture textBelow %}{{slide}}-text-below{% endcapture %}
         {% capture textShadow %}{{slide}}-text-shadow{% endcapture %}
         {% capture url %}{{slide}}-url{% endcapture %}
-
         {% if settings[enabled] %}
-
           <div id="{{slide}}" class="slideshow-slide {{slide}} text-shadows-{{ settings[textShadow] }} content-aligned-{{settings[alignment]}}">
-
             {% if settings[url] != blank %}
               <a class="slide-link" href="{{settings[url]}}"></a>
             {% endif %}
-
             <img class="slide-image" alt="{{ settings[title] }}" src="{{ slide | append:'-image.jpg' | asset_url }}">
-
             {% if settings[textAbove] != blank or settings[title] != blank or settings[textBelow] != blank %}
               <div class="slide-content">
                 {% if settings[textAbove] != blank %}
                   <p>{{ settings[textAbove] }}</p>
                 {% endif %}
-
                 {% if settings[title] != blank %}
                   <h3 class="slide-title">{{ settings[title] }}</h3>
                 {% endif %}
-
                 {% if settings[textBelow] != blank %}
                   <p>{{ settings[textBelow] }}</p>
                 {% endif %}
               </div>
             {% endif %}
           </div>
-
         {% endif %}
       {% endfor %}
     </div>
-
     {% if settings.slideshow-navigation and slideCount > 1 %}
       <div class="slideshow-navigation previous-slide"><span>&#57361;</span></div>
       <div class="slideshow-navigation next-slide"><span>&#57362;</span></div>
     {% endif %}
-
     {% if settings.slideshow-pagination and slideCount > 1 %}
       <div class="slideshow-pagination">
         {% assign slides = "slide-1|slide-2|slide-3|slide-4|slide-5" | split: "|" %}
@@ -77,15 +62,10 @@
   </div>
 {% else %}
   <div class="home-slideshow {{ settings.slideshow-layout }} {{ settings.slideshow-transition }} showing-slide-1">
-
     <div class="slideshow-slides">
-
       <div id="slide-1" class="slideshow-slide slide-1 text-shadows-false content-aligned-center">
-
         <a class="slide-link" href="/admin/themes/{{ theme.id }}/settings"></a>
-
         <img width="1400" height="600" class="slide-image" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPYvufQfwAHmAM12jbOLQAAAABJRU5ErkJggg==">
-
         <div class="slide-content">
           <p>{{ 'onboarding.slideshow.text_above' | t }}</p>
           <h3 class="slide-title">{{ 'onboarding.slideshow.title' | t }}</h3>

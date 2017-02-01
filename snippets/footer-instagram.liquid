@@ -2,16 +2,13 @@
   {% if settings.footer-titles %}
     <h4>{{ 'layout.footer.instagram_title' | t }}</h4>
   {% endif %}
-
   <div class="footer-instagram-photos">
     {% if settings.footer-instagram-access-token == blank %}
-
       {% for i in (1..3) %}
         <a class="footer-instagram-photo" href="/admin/themes/{{ theme.id }}/settings" target="_blank">
           <img width="640" height="640" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPYvufQfwAHmAM12jbOLQAAAABJRU5ErkJggg==">
         </a>
       {% endfor %}
-
       <p style="font-size: 14px; padding: 0 7px; color: #777;">{{ 'onboarding.instagram_widget.message' | t }}</p>
     {% endif %}
   </div>

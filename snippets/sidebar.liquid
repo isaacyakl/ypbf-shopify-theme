@@ -1,15 +1,10 @@
 <div class="sidebar">
-
   {% assign sidebarLinkLists = "sidebar-link-list-1|sidebar-link-list-2|sidebar-link-list-3" | split: "|" %}
-
   {% for list in sidebarLinkLists %}
-
     {% assign name = settings[list] %}
-
     {% if linklists[name].links.size > 0 %}
       <div class="sidebar-link-list">
         <h4 class="sidebar-link-list-title meta">{{ linklists[name].title }}</h4>
-
         <ul>
           {% for link in linklists[name].links %}
             {% include 'has-dropdown' %}
@@ -31,5 +26,4 @@
       </div>
     {% endif %}
   {% endfor %}
-
 </div>

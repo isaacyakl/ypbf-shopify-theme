@@ -1,8 +1,6 @@
 <p style="text-align: right;"><a href="/apps/tracktor/track?order={{ order.order_number }}&email={{ order.email }}">Track Shipment</a></p>
 <p class="account-logged-in-as">{{ 'customers.general.logged_in_as' | t: customer_name: customer.name }} (<em>{{ 'customers.general.logout' | t | customer_logout_link }}</em>)</p>
-
 <div class="order-history">
-
   <table class="order-history-order">
     <thead>
       <tr>
@@ -11,7 +9,6 @@
         <th class="last">{{ 'general.total' | t }}</th>
       </tr>
     </thead>
-
     <tbody>
     {% for line_item in order.line_items %}
       <tr class="{% include 'for-looper' %} {% if order.cancelled %}cancelled_order{% endif %}">
@@ -41,7 +38,6 @@
     {% endfor %}
     </tbody>
   </table>
-
   <div class="order-totals">
     <ul class="sub-total">
       {% for discount in order.discounts %}
@@ -53,7 +49,6 @@
         <li class="order-tax {% include 'for-looper' %}"><label>{{ 'customers.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</label><span>{{ tax_line.price | money }}</span></li>
       {% endfor %}
     </ul>
-
     <ul class="total">
       <li class="order-total"><label>{{ 'general.total' | t }}</label><span>{{ order.total_price | money }}</span></li>
       {% if settings.enable-currency-switcher %}
@@ -61,11 +56,8 @@
       {% endif %}
     </ul>
   </div>
-
 </div>
-
 <div class="shipping-info">
-
   <div class="shipping-address">
     <h3>{{ 'customers.order.shipping_address' | t }}</h3>
     <p>
@@ -87,7 +79,6 @@
       {% endif %}
     </p>
   </div>
-
   <div class="billing-address">
     <h3>{{ 'customers.order.billing_address' | t }}</h3>
     <p>
@@ -109,5 +100,4 @@
       {% endif %}
     </p>
   </div>
-
 </div>

@@ -1,11 +1,9 @@
 {% if collections[settings.home-featured-products].products.size > 0 %}
   <div class="home-module home-featured-products rows-of-{{ settings.home-featured-products-per-row }}">
     <div class="home-module-content">
-
       {% if settings.home-featured-products-title != blank %}
         <a href="{{ collections[settings.home-featured-products].url }}"><h4 class="section-title">{{ settings.home-featured-products-title }}</h4></a>
       {% endif %}
-
       <div class="home-featured-products-list collection-products uniform-layout {{settings.collection-product-text-style}}-style">
         {% for product in collections[settings.home-featured-products].products limit: settings.home-featured-products-max %}
           {% include 'product-list-item' %}
@@ -16,11 +14,8 @@
 {% else %}
   <div class="home-module home-featured-products rows-of-3">
     <div class="home-module-content">
-
       <h4 class="section-title">{{ 'onboarding.featured_products.title' | t }}</h4>
-
       <div class="home-featured-products-list collection-products uniform-layout {{settings.collection-product-text-style}}-style">
-
         {% for i in (1..3) %}
           <div class="product-list-item">
             <figure class="product-list-item-thumbnail">

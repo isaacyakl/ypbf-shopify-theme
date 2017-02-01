@@ -1,6 +1,5 @@
 {% if paginate.previous or paginate.next %}
   <ul class="pagination">
-
     <li class="pagination-previous">
       {% if paginate.previous %}
         {{ 'general.pagination.previous' | t | link_to: paginate.previous.url }}
@@ -8,9 +7,7 @@
         <span>{{ 'general.pagination.previous' | t }}</span>
       {% endif %}
     </li>
-
     <li class="pagination-position">{{ 'general.pagination.summary' | t: current_page: paginate.current_page, total_pages: paginate.pages }}</li>
-
     <li class="pagination-next">
       {% if paginate.next %}
         {{ 'general.pagination.next' | t | link_to: paginate.next.url }}
@@ -18,6 +15,5 @@
         <span>{{ 'general.pagination.next' | t }}</span>
       {% endif %}
     </li>
-
   </ul>
 {% endif %}

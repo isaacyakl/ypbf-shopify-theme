@@ -1,7 +1,5 @@
 <div class="breadcrumbs">
-
   <a href="/">{{ 'general.breadcrumbs.home' | t }}</a> <span class="divider">/</span>
-
   {% if template contains "product" %}
     {% if product.collections %}
       <a href="/collections">{{ 'collections.listing.title' | t }}</a> {% if product.collections.size > 0 %}<span class="divider">/</span> <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>{% endif %}
@@ -46,10 +44,8 @@
     {% endif %}
   {% elsif template contains "customers" %}
     <a href="/account">{{ 'customers.account.title' | t }}</a>
-
     {% unless template contains "account" %}
       <span class="divider">/</span>
-
       <span>
         {% if template contains 'activate' %}
           {{ 'customers.activate_account.title' | t }}
@@ -67,5 +63,4 @@
       </span>
     {% endunless %}
   {% endif %}
-
 </div>

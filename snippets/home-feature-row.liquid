@@ -1,27 +1,20 @@
 {% assign featureCount = 0 %}
 {% for feature in features %}
-
   {% capture enabled %}{{ feature }}{% endcapture %}
   {% if settings[enabled] %}
     {% assign featureCount = featureCount | plus: 1 %}
   {% endif %}
-
 {% endfor %}
-
 {% capture title %}{{ home-feature-row }}-title{% endcapture %}
 {% capture textShadow %}{{ home-feature-row }}-text-shadow{% endcapture %}
-
 {% if featureCount > 0 %}
   <div class="home-module home-feature-row row-of-{{featureCount}} text-shadows-{{ settings[textShadow] }}">
     <div class="home-module-content">
-
       {% if settings[title] != blank %}
         <h4 class="section-title">{{ settings[title] }}</h4>
       {% endif %}
-
       <div class="home-module-inline-items">
         {% for feature in features %}
-
           {% capture enabled %}{{ feature }}{% endcapture %}
           {% capture textAbove %}{{ feature }}-text-above{% endcapture %}
           {% capture title %}{{ feature }}-title{% endcapture %}
@@ -29,27 +22,22 @@
           {% capture url %}{{ feature }}-url{% endcapture %}
           {% capture textColor %}{{ feature }}-text-color{% endcapture %}
           {% capture textPosition %}{{ feature }}-text-position{% endcapture %}
-
           {% if settings[enabled] %}
             <div class="home-feature">
               <div class="home-feature-image">
                 <img alt="{{ settings[title] }}" src="{{ feature | append: '.png' | asset_url }}">
               </div>
-
               {% if settings[url] != blank %}
                 <a class="home-feature-link" href="{{ settings[url] }}"></a>
               {% endif %}
-
               {% if settings[textAbove] != blank or settings[title] != blank or settings[textBelow] != blank %}
                 <div class="home-feature-content text-color-{{ settings[textColor] }} text-positioned-{{ settings[textPosition] }} rte">
                   {% if settings[textAbove] != blank %}
                     <p>{{ settings[textAbove] }}</p>
                   {% endif %}
-
                   {% if settings[title] != blank %}
                     <h3>{{ settings[title] }}</h3>
                   {% endif %}
-
                   {% if settings[textBelow] != blank %}
                     <p>{{ settings[textBelow] }}</p>
                   {% endif %}
@@ -60,7 +48,6 @@
 
         {% endfor %}
       </div>
-
     </div>
   </div>
 {% endif %}

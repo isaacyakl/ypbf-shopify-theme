@@ -1,25 +1,18 @@
 <script>
-
   window.Shop = {};
-
   Shop.version = "1.1.5";
-
   Shop.currency = {{ shop.currency | json }};
   Shop.moneyFormat = {{ shop.money_format | strip_html | json }};
   Shop.moneyFormatCurrency = {{ shop.money_with_currency_format | strip_html | json }};
-
   {% if shop.customer_accounts_enabled and customer %}
     Shop.customerLoggedIn = true;
   {% endif %}
-
   {% if cart.requires_shipping %}
     Shop.requiresShipping = true
   {% endif %}
-
   {% if shop.customer_accounts_enabled and customer and customer.addresses.size > 0 %}
     Shop.customerAddress = {{ customer.default_address | json }};
   {% endif %}
-
   {% if settings.enable-currency-switcher %}
     /*
       Override the default Shop.moneyFormat for recalculating
@@ -27,5 +20,4 @@
     */
     Shop.moneyFormat = {{ shop[settings.currency-switcher-format] | json }};
   {% endif %}
-
 </script>

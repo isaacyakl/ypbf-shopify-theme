@@ -4,11 +4,9 @@
 {% elsif template contains 'product' %}
   {% assign item = prod %}
 {% endif %}
-
 {% assign saleText = 'products.product.sale' | t %}
 {% capture percentage %}{{ item.compare_at_price_max | minus: item.price | times: 100.0 | divided_by: item.compare_at_price_max | money_without_currency | times: 100 | remove: '.0' }}%{% endcapture %}
 {% assign saleText = saleText | replace: '{PCT}', percentage %}
-
 {% if settings.collection-stock-level-overlay and item.available %}
   {% assign total = 0 %}
   {% assign threshold = settings.collection-stock-level-overlay-threshold | times: 1 %}
@@ -27,28 +25,22 @@
   {% endfor %}
   {% assign stockText = settings.collection-stock-level-overlay-text | replace: '{NUM}', total %}
 {% endif %}
-
 {% assign onSale = false %}
 {% if item.compare_at_price_min > item.price_min %}
   {% assign onSale = true %}
 {% endif %}
-
 <div class="wow zoomIn product-list-item">
-
   {% assign isSearch = false %}
   {% if template contains 'search' %}
     {% assign isSearch = true %}
   {% endif %}
-
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
   <a class="product-list-item-overlay-link" href="{{ item.url }}"></a>
   {% endif %}
-
   <figure class="product-list-item-thumbnail">
     <a href="{{ item.url | within: collection }}">
       <span class="imgCenterHelper"></span><img src="{{ item | img_url: 'large' }}" alt="{{ item.featured_image.alt | escape }}" />
     </a>
-
     {% if item.available %}
       {% if settings.collection-stock-level-overlay
         and infinity == false
@@ -68,13 +60,10 @@
       <span class="product-list-item-badge inventory">{{ 'products.product.sold_out' | t }}</span>
     {% endif %}
   </figure>
-
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
   <div class="product-list-item-details-wrapper">
   {% endif %}
-
   <div class="product-list-item-details">
-
     <p class="product-list-item-vendor vendor meta">{{ item.vendor | link_to_vendor }}</p>
     <h3 class="product-list-item-title"><a href="{{ item.url | within: collection }}">{{ item.title }}</a></h3>
     <p class="product-list-item-price">
@@ -99,9 +88,7 @@
     </p>
     <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
   </div>
-
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
   </div>
   {% endif %}
-
 </div>

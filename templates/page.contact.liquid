@@ -1,42 +1,31 @@
 <div class="rte">
   {{ page.content }}
 </div>
-
 <div class="contact-form">
-
   <!--<h2>{{ 'general.contact_page.title' | t }}</h2>//-->
   <h2>General Questions</h2>
-
   {% form 'contact' %}
-
     {% if form.errors %}
       {{ form.errors | default_errors }}
     {% endif %}
-
     {% if form.posted_successfully? %}
       <p>{{ 'general.contact_page.success_message' | t }}</p>
     {% else %}
-
       <div class="input-wrapper">
         <label>{{ 'general.name' | t }}</label>
         <input type="text" name="contact[name]" value="{{ form.name }}">
       </div>
-
       <div class="input-wrapper">
         <label>{{ 'general.email' | t }}</label>
         <input type="text" name="contact[email]" value="{{ form.email }}" class="{% if form.errors contains 'email' %}error{% endif %}">
       </div>
-
       <div class="input-wrapper">
         <label>{{ 'general.message' | t }}</label>
         <textarea name="contact[body]" rows="5">{{ form.comments }}</textarea>
       </div>
-
       <div class="input-wrapper">
         <input type="submit" value="{{ 'general.contact_page.submit' | t }}">
       </div>
-
     {% endif %}
-
   {% endform %}
 </div>

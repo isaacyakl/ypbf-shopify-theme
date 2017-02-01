@@ -4,28 +4,21 @@
       {% if settings.footer-titles %}
         <h4>{{ 'layout.footer.newsletter_title' | t }}</h4>
       {% endif %}
-
       <form action="{{ settings.newsletter-action-url }}" method="post" name="{% if settings.newsletter-platform == 'mailchimp' %}mc-embedded-subscribe-form{% endif %}" target="_blank">
-
         {% if settings.newsletter-platform == 'mailchimp' %}
           <input class="newsletter-email" name="EMAIL" type="email" placeholder="{{ 'general.email_placeholder' | t }}">
         {% endif %}
-
         {% if settings.newsletter-platform == 'campaign-monitor' %}
           <input class="newsletter-email" name="{{ settings.campaign-monitor-name }}" type="email" placeholder="{{ 'general.email_placeholder' | t }}">
         {% endif %}
-
         <input class="newsletter-submit" type="submit" value="&#57424;">
-
       </form>
     </div>
   {% endif %}
-
   <div class="social-networks">
     {% if settings.footer-titles %}
       <h4>{{ 'layout.footer.social_icons_title' | t }}</h4>
     {% endif %}
-
     <ul>
       {% if settings.social-facebook-url != blank %}
         <li class="social-link facebook"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>

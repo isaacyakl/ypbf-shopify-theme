@@ -6,18 +6,13 @@
     {% assign adCount = adCount | plus: 1 %}
   {% endif %}
 {% endfor %}
-
 <div class="main-footer-wrapper">
- 
   <footer class="main-footer">
-
     {% if adCount > 0 %}
       <div class="footer-promos showing-{{adCount}}-ads">
         {% for ad in footerPromos %}
-
           {% capture enabled %}{{ad}}{% endcapture %}
           {% capture url %}{{ad}}-url{% endcapture %}
-
           {% if settings[enabled] %}
             <div class="footer-promo">
               <a href="{{settings[url]}}">
@@ -25,23 +20,17 @@
               </a>
             </div>
           {% endif %}
-
         {% endfor %}
       </div>
     {% endif %}
-    
     {% if settings.footer-modules-order != blank %}
       {% assign modules = settings.footer-modules-order | split: "-" %}
-
       {% assign modulesCount = modules.size %}
       {% if modulesCount > 3 %}
         {% assign modulesCount = 3 %}
       {% endif %}
-
       <div class="footer-modules showing-{{ modulesCount }}-modules">
-
         {% for module in modules limit: 3 %}
-
           {% case module %}
             {% when 'A' %}
               {% include 'footer-link-lists' %}
@@ -59,12 +48,10 @@
         {% endfor %}
       </div>
     {% endif %}
-    
     <div class="social-networks">
       {% if settings.footer-titles %}
       <h4>{{ 'layout.footer.social_icons_title' | t }}</h4>
       {% endif %}
-
       <ul>
         {% if settings.social-facebook-url != blank %}
         <li class="social-link facebook wow bounceInUp" data-wow-delay="0s"><a href="{{ settings.social-facebook-url }}" target="_blank"></a></li>
@@ -101,9 +88,7 @@
         {% endif %}
       </ul>
     </div>
-    
   </footer>
-  
   <div class="page-bottom" style="background: #DEDEDE;-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);">
 	<div class="bottom-flow wow bounceInLeft" style="text-align: center; padding: 30px 0px 30px 0px;">
       <a href="/collections/vendors?q=Bob Long">
@@ -132,13 +117,11 @@
       </a>
 	</div>
   </div>
-  
   <div class="page-bottom">
-    
-    <!-- Bottom of lime menu //-->
-    <!--<div class="bottom-menu">   
-    </div>//-->
-    
+    {% comment %}
+    <div class="bottom-menu">
+    </div>
+    {% endcomment %}
  	<div class="footer-modules showing-x-modules bottom-flow">
       <div class="footer-module">
         {% if settings.footer-titles %}
@@ -148,7 +131,6 @@
           {% for link in linklists['company'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
       </div>
-      
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists['customer'].title }}</h4>
@@ -157,7 +139,6 @@
           {% for link in linklists['customer'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
       </div>
-      
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists['articles'].title }}</h4>
@@ -166,7 +147,6 @@
           {% for link in linklists['articles'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
       </div>
-      
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists['main-menu'].title }}</h4>
@@ -175,8 +155,7 @@
           {% for link in linklists['main-menu'].links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}
         </ul>
       </div>
-
-<!--      
+	  {% comment %}
       <div class="footer-module">
         {% if settings.footer-titles %}
           <h4>{{ linklists.main-menu.title }}</h4>
@@ -185,16 +164,12 @@
           <a href="{{ link.url }}">{{ link.title }}</a>
         {% endfor %}
       </div>
-//-->
-      
-    </div>
-    
+	  {% endcomment %}      
+    </div>    
     <div class="copyright bottom-flow">
-
       {% capture year %}
         {{ "now" | date: "%Y" }}
       {% endcapture %}
-
       <p role="contentinfo">
       	{{ 'layout.footer.copyright_html' | t: year: year, shop_name: shop.name }}<br/>
         <span class="credits">
@@ -202,8 +177,6 @@
         	Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
       	</span>
       </p>
-
-
       {% if shop.enabled_payment_types.size > 0 and settings.footer-show-payment-options %}
         <ul class="payment-options">
           {% for type in shop.enabled_payment_types %}
@@ -211,25 +184,14 @@
           {% endfor %}
         </ul>
       {% endif %}
-
     </div>
   </div>
-
 </div>
-
 <div class="modal-wrapper">
   <div class="modal-content">
     <h2 class="modal-title"></h2>
-
     <div class="modal-message rte"></div>
-
     <span class="modal-close modal-close-secondary">{{ 'general.close' | t }}</span>
   </div>
 </div>
-
-<!-- Scroll to top code //-->
-
-
-
-
-<!-- End Scroll to top code //-->
+{% comment %} Add Scroll to top code {% endcomment %}

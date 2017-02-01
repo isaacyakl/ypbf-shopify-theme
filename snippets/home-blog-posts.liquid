@@ -1,23 +1,19 @@
 {% if blogs[settings.home-blog-posts-blog].articles.size > 0 %}
   <div class="home-module home-blog-posts row-of-{{ settings.home-blog-posts-number }}">
     <div class="home-module-content">
-
       {% if settings.home-blog-posts-title != blank %}
         <h4 class="section-title">{{ settings.home-blog-posts-title }}</h4>
       {% endif %}
-
       <div class="home-module-inline-items">
         {% for post in blogs[settings.home-blog-posts-blog].articles limit: settings.home-blog-posts-number %}
           <div class="home-blog-post">
             <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-
             <div class="home-blog-post-excerpt rte">
               {% if post.excerpt != blank %}
                 {{ post.excerpt }}
               {% else %}
                 <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
               {% endif %}
-
               <p class="meta"><a href="{{ post.url }}">{{ 'blogs.article.read_more' | t }}</a></p>
             </div>
           </div>
@@ -28,18 +24,14 @@
 {% else %}
   <div class="home-module home-blog-posts row-of-2">
     <div class="home-module-content">
-
       <h4 class="section-title">{{ 'onboarding.featured_blog.title' | t }}</h4>
-
       <div class="home-module-inline-items">
         {% for i in (1..2) %}
           <div class="home-blog-post">
             <h3><a href="{{ post.url }}">{{ 'onboarding.featured_blog.post_title' | t }}</a></h3>
-
             <div class="home-blog-post-excerpt rte">
               <img width="640" height="300" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPYvufQfwAHmAM12jbOLQAAAABJRU5ErkJggg==">
               <p>{{ 'onboarding.featured_blog.post_excerpt' | t }}</p>
-
               <p class="meta"><a href="/admin/themes/{{ theme.id }}/settings">{{ 'onboarding.general.settings_page_link' | t }}</a></p>
             </div>
           </div>
