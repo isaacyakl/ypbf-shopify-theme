@@ -48,8 +48,10 @@
     </div>
     
     <div class="prodsellpoints">
-      <a href="#reviews" style="color: #1b9db0;" title="Reviews"><div class="shopify-product-reviews-badge" style="margin-bottom: 10px;" data-id="{{ product.id }}"></div></a>
-      <a href="/pages/shipping" title="Shipping Details" class="prodsellpoint">
+	  {% unless product.tags contains 'Used' %}
+      	<a href="#reviews" style="color: #1b9db0;" title="Reviews"><div class="shopify-product-reviews-badge" style="margin-bottom: 10px;" data-id="{{ product.id }}"></div></a>
+      {% endunless %}
+      <a href="/pages/shipping" title="Free Shipping" class="prodsellpoint">
       <div class="prodsellpoint">
        	<img src="data:image/png;base64,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" alt="Free Shipping"/>
         Free shipping: <strong>U.S.</strong> (No Minimum). <strong>International</strong> ($1000+).<br>
@@ -78,6 +80,14 @@
       <div class="product-promos paypal">
       </div>
   	</a>
+    {% if product.type == "Gun" or product.type == "Marker" %}
+    {% if product.available %}
+    <a href="https://yourpbfriend.com/pages/layaway" target="_blank" title="Layaway this item!">
+      <div class="product-promos layaway">
+      </div>
+  	</a>
+    {% endif %}
+    {% endif %}
     
     <div class="product-options">
       <select name="id" id="product-variants">

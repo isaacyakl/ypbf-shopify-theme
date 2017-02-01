@@ -26,15 +26,17 @@
     {% endcase %}
   {% endfor %}
 </div>
-<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+{% unless product.tags contains 'Used' %}
+	<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+{% endunless %}
 {% if settings.enable-related-products %}
+  {% assign numberOfRelatedProductsToShow = settings.collection-products-per-row | plus: 1 %}
+  {% if collection == null %}
+  	{% assign collection = collections['all'] %}
+  {% endif %}
+  {% if collection.products.size > 1 %}
   <div class="related-products">
     <h4 class="section-title">{{ 'products.related_products.title' | t }}</h4>
-    {% assign numberOfRelatedProductsToShow = settings.collection-products-per-row | plus: 1 %}
-    {% if collection == null %}
-      {% assign collection = collections['all'] %}
-    {% endif %}
-    {% if collection.products.size > 1 %}
       <div class="related-products-listing {{settings.collection-layout-style}}-layout {{settings.collection-product-text-style}}-style rows-of-{{settings.collection-products-per-row}}">
         {% assign currentProductFound = false %}
         {% for prod in collection.products limit: numberOfRelatedProductsToShow %}
@@ -47,8 +49,8 @@
           {% endif %}
         {% endfor %}
       </div>
-    {% endif %}
   </div>
+  {% endif %}
 {% endif %}
 <script>
   // required for splitting variants

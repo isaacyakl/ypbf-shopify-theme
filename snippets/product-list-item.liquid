@@ -108,28 +108,25 @@
               <span class="original money">{{ item.compare_at_price_min | money }}</span>
             </span>
           {% else %}
-            <span class="price money">{{ item.price_min | money }}</span>
+            <span class="price money">{{ item.price_min | money }}</span><br/>
           {% endif %}
         {% endif %}
-      	<br/>
       	<span style="font-size: smaller; color: #909497;">{% include 'shiptime-item' %}</span>
       {% else %}
 		{% if onSale %}
             <span class="price on-sale">
               <span class="money">{{ item.price_min | money }}</span>
               <span class="original money">{{ item.compare_at_price_min | money }}</span>
-            </span><br/>
+            </span>
         {% else %}
             <span class="price money">{{ item.price_min | money }}</span><br/>
         {% endif %}
       	{% if item.tags contains 'Archive' %}
-      		No longer available.
+      		<span style="font-size: smaller; color: #909497;">No longer available.</span>
       	{% else %}
-      		{{ 'products.product.sold_out' | t }}
+      		<span style="font-size: smaller; color: #909497;">{{ 'products.product.sold_out' | t }}</span>
       	{% endif %}
       {% endif %}
-      <br/>
-      
     </p>
     
     {% else %}
@@ -150,7 +147,7 @@
               <span class="original money">{{ item.compare_at_price_min | money }}</span>
             </span>
           {% else %}
-            <span class="price money">{{ item.metafields.shappify_csp[attribute_price] }}</span>
+            <span class="price money">{{ item.metafields.shappify_csp[attribute_price] }}</span><br/>
           {% endif %}
         {% endif %}
       {% else %}
@@ -161,7 +158,9 @@
 {% endif %}
 <!-- // end Bold code -->
     
-    <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
+	{% unless product.tags contains 'Used' %}
+    	<span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
+    {% endunless %}
   </div>
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
   </div>

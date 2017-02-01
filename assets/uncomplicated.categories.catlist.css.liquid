@@ -68,6 +68,25 @@
 
 
 
+/* show-pathdirect */
+
+/* always show top-level cats */
+.category-list.show-styled.show-pathdirect li.level-0 {
+    display: list-item;
+}
+
+/* all supercatpeers show direct children, not their grandchildren */
+.category-list.show-styled.show-pathdirect li.supercatpeer {
+    display: list-item;
+}
+
+/* all cats on current path (supercats and activecat), activecatpeers and direct children only */
+.category-list.show-styled.show-pathdirect li.supercat, .category-list.show-styled.show-pathdirect li.activecat, .category-list.show-styled.show-pathdirect li.activecatpeer, .category-list.show-styled.show-pathdirect li.subcatdirect {
+    display: list-item;
+}
+
+
+
 /* show-activedown */
 
 /* show top-level cats if there's no active category */
