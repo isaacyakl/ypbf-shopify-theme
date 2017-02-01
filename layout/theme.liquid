@@ -46,17 +46,17 @@
       {{ settings.custom-css }}
     </style>
   {% endif %}
+  {% comment %}
   <script>
     var today = new Date(); // Today's Date
 
     // Important Dates
-    var December1st = new Date(2015, 11, 1);// 12/1/2015
-    var NewYearsEve = new Date(2016, 0, 1, 0, 0, 0);// 1/1/2016 00:00:00
-    //var NewYearsEve = new Date(2015, 11, 22, 0, 0, 0);// 12/22/2015 00:00:00
-    var WeekAfterNY = new Date(2016, 0, 13, 0, 0, 0);// 1/13/2016 00:00:00
+    var December1st = new Date(2016, 11, 1);// 12/1/2016
+    var NewYearsEve = new Date(2017, 0, 1, 0, 0, 0);// 1/1/2017 00:00:00
+    var WeekAfterNY = new Date(2017, 0, 13, 0, 0, 0);// 1/13/2017 00:00:00
 
   </script>
-  {% include 'zopim' %}
+  {% endcomment %}
 </head>
 {% assign sidebar = false %}
 {% if settings.enable-sidebar == 'all' %}
@@ -69,6 +69,15 @@
   {% assign sidebar = true %}
 {% endif %}
 <body class="{% if customer %}customer-logged-in{% endif %} sidebar-{% if sidebar %}enabled{% else %}disabled{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  </script>
   {% include 'header' %}
   <div class="main-content-wrapper">
     {% unless template contains 'index' %}
@@ -91,9 +100,6 @@
 {% comment %}= Scripts =================================================================================================================={% endcomment %}
 {% comment %}==========================================================================================================================={% endcomment %}
   <script src="{{ 'scripts-combined.js' | asset_url }}"></script>
-  <script>
-  	new WOW().init();
-  </script>
   {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
   {% if template contains 'cart' %}
     {% if settings.cart-shipping-calculator %}
@@ -144,6 +150,9 @@
 var shappify_customer_tags ={{ customer.tags|json }}
 </script>
 <!-- // end bold code -->
+
+{% include 'zopim' %}
+
 <script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
 </body>
 </html>

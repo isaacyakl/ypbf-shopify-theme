@@ -1,17 +1,30 @@
 {% if settings.header-promo and settings.header-promo-text != blank %}
   <div class="header-promo-wrapper" id="hdr1">
     <div class="wow lightSpeedIn header-promo">
+      {% comment %}
       <span style="height: 36px; vertical-align: middle; display: inline-block;">
       <img src="{{ 'christmas_tree_cookie.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
       </span>
+      {% endcomment %}
+      
       <span class="header-promo-text" style="font-size: 17pt; font-weight: 700;">{{ settings.header-promo-text }}</span>
+      
+      {% comment %}
       <span style="height: 36px; vertical-align: middle; display: inline-block;">
       <img src="{{ 'christmas_tree_cookie.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
       </span>
+      {% endcomment %}
     </div>
   </div>
 {% endif %}
-<!--<div class="header-promo-wrapper" id="hdr2"  style="color: #1B9DB0; text-align: center;font-weight: 600;background-color: #fff;font-size: 1.1em;background: linear-gradient(to bottom, #2d2d2d 0%, #141414 99%, #727272 100%);padding: 5px;">Free shipping on all orders in the United States!</div>//-->
+{% comment %}
+<div class="header-promo-wrapper" id="hdr2"  style="color: #FFFFFF; text-align: center;font-weight: 600;background-color: #fff;font-size: 1.1em;background: linear-gradient(to bottom, #2d2d2d 0%, #141414 99%, #727272 100%);padding: 5px;">
+	<span style="height: 36px; vertical-align: middle; display: inline-block;">
+    <img src="{{ 'shipping_truck_16.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
+    </span>
+  	Free shipping on all orders in the United States!
+</div>
+{% endcomment %}
 <div class="header-promo-wrapper" id="hdr3">
     <div class="header-promo">
       <table style="border: 0; width: 100%; color: white; padding: 0px; margin: 0px;">
@@ -77,7 +90,13 @@
             </td>
             <td style="width: 50%; text-align: right; padding: 0px; border: 0px;">
               <div class="tradenow">
-                <span class="tradenowtxt">Ready to upgrade your marker?</span><a href="/pages/trade-in/" title="Trade Now"><input type="button" value="Trade Now" class="wow bounce" data-wow-duration="1.5s" data-wow-iteration="4"/></a>
+                <div class="freeshipping">
+					<img src="{{ 'shipping_truck_16.png' | asset_url}}" style="vertical-align: middle; padding: 0px 5px 0px 5px;" alt="Free shipping in the US!" title="Free shipping in the US!"/>
+                  	<span style="height: 100%; vertical-align: middle; display: inline-block;">
+    					Free U.S. shipping!
+    				</span>
+      			</div>
+                {% comment %}<span class="tradenowtxt"></span>{% endcomment %}<a href="/pages/trade-in/" title="Trade Now"><input type="button" value="Trade Now" class="wow bounce" data-wow-duration="1.5s" data-wow-iteration="4"/></a>
               </div>
             </td>
           </tr>
@@ -139,6 +158,7 @@
       <input autofocus class="header-search-input" name="q" type="text" style="color: grey;"/>
     </form>
     <script>
+      {% comment %}
         if(today >= December1st && today < NewYearsEve)// If it is past the 1st but not after new years eve
         {
         	document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;" value="Merry Christmas!" onfocus="if (this.value == \'Merry Christmas!\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'Merry Christmas!\';}"/>';
@@ -151,6 +171,8 @@
         {
 			document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;"/>';
         }
+      {% endcomment %}
+      document.getElementById('searchForm').innerHTML = '<input autofocus class="header-search-input" name="q" type="text" style="color: grey;"  value="What are you looking for?" onfocus="if (this.value == \'What are you looking for?\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'What are you looking for?\';}"/>';
     </script>
     <div class="mobile-header-tools">
       <span class="mobile-header-search-toggle">&#57346;</span>

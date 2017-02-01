@@ -13,7 +13,7 @@
 {% if settings.share-widget-google-plus %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 {% if settings.share-widget-email %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 {% if platforms > 0 %}
-  <div class="share-buttons" style="border-width: 0px;padding-top: 0px;margin-top: 0px;">
+  <div class="share-buttons" style="border-width: 0px;padding-top: 0px;margin-top: 30px;">
     <span style="font-weight: 400;font-size: 16px;">
     	Share this!
     </span>
@@ -37,5 +37,6 @@
     {% if settings.share-widget-email %}
       <a target="_blank" href="mailto:?subject={{page_title}}&amp;body={{ 'general.share_buttons.email_body' | t: link: permalinkURL }}" class="share-email">{{ 'general.share_buttons.email' | t }}</a>
     {% endif %}
+    {% include 'product_fb_like' %}
   </div>
 {% endif %}

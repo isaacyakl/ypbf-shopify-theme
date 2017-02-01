@@ -1,5 +1,26 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.8.1 - 1/11/2016:Optmiztn
+=========================================
+- Remove brand logos from footer of page. footer.liquid:92
++ Add tag for Holiday Sales message on product page. product-form.liquid:21-23
+- Disable holiday decoration from bottom of page. footer.liquid:94
+- Removed all presets.
+* Changed home-feature-*'s to generate images with 600x* instead of 1440x*. settings_schema.json:2083,2154,2225,2312,2383,2454,2541,2612,2683
+* Move Facebook and Instagram social widgets from the footer of every page to the front page only.
++ Add padding to bottom-flow. theme.scss.liquid:6177
++ Add padding to Facebook and Instagram social widgets. index.liquid:29
+- Remove website effects. scripts-combined.js
+* Move social icons to footer after menus. footer.liquid:105
++ Add free shipping notification to top of pages. header.liquid:14-19
+* Update information bar code. header.liquid:27-74
+- Remove trade now text next to trade button. header.liquid:85
+* Update look and feel of product notes on product page. product-form.liquid:8-29
+* Fix responsive issues with Youtube button. theme.scss.liquid:4782
+* Fixed Facebook Like button so it would show again by moving the Facebook sdk code include from Facebook feed widget to after opening <body> tag. theme.liquid:71-80
+* Update position of black-ground.jpg in header and footer to be positioned center top. theme.scss.liquid:6550,6753
+* Optimized slideshow and featured image sizes manually by uploading them to assets folder (DARN YOU SHOPIFY!)
+
 1.8.0 - 12/21/2015:Holiday Themes
 =========================================
 * Re-enabled Feature Row 1 and made it the main feature row to use.

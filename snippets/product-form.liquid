@@ -4,20 +4,30 @@
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product | img_url: 'grande' }}">
   <form id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
-    {% if product.tags contains 'Pre-Order' %}
-    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a <u>pre-order item</u>. By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.<br/>Orders will be filled in the order they are received. ***</p>
-    {% elsif product.tags contains 'Custom Order' %}
-    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a <u>custom order item</u>. By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>. ***</p>
-    {% elsif product.tags contains 'Back Order' %}
-    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This item is currently on <u>back order</u> and will take longer than usual to fulfill. See description below for estimated fulfillment timeframe. ***</p>
-    {% endif %}
-    {% if product.tags contains 'Limited' %}
-	    <p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** <u>Limited availability item</u>. Please <a href="tel:1-800-692-6459">call us</a> for availability before ordering! ***</p>
-    {% endif %}
-    {% if product.tags contains 'Color Swap' %}
-    	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a swap between two items, which means this item will most likely take longer than normal to fulfill. ***</p>
-    {% endif %}
+    <div class="prodnotes">
+      {% if product.tags contains 'Pre-Order' %}
+      <p>By pre-ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our pre-order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping date</span>.</p>
+      {% elsif product.tags contains 'Custom Order' %}
+      <p>By ordering this item you agree to our <a href="http://yourpbfriend.com/pages/custom-pre-orders" title="Read our custom order terms">terms</a>.<br/><span style="text-decoration: underline;">Check the description below for expected shipping time frame</span>.</p>
+      {% elsif product.tags contains 'Back Order' %}
+      <p>This item is currently on back order and will take longer than usual to fulfill. See description below for estimated fulfillment timeframe.</p>
+      {% endif %}
 
+      {% if product.tags contains 'Limited' %}
+          <p>Limited availability item. Please <a href="tel:1-800-692-6459">call us</a> for availability before ordering!</p>
+      {% endif %}
+      {% if product.tags contains 'Color Swap' %}
+          <p> This is a swap between two items, which means this item will most likely take longer than normal to fulfill.</p>
+      {% endif %}
+      {% if product.tags contains 'Holiday Shipping' %}
+          <p>Shipping time may be longer than normal due to holiday sales.</p>
+      {% endif %}
+      
+	  Free U.S. shipping on all orders. No minimum!<br>
+	  Free shipping outside of the U.S. on orders above $1000.<br>
+	  <a href="/pages/shipping#exclusions"><small><span style="font-style: italic;">Exclusions Apply</span></small></a>
+  	</div>
+    
     <div class="product-options">
       <select name="id" id="product-variants">
         {% for variant in product.variants %}
@@ -81,14 +91,4 @@
       {% endif %}
     </div>
   </form>
-  {% comment %} Shipping Message {% endcomment %}
-  <div style="width: 80%; padding: 10px; margin: auto; margin-bottom: 20px; margin-top: 20px; text-align: center; border: 1px solid #8fca5b;border-radius:5px;background: #f7f7f7;">
-    Free U.S. shipping on all orders. No minimum!<br>
-    Free shipping outside of the U.S. on orders above $1000.<br>
-    <a href="/pages/shipping#exclusions"><small><span style="font-style: italic;">Exclusions Apply</span></small></a>
-  </div>
-  {% comment %} Facebook Like Button {% endcomment %}
-  <div style="width: 100%; text-align: center; padding-bottom: 20px;">
-  	{% include 'product_fb_like' %}
-  </div>  
 </div>
