@@ -1,3 +1,8 @@
+1.1.7 - 9/5/2015:Add Shipping Exclusions Link
+=========================================
++ Added shipping exclusion link to all products product-form.liquid:68
+
+
 1.1.6 - 8/13/2015 - Fix Prdct Rtng,Mny Twks
 =========================================
 * Fixed data-id for product ratings/reviews in product-list.item.liquid:100
