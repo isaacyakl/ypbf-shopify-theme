@@ -29,7 +29,7 @@
 {% if item.compare_at_price_min > item.price_min %}
   {% assign onSale = true %}
 {% endif %}
-<div class="wow zoomIn product-list-item">
+<div class="product-list-item">
   {% assign isSearch = false %}
   {% if template contains 'search' %}
     {% assign isSearch = true %}

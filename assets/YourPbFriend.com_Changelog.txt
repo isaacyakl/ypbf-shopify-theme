@@ -1,3 +1,9 @@
+1.13.3 - 6/7/2016:AnmtnRmvls
+=========================================
+- Remove product display/entry animation. product-list-item.liquid:32
+- Remove shadow box animation in favor of scale zoom animation for product hover. theme.scss.liquid:3775-90
+
+
 1.13.2 - 5/24/2016:LdngTimeOptmztn
 =========================================
 - Removed upsell script leftovers. theme.liquid:7
