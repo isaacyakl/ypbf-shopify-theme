@@ -1755,7 +1755,6 @@ table.mobile-layout {
 }
 
 /* Buttons */
-
 .button,
 .submit,
 button,
@@ -6866,7 +6865,7 @@ input.header-search-input {
   }
   
   .bag-count {
-    color: black; /* Make black by Yak */ 
+    
   }
 
   &:before {
@@ -6888,16 +6887,23 @@ input.header-search-input {
 .bag-count {
 
   &:before {
-    content: "(";
+    /*content: "(";*/ /* Remove parantheses. Added by Yak */
   }
 
   &:after {
-    content: ")";
+    /*content: ")";*/ /* Remove parantheses. Added by Yak */
   }
+  
+  
+  /* Move position of number of items by Yak */
+  position: relative;
+  top: -4px;
 
   .contain-count & {
     /* Only if the cart count is < 100 */
+    color: black; /* Make black by Yak */ 
     position: absolute;
+    top: initial; /* Reset position of number of item text by Yak */
     left: 0;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;

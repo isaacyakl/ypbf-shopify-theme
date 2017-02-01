@@ -51,12 +51,13 @@
       </span>
 
       {% if variant.available %}
-        <input class="add-to-cart" id="addToCart" style="text-align: right;" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
+        <input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />
         <link itemprop="availability" href="http://schema.org/InStock">
       {% else %}
         <input type="button" class="add-to-cart disabled" disabled="disabled" value="{{ 'products.product.sold_out' | t }}" />
         <link itemprop="availability" href="http://schema.org/OutOfStock">
       {% endif %}
+
     </div>
   </form>
   
