@@ -1,7 +1,16 @@
 {% if settings.home-video-embed != blank %}
-  <div class="home-module home-video {% unless settings.enable-sidebar %}{{ settings.home-video-width }}{% endunless %} text-color-{{ settings.home-video-text-color }}" style="background-color: #151515;/* background-image: url('{{ 'black-ground.jpg' | asset_url }}');background-repeat: repeat;*/">
-    <div class="wow fadeIn home-module-content" data-wow-duration="3s">
-      <div class="home-video-play play-button-{{ settings.home-video-play-button-color }}"></div>
+<!--<div class="home-module rows-of-1">
+<div class="home-module-content">
+  <a href="https://www.youtube.com/user/YourPBfriend" target="_blank">
+	<h4 class="section-title">Latest Videos</h4>
+  </a>
+</div>
+</div>//-->
+  <div class="home-module home-video {% unless settings.enable-sidebar %}{{ settings.home-video-width }}{% endunless %} text-color-{{ settings.home-video-text-color }}" style="background-color: #151515; padding: 10px 0px 10px 0px;">
+    <div class="home-module-content">
+<!--
+	  <div class="home-video-play play-button-{{ settings.home-video-play-button-color }}"></div>
+
 
       <style>
           .embed-container {
@@ -24,23 +33,32 @@
       <div class='embed-container'>
       	<iframe src='https://www.youtube.com/embed/{{ settings.home-video-embed }}?rel=0&amp;showinfo=0;controls=0' frameborder='0' allowfullscreen></iframe>
       </div>
-<!--      <div class='embed-container'>
-      	<iframe src='http://www.youtube.com/embed?max-results=1&controls=1&showinfo=0&rel=0&listType=user_uploads&list=yourpbfriend' frameborder='0' allowfullscreen></iframe>
-      </div>//-->
+//-->
       
+      <div id="latestVidsContainer">
+        <div id="latestUploadsContainer">
+          <a href="https://www.youtube.com/user/YourPBfriend/videos" target="_blank" title="To YouTube!"><h4 class="section-title" style="margin: 0px; padding: 0px; color: white;">Latest Uploads</h4></a>
+          <!--<iframe id="latestUploadsVideo" src="https://www.youtube.com/embed?max-results=1&amp;rel=0&amp;showinfo=0&amp;listType=user_uploads&amp;list=yourpbfriend&amp;modestbranding=0" frameborder="0" allowfullscreen></iframe>//-->
+          <iframe id="latestUploadsVideo" class="wow fadeIn" data-wow-duration="3s" src="https://www.youtube.com/embed/videoseries?list=PL2YJBHemhpl7UdfAog_P0BXCBHhY-mC2c&amp;showinfo=0&amp;modestbranding=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div id="weeklyGunShowContainer">
+          <a href="https://www.youtube.com/playlist?list=PL2YJBHemhpl5pV3mjregwpQv1IHzyg1RI" target="_blank" title="To YouTube!"><h4 class="section-title" style="margin: 0px; padding: 0px; color: white;">Weekly Gun Show</h4></a>
+          <iframe id="weeklyGunShowVideo" class="wow fadeIn" data-wow-duration="3s" src="https://www.youtube.com/embed/videoseries?list=PL2YJBHemhpl5pV3mjregwpQv1IHzyg1RI&amp;showinfo=0&amp;modestbranding=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+      </div>
+
 <!--
       <div class="home-video-embed-wrapper">
         <div class="home-video-embed">
           {{ settings.home-video-embed }}
         </div>
       </div>
-//-->
-<!--      
+     
       <div class="home-video-screenshot">
           <span class="home-video-play-button mobile meta">{{ 'general.home_page.video_button_text' | t }}</span>
           <img alt="" src="{{ 'home-video-screenshot.png' | asset_url }}">
-      </div>//-->
-<!--
+      </div>
       <div class="home-video-content rte">
 
         <span class="home-video-play-button meta">{{ 'general.home_page.video_button_text' | t }}</span>
@@ -53,6 +71,10 @@
           <p><a class="button" href="{{ settings.home-video-url }}">{{ settings.home-video-cta }}</a></p>
         {% endif %}
       </div>//--->
+    </div>
+    <div id="toYouTube" class="wow fadeInUpBig" data-wow-delay="0.125s" data-wow-duration="1.3s">
+      <span style="font-size: large;">Find <strong>more great videos</strong> on our YouTube channel!</span>
+        <a href="https://www.youtube.com/user/YourPBfriend" target="_blank" title="To YouTube!"><input type="button" value="More Videos"/></a>
     </div>
   </div>
 {% endif %}
