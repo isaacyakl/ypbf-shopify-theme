@@ -1,11 +1,20 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
-1.13.3 - 6/7/2016:AnmtnRmvls
+YourPbFriend was an industry-leading online paintball retailer with a focus on the first paintball trade-in program.
+
+I was the primary developer on this project and leveraged the latest e-commerce platforms and technologies to push this site to the forefront of the industry. It was designed and developed atop the Shopify platform, and it featured multiple purchasing methods, social widgets, online trade-in forms, latest YoutTube videos feed, loading animations, and was fully responsive.
+
+With this website we made extensive use of jQuery to expand its capabilities such as interacting with YouTube's api, dynamically updating page content, and interacting with user selections. We also focused on SEO such as user experience (UX), content relevance and quality, site speed, internal linking, schema markup, social media, and customer reviews.
+
+
+## Changelog:
+
+### 1.13.3 - 6/7/2016:AnmtnRmvls
 =========================================
 - Remove product display/entry animation. product-list-item.liquid:32
 - Remove shadow box animation in favor of scale zoom animation for product hover. theme.scss.liquid:3775-90
 
-1.13.2 - 5/24/2016:LdngTimeOptmztn
+### 1.13.2 - 5/24/2016:LdngTimeOptmztn
 =========================================
 - Removed upsell script leftovers. theme.liquid:7
 - Remove commented out show title append. theme.liquid:20
@@ -27,19 +36,19 @@
 - Remove main menu from footer menus and fix the layout for three menus instead of four. footer.liquid:85-93,61
 * Move content_for_header liquid tag to scripts section of head. theme.liquid:49
 
-1.13.1 - 5/10/2016:PrdctPgLnks
+### 1.13.1 - 5/10/2016:PrdctPgLnks
 =========================================
 + Add link to "Free Lifetime Labor" badge on product pages. product-form.liquid:62
 + Add different warranty info for new and used guns on product pages. product-form.liquid:61-83
 
-1.13.0 - 4/26/2016:UpsellInCart
+### 1.13.0 - 4/26/2016:UpsellInCart
 =========================================
 + Add snippet "ypbf-upsell". ypbf-upsell.liquid
 + Add upsell snippet to cart.liquid. cart.liquid:1
 + Add styling for upsell. theme.scss.liquid:3017-60
 * Optimize facebook sdk include to only include on home page. theme.liquid:89-99
 
-1.12.0 - 4/9/2016:RltdPrdcts&ImprvPrds
+### 1.12.0 - 4/9/2016:RltdPrdcts&ImprvPrds
 =========================================
 * Fixed extra space in product list displays around handling times. product-list-item.liquid
 + Add layaway promo to product pages. theme.scss.liquid,product-form.liquid
@@ -50,7 +59,7 @@
 - Remove reviews and ratings for products with "Used" tag. product-list-item.liquid:161-3,product.liquid:29-31,product-form.liquid:51-3
 * Speed up product selling points animation from .5 to .4. theme.scss.liquid:4083
 
-1.11.0 - 4/8/2016:PrdctPgRrngImpr
+### 1.11.0 - 4/8/2016:PrdctPgRrngImpr
 =========================================
 + Add product review badge to product page. product-form.liquid
 + Add stock level indicator to product pages. product-form.liquid,theme.liquid
@@ -62,7 +71,7 @@
 * Change color of handling time on product in collections. product-list-item.liquid:115
 * Removed "Share This!" from share buttons by making font-size: 0. theme.scss.liquid:7714
 
-1.10.2 - 3/29/2016:SchmUpdt
+### 1.10.2 - 3/29/2016:SchmUpdt
 =========================================
 - Remove "YourPbFriend.com" branding from the end of page titles.theme.liquid:28-32
 + Add schema data for sku. product-description.liquid:7
@@ -70,7 +79,7 @@
 + Disable sidebar menu in mobile view. theme.scss.liquid:7723
 * Updated "Release" tag to "Releases" instead. shiptime-product.liquid:4-5,shiptime-item.liqiud:4-5
 
-1.10.1 - 3/15/2016:NtfctnHddnInStck
+### 1.10.1 - 3/15/2016:NtfctnHddnInStck
 =========================================
 * Update so that notifications, buttons, and checkboxes (e.g. Pre-Order) will not show up when there is stock for a product. product-form.liquid,shiptime-product.liquid,shiptime-item.liquid,cart.liquid,product-list-item.liquid,email notifications
 * Lower z-index of select wrapper select items (filter options) on collections page to keep from  interfering with drop-down menus. theme.scss.liquid:2083
@@ -81,7 +90,7 @@
 * Add code to detect whether to add nofollow meta element or not. theme.liquid:17-9
 * Fix double drop-down menu option arrows on product pages and in cart. Also changed dd arrow style to match main menu dd arrows. theme.scss.liquid:2060-79
 
-1.10.0 - 2/19/2016:PrdctNtfsBrdcrmbs
+### 1.10.0 - 2/19/2016:PrdctNtfsBrdcrmbs
 =========================================
 + Add breadcrumbs via Uncomplicated Categories app. breadcrumbs.liquid:2-65
 + Add back order notification to product page. product-form.liquid:12-3
@@ -101,7 +110,7 @@
 * Improve right arrow in menus used to indicate further menus. Change it from > to \203A and increase size to 16px. theme.scss.liquid:5819-20,28
 * Add delay of 3s before trade now button does its dance. header.liquid:99
 
-1.9.2 - 1/26/2016:WeekShipProdTags
+### 1.9.2 - 1/26/2016:WeekShipProdTags
 =========================================
 + Add week shipping time estimates: 1-2,2-3,3-4,4-6,6-8. product-form.liquid:35-44
 + Add call for availability tag when out of stock and not available. product-form.liquid:53-55
@@ -109,12 +118,12 @@
 * Fix Facebook like button url issues. product_fb_like.liquid:1
 + Add Google webmaster verification tag to header. theme.liquid:26
 
-1.9.1 - 1/21/2016:ProdTagFixes
+### 1.9.1 - 1/21/2016:ProdTagFixes
 =========================================
 * Fix product tag logic issues. product-form.liquid
 * Add padding below product sku on product pages. theme.scss.liquid:5479
 
-1.9.0 - 1/19/2016:MoreProdTagsStatuses
+### 1.9.0 - 1/19/2016:MoreProdTagsStatuses
 =========================================
 + Format placeholder text for search box. theme.scss.liquid:7005-18
 + Add placeholder text to search box on search page. search.liquid:5
@@ -124,7 +133,7 @@
 + Add shipping time tags, notification area, and clean up existing notification options. product-form.liquid:8-44
 * Change image type of featured row and footer promo to .jpg instead of .png. home-feature-row.liquid:28,footer.liquid:19
 
-1.8.1 - 1/11/2016:Optmiztn
+### 1.8.1 - 1/11/2016:Optmiztn
 =========================================
 - Remove brand logos from footer of page. footer.liquid:92
 + Add tag for Holiday Sales message on product page. product-form.liquid:21-23
@@ -145,7 +154,7 @@
 * Update position of black-ground.jpg in header and footer to be positioned center top. theme.scss.liquid:6550,6753
 * Optimized slideshow and featured image sizes manually by uploading them to assets folder (DARN YOU SHOPIFY!)
 
-1.8.0 - 12/21/2015:Holiday Themes
+### 1.8.0 - 12/21/2015:Holiday Themes
 =========================================
 * Re-enabled Feature Row 1 and made it the main feature row to use.
 + Added fireworks effect and "Happy New Year!" to search bar if it is past New Year's Eve. theme.liquid, header.liquid, fireworks.js, home-slideshow.liquid
@@ -153,7 +162,7 @@
 - Removed "snowHere" id from page footer. footer.liquid:120
 + Added feature to disable fireworks if mobile. scripts-combined.js
 
-1.7.3 - 12/10/2015:Winter/Christmas Theme
+### 1.7.3 - 12/10/2015:Winter/Christmas Theme
 =========================================
 + Added icicles to footer
 + Added snow effect to header
@@ -162,13 +171,13 @@
 + Added christmas lights to YourPbFriend.com logo
 + Added "Merry Christmas!" to the search field
 
-1.7.2 - 11/27/2015:Gft Crd Cstm
+### 1.7.2 - 11/27/2015:Gft Crd Cstm
 =========================================
 - Removed pointless asset which does not exist, "{% include 'fonts' %}". gift_card.liquid:13
 * Changed gift card background picture to YourPbFriend.com custom one. gift_card.liquid:63-64
 * Changed gift card container border background-color from #34aadc to #D0D0D0. gift-card.scss.liquid:328
 
-1.7.1 - 10/30/2015:Shrink Menus
+### 1.7.1 - 10/30/2015:Shrink Menus
 =========================================
 * Changed the height of each menu item in the drop-down menus. theme.scss.liquid
 * Moved share buttons on blog articles from the bottom to the top of the page. article.liquid:1
@@ -176,7 +185,7 @@
 * Changed add to cart button text for back order items to "Back Order" instead of "Order". product-form.liquid:64
 + Added Holiday Shipping delay warning for Black Friday and Christmas to all product pages. product-form.liquid:21
 
-1.7.0 - 10/9/2015:Bck Ord & Lmtd Ntc
+### 1.7.0 - 10/9/2015:Bck Ord & Lmtd Ntc
 =========================================
 + Added "Order" string to the english locale file for specific order types. en.default.json:252
 + Added back order notification to product pages. product-form.liquid:11-12
@@ -187,7 +196,7 @@
 * Update animation for header promotional text. header.liquid:3-4
 + Added limited availability notice to product pages. product-form.liquid:14-16
 
-1.6.1 - 10/1/2015:Optmz Ld Tm
+### 1.6.1 - 10/1/2015:Optmz Ld Tm
 =========================================
 * Moved facebook sdk script from header to widget section in footer.liquid.
 * Combined animate.min.css into bottom of theme.scss.liquid.
@@ -265,24 +274,24 @@
 * Minified theme.js.liquid into theme.min.js.liquid
 * Changed theme.js.liquid script include to theme.min.js.liquid. theme.liquid
 
-1.6.0 - 9/29/2015:Search Suggstns
+### 1.6.0 - 9/29/2015:Search Suggstns
 =========================================
 + Removed livesearch branding theme.liquid:153-170
 
-1.5.0 - 9/25/2015:Pre-/Cstm Ord Ntcs & Btns
+### 1.5.0 - 9/25/2015:Pre-/Cstm Ord Ntcs & Btns
 =========================================
 + Added "Pre-Order", "Custom Order", and "Trade Towards" strings to the english locale file for specific order types. en.default.json:250-252
 + Added button color schemes purple, teal, and red. theme.scss.liquid:1806-1886
 + Added pre-order, customer order, and color swap notices to products when particular tags and types are added to the product. product-form.liquid
 
-1.4.0 - 9/25/2015:Ltst Uplds
+### 1.4.0 - 9/25/2015:Ltst Uplds
 =========================================
 + Added a latest uploads and weekly gun show section on homepage. home-video.liquid;theme.scss.liquid:4590-4650
 + Added a call to action to checkout our YouTube channel below the latest videos section.
 * Updated and optimized animations on the homepage.
 - Removed entrance animations from social media widgets in footer.
 
-1.3.1 - 9/22/2015:Optmz Imgs & Enlrg Btm Mns
+### 1.3.1 - 9/22/2015:Optmz Imgs & Enlrg Btm Mns
 =========================================
 * Optimized images in slideshow, features, background, and footer brand logos.
 * Enlarged footer menu fonts for improved mobile site ux. theme.scss.liquid:5988-5989,5996
@@ -290,23 +299,23 @@
 + Animated social icons to draw more attention to them. footer.liquid:70-100
 * Improved tap-ability for mobile site ux on top menu. theme.scss.liquid:7252-7257
 
-1.3.0 - 9/11/2015:Add Articles & Opt Thmbnls
+### 1.3.0 - 9/11/2015:Add Articles & Opt Thmbnls
 =========================================
 + Added articles section to bottom of pages. footer.liquid:161-8
 * Updated embed video on front page to not use YouTube privacy mode so that it would have a higher res thumbnail. home-video.liquid:25
 * Optimized thumbnail sizes in collections for faster load time; from 'grande' to 'large'. product-list-item.liquid:49
 
-1.2.0 - 9/5/2015:Add FB Like Btn To Prdcts
+### 1.2.0 - 9/5/2015:Add FB Like Btn To Prdcts
 =========================================
 + Added file product_fb_like.liquid for product like button code.
 + Added like buttons to all products product-form.liquid:71-73
 + Added padding below home-modules especially for news blog posts on home page.theme.scss.liquid:3911
 
-1.1.7 - 9/5/2015:Add Shipping Exclusions Link
+### 1.1.7 - 9/5/2015:Add Shipping Exclusions Link
 =========================================
 + Added shipping exclusion link to all products product-form.liquid:68
 
-1.1.6 - 8/13/2015 - Fix Prdct Rtng,Mny Twks
+### 1.1.6 - 8/13/2015 - Fix Prdct Rtng,Mny Twks
 =========================================
 * Fixed data-id for product ratings/reviews in product-list.item.liquid:100
 + Added "variant-sku" class name to sku field on production page:8
@@ -323,33 +332,33 @@
 + Added code to force star ratings' caption to next line. theme.scss.liquid:3596-3612
 + Added style for job listings on job page. theme.scss.liquid:6286
 
-1.1.5 - 8/13/2015 - Update Zopim
+### 1.1.5 - 8/13/2015 - Update Zopim
 =========================================
 + Update Zopim
 
-1.1.4 - 8/7/2015 - Add Tracktor,Chnglg
+### 1.1.4 - 8/7/2015 - Add Tracktor,Chnglg
 =========================================
 + Added this changelog
 + Improved display of number of cart items when in triple digits in theme.scss.liquid
 + Added "Track Shipment" link to Account page via Tracktor app page
 + Added "Track Shipment" link to Order details page via Tracktor app page
 
-1.1.3 - 8/6/2015 - Add Reviews,Home Feat FX&URL
+### 1.1.3 - 8/6/2015 - Add Reviews,Home Feat FX&URL
 =========================================
 + Added review section for products
 + Added hover effects to featured banners on home page
 + Added url links to the featured banners on home page
 
-1.1.2 - 8/4/2015 - Add FB, YT, & SalesRep
+### 1.1.2 - 8/4/2015 - Add FB, YT, & SalesRep
 =========================================
 + Added Facebook widget to footer
 + Added YouTube video improvements to the home page
 + Added Salesrep selection feature at checkout
 
-1.1.1 - 7/31/2015 - Improve Menu
+### 1.1.1 - 7/31/2015 - Improve Menu
 =========================================
 + Added delay before dropdown menus close. Had to use cheap hacks to get it to work in the theme.scss file.
 
 
-1.0 - First Production
+### 1.0 - First Production
 =========================================
