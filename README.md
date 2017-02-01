@@ -1,5 +1,13 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.10.2 - 3/29/2016:SchmUpdt
+=========================================
+- Remove "YourPbFriend.com" branding from the end of page titles.theme.liquid:28-32
++ Add schema data for sku. product-description.liquid:7
+* Move sku from inside description to above it. product-description.liquid:1-8
++ Disable sidebar menu in mobile view. theme.scss.liquid:7723
+* Updated "Release" tag to "Releases" instead. shiptime-product.liquid:4-5,shiptime-item.liqiud:4-5
+
 1.10.1 - 3/15/2016:NtfctnHddnInStck
 =========================================
 * Update so that notifications, buttons, and checkboxes (e.g. Pre-Order) will not show up when there is stock for a product. product-form.liquid,shiptime-product.liquid,shiptime-item.liquid,cart.liquid,product-list-item.liquid,email notifications

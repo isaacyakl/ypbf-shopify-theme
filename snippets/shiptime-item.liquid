@@ -1,8 +1,8 @@
 {% assign dateInfo = false %}
 {% if item.tags contains 'Pre-Order' and item.selected_or_first_available_variant.inventory_quantity <= 0 and item.selected_or_first_available_variant.inventory_policy == 'continue' %}
   {% for tag in item.tags %}
-      {% if tag contains 'Release ' %}
-          Release: {{ tag | remove_first: "Release " }}
+      {% if tag contains 'Releases ' %}
+          Releases: {{ tag | remove_first: "Releases " }}
 		  {% assign dateInfo = true %}
 		  {% break %}
       {% endif %}

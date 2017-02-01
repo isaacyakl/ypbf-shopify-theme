@@ -25,11 +25,11 @@
     {% if current_page != 1 %}
       &ndash; {{ 'general.pagination.seo_title' | t }} {{ current_page }}
     {% endif %}
-
+	{% comment %}
         {% unless page_title contains shop.name %}
           &ndash; {{ shop.name }}
         {% endunless %}
-
+	{% endcomment %}
   </title>
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}" />
