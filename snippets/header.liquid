@@ -83,12 +83,14 @@
     
     <div class="branding wow bounceInDown">
       {% if settings.use-logo %}
+      	{% if template == 'index' %}<h1 style="margin: 0px; padding: 0px;">{% endif %}
         <a class="logo {% if settings.use-retina-logo %}has-retina{% endif %}" href="/">
           <img class="logo-regular" alt="{{ shop.name | escape }}" src="{{ 'logo.png' | asset_url }}">
           {% if settings.use-retina-logo %}
             <img class="logo-retina" alt="{{ shop.name | escape }}" src="{{ 'logo-retina.png' | asset_url }}">
           {% endif %}
         </a>
+      	{% if template == 'index' %}</h1>{% endif %}
       {% else %}
         {% if template contains 'index' %}
           <h1 class="site-title">{{ shop.name }}</h1>

@@ -52,7 +52,9 @@
           <tr class="{% include 'for-looper' %} {% if order.cancelled %}cancelled_order{% endif %}">
             <td class="order-number first">{{ order.name | link_to: order.customer_url }} <span class="date">- {{ order.created_at | date: format: 'short_month' }}</span></td>
             <td class="order-payment-status {{ order.financial_status }}">{{ order.financial_status | capitalize }}</td>
-            <td class="order-fulfillment-status {{ order.fulfillment_status }}">{{ order.fulfillment_status | capitalize }}</td>
+            <td class="order-fulfillment-status {{ order.fulfillment_status }}">
+              {{ order.fulfillment_status | capitalize }}<br/>
+            </td>
             <td class="total last"><span class="money">{{ order.total_price | money }}</span></td>
           </tr>
         {% endfor %}

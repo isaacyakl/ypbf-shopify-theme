@@ -1,5 +1,11 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.1.3 - 8/6/2015 - Add Reviews,Home Feat FX&URL
+=========================================
++ Added review section for products
++ Added hover effects to featured banners on home page
++ Added url links to the featured banners on home page
+
 1.1.2 - 8/4/2015 - Add FB, YT, & SalesRep
 =========================================
 + Added Facebook widget to footer
