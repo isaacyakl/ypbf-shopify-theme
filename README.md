@@ -1,5 +1,11 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.2.0 - 9/5/2015:Add FB Like Btn To Prdcts
+=========================================
++ Added file product_fb_like.liquid for product like button code.
++ Added like buttons to all products product-form.liquid:71-73
++ Added padding below home-modules especially for news blog posts on home page.theme.scss.liquid:3911
+
 1.1.7 - 9/5/2015:Add Shipping Exclusions Link
 =========================================
 + Added shipping exclusion link to all products product-form.liquid:68
