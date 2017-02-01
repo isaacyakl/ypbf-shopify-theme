@@ -1,0 +1,250 @@
+{% capture output %}
+{% if boldcsp_helper == 'collection' %}
+    {% assign csp_visible = true %}
+    {% for product_tag in product.tags %}{% if csp_visible == true %}
+    {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+    {% if last_tag_piece == 'HIDE' %}
+    {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+    {% if first_tag_piece == 'default' %}
+    {% assign csp_visible = false %}
+    {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+    {% for csp_tag in csp_tag_group %}
+    {% if customer.tags contains csp_tag %}
+    {% assign csp_visible = true %}
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% if customer.tags contains first_tag_piece %}
+    {% assign csp_visible = false %}{% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if csp_visible == false %}
+        {% continue %}
+    {% endif %}
+     {% capture collection_code %}
+        {% include 'shappify-csp' %}
+ 
+        {% assign tag_price = 0 %}
+        {% assign tag = 'default' %}
+        {% if customer.tags.size > 0 %}
+        {% for cust_tag in customer.tags %}
+        {% if product.metafields.shappify_csp[cust_tag] %}
+        {% assign tag = cust_tag %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% if product.metafields.shappify_csp[tag] %}
+        {% assign tag_price = 1 %}
+        {% endif %}
+ 
+        {% assign variant = product.selected_or_first_available_variant %}
+ 
+        {% assign product_price = product.price %}
+        {% assign product_price_varies = product.price_varies %}
+        {% assign shop_currency = shop.money_with_currency_format | split: '{{amount}}' | first %}
+        {% assign variant_price = variant.price %}
+        {% assign product_variants_size = shappify_csp_options_count %}
+        {% assign product_price_min = product.price_min %}
+        {% assign product_price_max = product.price_max %}
+ 
+        {% if tag_price == 1 %}
+            {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+            {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+            {% capture attribute_price %}{{tag}}{% endcapture %}
+            {% capture attribute_ind %}{{tag}}_indicator{% endcapture %}
+            {% assign variant_price = product.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+            {% assign product_price = product.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+			{% if product.metafields.shappify_csp[attribute_price] contains ';' %}
+				{% assign variant_price = product.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+				{% assign product_price = product.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+			{% endif %}
+
+            {% if product.metafields.shappify_csp[attribute_ind] %}
+                {% assign product_price_varies = true %}
+            {% else %}
+                {% assign product_price_varies = false %}
+            {% endif %}
+            {% assign product_price_min = product.metafields.shappify_csp[attribute_price_min] | times: 100 %}
+            {% assign product_price_max = product.metafields.shappify_csp[attribute_price_max] | remove: shop_currency | times: 100 %}
+			{% if product.metafields.shappify_csp[attribute_price_max] contains ';' %}
+				{% assign product_price_max = product.metafields.shappify_csp[attribute_price_max] | split: ';' | last | times: 100 %}
+			{% endif %}
+        {% endif %}
+ 
+    {% endcapture %}
+{% endif %}
+ 
+{% if boldcsp_helper == 'search' and search != blank %}
+ 
+    {% assign csp_visible = true %}
+    {% for product_tag in item.tags %}
+    {% if csp_visible == true %}
+    {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+    {% if last_tag_piece == 'HIDE' %}
+    {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+ 
+    {% if first_tag_piece == 'default' %}
+    {% assign csp_visible = false %}
+    {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+    {% for csp_tag in csp_tag_group %}
+    {% if customer.tags contains csp_tag %}
+    {% assign csp_visible = true %}
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% if customer.tags contains first_tag_piece %}
+    {% assign csp_visible = false %}
+    {% endif %}
+    {% endif %}
+    {% endif %}{% endif %}
+    {% endfor %}
+    {% if csp_visible == false %}
+        {% continue %}
+    {% endif %}
+ 
+ 
+    {% include 'shappify-csp' %}
+ 
+    {% assign tag_price = 0 %}
+    {% assign tag = 'default' %}
+    {% if customer.tags.size > 0 %}
+    {% for cust_tag in customer.tags %}
+    {% if item.metafields.shappify_csp[cust_tag] %}
+    {% assign tag = cust_tag %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% if item.metafields.shappify_csp[tag] %}
+    {% assign tag_price = 1 %}
+    {% endif %}
+ 
+    {% assign variant = item.selected_or_first_available_variant %}
+    
+    {% assign item_price = item.price %}
+    {% assign item_price_varies = item.price_varies %}
+    {% assign shop_currency = shop.money_with_currency_format | split: '{{amount}}' | first %}
+    {% assign variant_price = variant.price %}
+    {% assign item_variants_size = shappify_csp_options_count %}
+    {% assign item_price_min = item.price_min %}
+    {% assign item_price_max = item.price_max %}
+ 
+    {% if tag_price == 1 %}
+        {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+        {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+        {% capture attribute_price %}{{tag}}{% endcapture %}
+        {% capture attribute_ind %}{{tag}}_indicator{% endcapture %}
+        {% assign variant_price = item.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+        {% assign item_price = item.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+		{% if item.metafields.shappify_csp[attribute_price] contains ';' %}
+				{% assign variant_price = item.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+				{% assign item_price = item.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+		{% endif %}
+        {% if item.metafields.shappify_csp[attribute_ind] %}
+            {% assign item_price_varies = true %}
+        {% else %}
+            {% assign item_price_varies = false %}
+        {% endif %}
+        {% assign item_price_min = item.metafields.shappify_csp[attribute_price_min] | times: 100 %}
+        {% assign item_price_max = item.metafields.shappify_csp[attribute_price_max] | remove: shop_currency | times: 100 %}
+		{% if item.metafields.shappify_csp[attribute_price_max] contains ';' %}
+            {% assign product_price_max = item.metafields.shappify_csp[attribute_price_max] | split: ';' | last | times: 100 %}
+        {% endif %}
+    {% endif %}
+ 
+ 
+ 
+{% endif %}
+ 
+{% if boldcsp_helper == 'product' %}
+    {% assign csp_visible = true %}
+    {% for product_tag in product.tags %}
+    {% if csp_visible == true %}
+    {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+    {% if last_tag_piece == 'HIDE' %}
+    {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+ 
+    {% if first_tag_piece == 'default' %}
+    {% assign csp_visible = false %}
+    {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+    {% for csp_tag in csp_tag_group %}
+    {% if customer.tags contains csp_tag %}
+    {% assign csp_visible = true %}
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% if customer.tags contains first_tag_piece %}
+    {% assign csp_visible = false %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+ 
+ 
+    {% if csp_visible == false %}
+        Product is not available
+        {% break %}
+    {% endif %}
+ 
+    {% include 'shappify-csp' %}
+ 
+    {% assign tag_price = 0 %}
+    {% assign tag = 'default' %}
+    {% if customer.tags.size > 0 %}
+    {% for cust_tag in customer.tags %}
+    {% if product.metafields.shappify_csp[cust_tag] %}
+    {% assign tag = cust_tag %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% if product.metafields.shappify_csp[tag] %}
+    {% assign tag_price = 1 %}
+    {% endif %}
+ 
+    {% assign variant = product.selected_or_first_available_variant %}
+    
+    {% assign product_price = product.price %}
+    {% assign product_price_varies = product.price_varies %}
+    {% assign shop_currency = shop.money_with_currency_format | split: '{{amount}}' | first %}
+    {% assign variant_compare_at_price = variant.compare_at_price %}
+    {% assign variant_price = variant.price %}
+    {% assign product_variants_size = shappify_csp_options_count %}
+    {% assign product_price_min = product.price_min %}
+    {% assign product_price_max = product.price_max %}
+ 
+    {% if tag_price == 1 %}
+        {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+        {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+        {% capture attribute_price %}{{tag}}{% endcapture %}
+        {% capture attribute_ind %}{{tag}}_indicator{% endcapture %}
+        {% assign variant_price = product.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+        {% assign product_price = product.metafields.shappify_csp[attribute_price] | remove: shop_currency | times: 100 %}
+		{% if product.metafields.shappify_csp[attribute_price] contains ';' %}
+				{% assign variant_price = product.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+				{% assign item_price = product.metafields.shappify_csp[attribute_price] | split: ';' | last | times: 100 %}
+		{% endif %}
+        {% if product.metafields.shappify_csp[attribute_ind] %}
+            {% assign product_price_varies = true %}
+        {% else %}
+            {% assign product_price_varies = false %}
+        {% endif %}
+        {% assign product_price_min = product.metafields.shappify_csp[attribute_price_min] | times: 100 %}
+        {% assign product_price_max = product.metafields.shappify_csp[attribute_price_max] | remove: shop_currency | times: 100 %}
+		{% if product.metafields.shappify_csp[attribute_price_max] contains ';' %}
+            {% assign product_price_max = product.metafields.shappify_csp[attribute_price_max] | split: ';' | last | times: 100 %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+ 
+ 
+{% if boldcsp_helper == 'variants' %}
+{% include 'shappify-variant-is-csp' %}
+{% if csp_variant != 1 %}
+{% continue %}
+{% endif %}
+{% assign variant_price = variant.price %}
+{% endif %}
+{% endcapture %}
+{{ output }}

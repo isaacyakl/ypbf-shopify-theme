@@ -21,6 +21,9 @@
       {% if search.results.size > 0 %}
         <div class="search-results rows-of-3">
           {% for item in search.results %}
+          <!-- Bold: CSP Step 3 (search) -->
+{% include 'boldcsp_helper' with 'search' %}
+<!-- // end bold code -->
             {% if item.price %}
               {% include "product-list-item" with item %}
             {% else %}

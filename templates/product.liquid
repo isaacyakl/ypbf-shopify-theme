@@ -1,7 +1,6 @@
-
-<!-- spurit_po-added -->
-{% include 'spurit_po-product-snippet' %}
-<!-- /spurit_po-added -->
+<!-- Bold: CSP Step 4 (product) -->
+{% include 'boldcsp_helper' with 'product' %}
+<!-- // end bold code -->
 {% assign variant = product.selected_or_first_available_variant %}
 {% if product.images.size > 0 %}
   {% assign columns = settings.product-column-layout %}

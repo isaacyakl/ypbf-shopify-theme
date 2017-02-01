@@ -1,7 +1,3 @@
-
-<!-- spurit_po-added -->
-{% include 'spurit_po-collection-snippet' %}
-<!-- /spurit_po-added -->
 {% paginate collection.products by settings.collection-products-per-page %}
   {% assign platforms = 0 %}
   {% if settings.share-widget-facebook %}{% assign platforms = platforms | plus: 1 %}{% endif %}
@@ -103,6 +99,9 @@
   {% include 'pagination' %}
   <div class="collection-products {{settings.collection-layout-style}}-layout {{settings.collection-product-text-style}}-style rows-of-{{settings.collection-products-per-row}} mobile-rows-of-{{settings.collection-products-per-row-mobile}} {% if collection.products.size == 0 %}collection-empty{% endif %}">
     {% for product in collection.products %}
+    <!-- Bold: CSP Step 2 (collection) -->
+{% include 'boldcsp_helper' with 'collection' %}
+<!-- // end bold code -->
       {% include 'product-list-item' %}
     {% else %}
       <p class="empty">{{ 'collections.collection.empty' | t }} {% if current_tags.size > 0 %}{{ 'collections.collection.empty_tag_filter' | t }}{% endif %}</p>

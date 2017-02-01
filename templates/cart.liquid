@@ -1,7 +1,3 @@
-
-<!-- spurit_po-added -->
-{% include 'spurit_po-cart-snippet' %}
-<!-- /spurit_po-added -->
 {% if cart.item_count > 0 %}
   <form action="/cart" method="post">
     <table class="cart-items clean {% if settings.disable-ajax or settings.enable-currency-switcher %}no-ajax{% endif %}">

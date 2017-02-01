@@ -1,3 +1,4 @@
+<div style="width: 100%; margin: auto; text-align: center;">{% include 'share-buttons' %}</div>
 <div class="blog-post">
   <div class="rte post-content">
     {{ article.content }}
@@ -16,7 +17,6 @@
     {% endif %}
   </div>
 </div>
-{% include 'share-buttons' %}
 {% if blog.next_article or blog.previous_article %}
 <div class="single-post-pagination clearfix">
   <div class="previous-post">

@@ -17,9 +17,15 @@
     {% if product.tags contains 'Color Swap' %}
     	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** This is a swap between two items, which means this item will most likely take longer than normal to fulfill. ***</p>
     {% endif %}
+
+   	<p style="font-size: small; text-align: center; color: #ff0000; font-weight: bold; text-transform: uppercase;">*** Shipping time may be longer than normal due to holiday sales. ***</p>
+
     <div class="product-options">
       <select name="id" id="product-variants">
         {% for variant in product.variants %}
+        <!-- Bold: CSP 5 (for variant) -->
+{% include 'boldcsp_helper' with 'variants' %}
+<!-- // end bold code -->
           <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
         {% endfor %}
       </select>
@@ -61,7 +67,7 @@
       		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.custom_order' | t }}" />
         	<link itemprop="availability" href="http://schema.org/InStock">
         {% elsif product.tags contains 'Back Order' %}
-      		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.order' | t }}" />
+      		<input class="teal" id="addToCart" type="submit" value="{{ 'products.product.back_order' | t }}" />
         	<link itemprop="availability" href="http://schema.org/OutOfStock">
 		{% else %}
       		<input class="add-to-cart" id="addToCart" type="submit" value="{{ 'products.product.add_to_cart' | t }}" />

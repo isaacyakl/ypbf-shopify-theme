@@ -1,3 +1,11 @@
+1.7.1 - 10/30/2015:Shrink Menus
+=========================================
+* Changed the height of each menu item in the drop-down menus. theme.scss.liquid
+* Moved share buttons on blog articles from the bottom to the top of the page. article.liquid:1
++ Added "Back Order" string to locale file. en.default.json:253
+* Changed add to cart button text for back order items to "Back Order" instead of "Order". product-form.liquid:64
++ Added Holiday Shipping delay warning for Black Friday and Christmas to all product pages. product-form.liquid:21
+
 1.7.0 - 10/9/2015:Bck Ord & Lmtd Ntc
 =========================================
 + Added "Order" string to the english locale file for specific order types. en.default.json:252

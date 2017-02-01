@@ -66,6 +66,23 @@
   <div class="product-list-item-details">
     <p class="product-list-item-vendor vendor meta">{{ item.vendor | link_to_vendor }}</p>
     <h3 class="product-list-item-title"><a href="{{ item.url | within: collection }}">{{ item.title }}</a></h3>
+   
+    <!-- Bold: Customer Pricing - Step 6 (product.liquid) -->
+
+{% assign tag_price = 0 %}
+{% assign tag = 'default' %}
+{% if customer.tags.size > 0 %}
+{% for cust_tag in customer.tags %}
+{% if item.metafields.shappify_csp[cust_tag] %}
+{% assign tag = cust_tag %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if item.metafields.shappify_csp[tag] %}
+{% assign tag_price = 1 %}
+{% endif %}
+{% if tag_price != 1 %}
+    
     <p class="product-list-item-price">
       {% if item.available %}
         {% if item.price_varies %}
@@ -86,6 +103,36 @@
         {{ 'products.product.sold_out' | t }}
       {% endif %}
     </p>
+    
+    {% else %}
+{% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+{% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+{% capture attribute_price %}{{tag}}{% endcapture %}
+
+   <p class="product-list-item-price">
+      {% if item.available %}
+        {% if item.metafields.shappify_csp[attribute_ind] %}
+          <span class="price">
+            {{ 'products.product.from' | t }} <span class="money">{{ item.metafields.shappify_csp[attribute_price] }}</span>
+          </span>
+        {% else %}
+          {% if onSale %}
+            <span class="price on-sale">
+              <span class="money">{{ item.metafields.shappify_csp[attribute_price] }}</span>
+              <span class="original money">{{ item.compare_at_price_min | money }}</span>
+            </span>
+          {% else %}
+            <span class="price money">{{ item.metafields.shappify_csp[attribute_price] }}</span>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </p>{{ product.metafields.shappify_csp[attribute_price] }}
+
+{% endif %}
+<!-- // end Bold code -->
+    
     <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
   </div>
   {% if settings.collection-product-text-style == 'overlay' and isSearch == false %}
