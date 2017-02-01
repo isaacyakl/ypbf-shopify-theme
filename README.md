@@ -1,5 +1,10 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.9.1 - 1/21/2016:ProdTagFixes
+=========================================
+* Fix product tag logic issues. product-form.liquid
+* Add padding below product sku on product pages. theme.scss.liquid:5479
+
 1.9.0 - 1/19/2016:MoreProdTagsStatuses
 =========================================
 + Format placeholder text for search box. theme.scss.liquid:7005-18

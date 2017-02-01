@@ -21,7 +21,11 @@
           <p>Shipping time may be longer than normal due to holiday sales.</p>
       {% endif %}
       
-      {% if product.variants.first.inventory_quantity <= 0 and product.available and product.tags contains 'Archive' != true %}
+      {% if product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'deny' and product.tags contains 'Archive' %}
+      	{% comment %}Archived{% endcomment %}
+     	<p class="usualship" style="color: red;">Archived/Discontinued product.</p>
+      {% elsif product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'continue' %}
+      	{% comment %}Drop Ship Time{% endcomment %}
       	{% if product.tags contains '1-2 Days' %}
       		<p class="usualship">Usually ships in 1-2 business days.</p>
       	{% elsif product.tags contains '2-3 Days' %}
@@ -31,16 +35,14 @@
       	{% elsif product.tags contains 'Call For' %}
       		<p class="usualship">Call for shipping time.</p>
       	{% else %}
+      		{% comment %}Default Drop Ship Time If Not Set{% endcomment %}
       		<p class="usualship">Usually ships in 3-4 business days.</p>
       	{% endif %}
-      {% elsif product.variants.first.inventory_quantity <= 0 and product.available == false %}
-      	{% if product.tags contains 'Archive' %}
-      		<p class="usualship" style="color: red;">Archived/Discontinued product.</p>
-      	{% else %}
-      		<p class="usualship" style="color: red;">Call for availability.</p>
-      	{% endif %}
+      {% elsif product.variants.first.inventory_quantity <= 0 and variant.inventory_policy == 'deny' %}
+      	{% comment %}Out Of Stock{% endcomment %}
       {% else %}
-      		<p class="usualship">Usually ships in 1-2 business days.</p>
+      	{% comment %}In Stock{% endcomment %}
+      	<p class="usualship">Usually ships in 1-2 business days.</p>
       {% endif %}
       
 	  Free U.S. shipping on all orders. No minimum!<br>
