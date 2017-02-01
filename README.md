@@ -1,5 +1,14 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.7.3 - 12/10/2015:Winter/Christmas Theme
+=========================================
++ Added icicles to footer
++ Added snow effect to header
++ Added christmas trees to alert bar message
++ Added reindeer pattern wallpaper
++ Added christmas lights to YourPbFriend.com logo
++ Added "Merry Christmas!" to the search field
+
 1.7.2 - 11/27/2015:Gft Crd Cstm
 =========================================
 - Removed pointless asset which does not exist, "{% include 'fonts' %}". gift_card.liquid:13

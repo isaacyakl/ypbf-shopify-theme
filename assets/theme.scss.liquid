@@ -2096,8 +2096,10 @@ iframe {
 }
 
 body {
-  background-image: $body-background-image;
-  background-color: $body-background-color;
+  /*background-image: $body-background-image;
+  background-color: $body-background-color;*/
+  /*background-image: url('{{ 'ReindeerPaper.jpg' | asset_url}}');*/
+  /*background-repeat: repeat;*/
   color: $body-color;
 
   @include retina {
@@ -2121,6 +2123,7 @@ body {
   min-width: $min-width;
   max-width: $max-width + 60; // +60 for padding
   margin: 0 auto;
+ 
 
   @include lt-ie9 {
     max-width: $max-width;
@@ -6504,7 +6507,7 @@ input.newsletter-submit {
 }
 
 .page-bottom { /* Added by Yak */
-  padding-top: 10px;
+  /*padding-top: 10px;*/
   color: #FFF;
   background-image: url('{{ 'black-ground.jpg' | asset_url}}');
   background-repeat: repeat;
@@ -6733,6 +6736,12 @@ input.newsletter-submit {
 	background: linear-gradient(to bottom,  #2d2d2d 0%,#141414 99%,#727272 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d2d2d', endColorstr='#727272',GradientType=0 ); /* IE6-9 */
   /*background: $header-promo-background-color;*/
+}
+
+.actual-promo
+{
+  background-image: url('{{ 'christmas-lights.png' | asset_url}}'); 
+    background-repeat: repeat-x;
 }
 
 .header-promo {

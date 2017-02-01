@@ -1,7 +1,13 @@
 {% if settings.header-promo and settings.header-promo-text != blank %}
   <div class="header-promo-wrapper">
-    <div class="wow lightSpeedIn header-promo" data-wow-delay="1s">
-      <p class="wow pulse header-promo-text" style="font-size: 17pt; font-weight: 700;" data-wow-delay="3s" data-wow-duration="1s" data-wow-iteration="13">{{ settings.header-promo-text }}</p>
+    <div class="wow lightSpeedIn header-promo">
+      <span style="height: 36px; vertical-align: middle; display: inline-block;">
+      <img src="{{ 'christmas_tree_cookie.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
+      </span>
+      <span class="header-promo-text" style="font-size: 17pt; font-weight: 700;">{{ settings.header-promo-text }}</span>
+      <span style="height: 36px; vertical-align: middle; display: inline-block;">
+      <img src="{{ 'christmas_tree_cookie.png' | asset_url}}" style="height: 20px; vertical-align: middle; padding: 0px 5px 0px 5px;"/>
+      </span>
     </div>
   </div>
 {% endif %}
@@ -82,7 +88,7 @@
       {% endif %}
     </div>
     <form class="header-search-form wow bounceInDown" action="/search" method="get">
-      <input autofocus class="header-search-input" name="q" type="text"/>
+      <input autofocus class="header-search-input" name="q" type="text" style="color: grey;" value="Merry Christmas!" onfocus="if (this.value == 'Merry Christmas!') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Merry Christmas!';}"/>
     </form>
     <div class="mobile-header-tools">
       <span class="mobile-header-search-toggle">&#57346;</span>
