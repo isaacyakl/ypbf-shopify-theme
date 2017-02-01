@@ -3436,7 +3436,7 @@ td.cart-item-total {
   @include breakpoint(m) {
     display: none;
   }
-
+  
   .share-buttons {
     position: absolute;
     top: 50%;
@@ -3590,6 +3590,24 @@ td.cart-item-total {
 
   &.processed {
     opacity: 1;
+  }
+}
+
+/* force star ratings' caption to next line */
+.spr-starrating { /* Added by Yak */
+  display: initial;
+  
+  @include breakpoint(l) {
+     display: block;
+  }
+}
+
+/* force star ratings' caption to next line */
+.spr-badge-caption { /* Added by Yak */
+  display: initial;
+  
+  @include breakpoint(l) {
+     display: block;
   }
 }
 
@@ -5043,7 +5061,7 @@ $slideshowSpeed: 0.3s;
       border-top-width: 0;
 
       @include breakpoint(l) {
-        border-top-width: 1px;
+        /*border-top-width: 1px;*/
       }
     }
 
@@ -5246,7 +5264,7 @@ $slideshowSpeed: 0.3s;
     position: relative;
     top: -18px;
     height: 0px;
-    font-style: italic;
+    /*font-style: italic;*/
 	margin-bottom: 15px;
   
   @include breakpoint(m) {
@@ -5432,9 +5450,9 @@ $slideshowSpeed: 0.3s;
         
         /*display: block;*/
         
-        -webkit-box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
-		-moz-box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
-		box-shadow: 2px 9px 5px 0px rgba(0,0,0,0.2);
+        -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.2);
+		-moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.2);
+		box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.2);
       }
       
       /* Menu appearing settings */
@@ -6263,6 +6281,19 @@ input.newsletter-submit {
   &.tumblr a:before {
     content: '\E35F';
   }
+}
+
+.joblistings
+{
+	width: 80%;
+  	padding: 10px;
+  	margin: auto;
+  	margin-bottom: 20px;
+  	margin-top: 20px;
+  	text-align: center;
+  	border: 1px solid #8fca5b;
+  	border-radius:5px;
+  	background: #f7f7f7;
 }
 
 .brandlogofeat
@@ -7207,7 +7238,8 @@ input.header-search-input {
 
 .pagination {
   @extend .meta;
-  margin: 90px 0;
+  /*margin: 90px 0;*/ /* Commented out by Yak*/
+  margin: 25px 0;
   padding: 0;
   text-align: center;
 
@@ -7255,6 +7287,19 @@ ul li.pagination-position {
 
 .template-customers-addresses .pagination {
   margin: 0 0 35px;
+}
+
+.share-buttons-container { /*Added by Yak*/
+    position: relative;
+    text-align: center;
+    float: right;
+  	width: initial;
+  	margin-bottom: 0px;
+    
+    @include breakpoint(m) {
+    	width: 100%;
+      	margin-bottom: 15px;
+  	}
 }
 
 .share-buttons {

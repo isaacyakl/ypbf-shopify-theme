@@ -15,7 +15,10 @@
 {% if settings.share-widget-email %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 
 {% if platforms > 0 %}
-  <div class="share-buttons">
+  <div class="share-buttons" style="border-width: 0px;padding-top: 0px;margin-top: 0px;">
+    <span style="font-weight: 400;font-size: 16px;">
+    	Share this!
+    </span>
 
     {% if settings.share-widget-facebook %}
       <a target="_blank" href="//www.facebook.com/sharer.php?u={{ permalinkURL }}" class="share-facebook">{{ 'general.share_buttons.like' | t }}</a>

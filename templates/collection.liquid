@@ -13,11 +13,17 @@
   {% if settings.share-widget-email %}{% assign platforms = platforms | plus: 1 %}{% endif %}
 
   {% if platforms > 0 %}
-    <div class="collection-sharing meta">
+	<!-- Toggle version of share section //--->
+	<!--<div class="collection-sharing meta">
       <span class="collection-sharing-toggle">{{ 'general.share_buttons.share' | t }}</span>
 
       {% include 'share-buttons' %}
-    </div>
+    </div>//-->
+
+	<!-- Non-Toggle version of share section //-->
+	<div class="share-buttons-container">
+         {% include 'share-buttons' %}
+	</div>
   {% endif %}
 
   {% if settings.collection-sorting or settings.collection-filtering %}
@@ -122,6 +128,8 @@
 
     </div>
   {% endif %}
+
+  {% include 'pagination' %}
 
   <div class="collection-products {{settings.collection-layout-style}}-layout {{settings.collection-product-text-style}}-style rows-of-{{settings.collection-products-per-row}} mobile-rows-of-{{settings.collection-products-per-row-mobile}} {% if collection.products.size == 0 %}collection-empty{% endif %}">
     {% for product in collection.products %}
