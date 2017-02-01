@@ -1,5 +1,13 @@
 # YPBF (YourPbFriend.com) Shopify Theme
 
+1.8.0 - 12/21/2015:Holiday Themes
+=========================================
+* Re-enabled Feature Row 1 and made it the main feature row to use.
++ Added fireworks effect and "Happy New Year!" to search bar if it is past New Year's Eve. theme.liquid, header.liquid, fireworks.js, home-slideshow.liquid
+* Added header item ids. header.liquid
+- Removed "snowHere" id from page footer. footer.liquid:120
++ Added feature to disable fireworks if mobile. scripts-combined.js
+
 1.7.3 - 12/10/2015:Winter/Christmas Theme
 =========================================
 + Added icicles to footer

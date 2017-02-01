@@ -46,6 +46,16 @@
       {{ settings.custom-css }}
     </style>
   {% endif %}
+  <script>
+    var today = new Date(); // Today's Date
+
+    // Important Dates
+    var December1st = new Date(2015, 11, 1);// 12/1/2015
+    var NewYearsEve = new Date(2016, 0, 1, 0, 0, 0);// 1/1/2016 00:00:00
+    //var NewYearsEve = new Date(2015, 11, 22, 0, 0, 0);// 12/22/2015 00:00:00
+    var WeekAfterNY = new Date(2016, 0, 13, 0, 0, 0);// 1/13/2016 00:00:00
+
+  </script>
   {% include 'zopim' %}
 </head>
 {% assign sidebar = false %}
@@ -74,12 +84,15 @@
     {% endif %}
   </div>
   {% include 'footer' %}
-{% comment %}
-= Scripts ==================================================================================================================
-{% endcomment %}
+
+
+
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}= Scripts =================================================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
   <script src="{{ 'scripts-combined.js' | asset_url }}"></script>
   <script>
-   new WOW().init();
+  	new WOW().init();
   </script>
   {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
   {% if template contains 'cart' %}
@@ -102,12 +115,15 @@
   	{{ 'option_selection.js' | shopify_asset_url | script_tag }}
   {% endif %}
   {{ 'theme.min.js' | asset_url | script_tag }}
-{% comment %}
-===========================================================================================================================
-{% endcomment %}
-{% comment %}
-= Post Elements Style Tweaks ==============================================================================================
-{% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
+
+
+
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}= Style Tweaks =============================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
 <style>
    .ls-footer > .ls-poweredby {
      display: none;
@@ -119,20 +135,15 @@
      width: 100%;
    }
 </style>
-{% comment %}
-===========================================================================================================================
-{% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
+{% comment %}==========================================================================================================================={% endcomment %}
   
-  <!-- Bold: CSP Step 1 (theme) -->
+<!-- Bold: CSP Step 1 (theme) -->
 <script type="text/javascript" charset="utf-8">
 var shappify_customer_tags ={{ customer.tags|json }}
 </script>
 <!-- // end bold code -->
-<script src="{{ 'snowstorm-min.js' | asset_url}}"></script>
-<script>
-snowStorm.flakeBottom = 475;
-snowStorm.freezeOnBlur = true;
-</script>
 <script src="//www.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=yourpbfriend-register.myshopify.com"></script>
 </body>
 </html>

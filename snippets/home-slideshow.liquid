@@ -11,7 +11,7 @@
   {% endif %}
 {% endfor %}
 {% if slideCount > 0 %}
-  <div class="home-slideshow {{ settings.slideshow-layout }} {{ settings.slideshow-transition }} showing-slide-{{ firstSlide }}">
+  <div class="home-slideshow {{ settings.slideshow-layout }} {{ settings.slideshow-transition }} showing-slide-{{ firstSlide }}" style="z-index: 1;">
     <div class="slideshow-slides">
       {% for slide in slides %}
         {% capture enabled %}show-{{slide}}{% endcapture %}
